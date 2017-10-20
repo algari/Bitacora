@@ -17,7 +17,7 @@ export const routes: Routes = [
      canActivate: [ PublicGuard ]
    },
   {
-    path: 'auth', loadChildren:'./private/home/home.module#HomeModule',
+    path: 'private', loadChildren:'./private/home/home.module#HomeModule',
     data: { name: 'Home' },canActivate: [ AuthGuard ]
   },
   // {

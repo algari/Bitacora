@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   constructor(public _authService: AuthenticationService,
     public _router: Router,
-    public _locker: SessionStorageService) 
+    public _locker: SessionStorageService)
   {
   }
 
