@@ -1,0 +1,67 @@
+<header class="b-header">
+  
+    <!--[if lt IE 7]>
+    <p class="browsehappy">Nos está visitando con un <strong>navegador antiguo</strong>. Para disfrutar este
+      sitio que hemos preparado para ti, por favor descarga un navegador más nuevo y mejor <a
+        href="http://browsehappy.com/">aquí</a>, gracias.</p>
+    <![endif]-->
+  
+    <nav class="navbar navbar-default webtraining-nav" role="navigation">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                      data-target="#navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <div id="logo" class="logo">
+                <a
+                  routerLink="/"
+                  class="b-navbar-brand">
+                  <i class="fa fa-area-chart" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+              <ul class="nav navbar-nav pull-right">
+                <!-- <li class="leaf"
+                    [ngClass]="{ active: router.url.indexOf('/auth/proyectos') !== -1}"
+                    *ngIf="_authService.isLoggedIn()">
+                  <a
+                    routerLink="/auth/proyectos"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    title="Cursos">Proyectos</a>
+                </li>
+                <li class="leaf"
+                    [ngClass]="{ active: router.url.indexOf('/auth/issues') !== -1}"
+                    *ngIf="_authService.isLoggedIn()">
+                  <a 
+                     routerLink="/auth/issues"
+                     routerLinkActive="active"
+                     [routerLinkActiveOptions]="{ exact: true }"
+                     title="Issues">Issues</a>
+                </li>
+                <li class="leaf"
+                    [ngClass]="{ active: router.url.indexOf('/auth/usuarios') !== -1}"
+                    *ngIf="_authService.isLoggedIn()">
+                  <a routerLink="/auth/usuarios"
+                     routerLinkActive="active"
+                     [routerLinkActiveOptions]="{ exact: true }"
+                     title="Usuarios">Usuarios</a>
+                </li> -->
+                <li class="leaf" >
+                  <a title="Cerrar sesión" (click)="logout()">Salir</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  
+  </header>
+  
