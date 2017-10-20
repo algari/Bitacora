@@ -1,11 +1,11 @@
 <header class="b-header">
-  
+
     <!--[if lt IE 7]>
     <p class="browsehappy">Nos está visitando con un <strong>navegador antiguo</strong>. Para disfrutar este
       sitio que hemos preparado para ti, por favor descarga un navegador más nuevo y mejor <a
         href="http://browsehappy.com/">aquí</a>, gracias.</p>
     <![endif]-->
-  
+
     <nav class="navbar navbar-default webtraining-nav" role="navigation">
       <div class="container">
         <div class="row">
@@ -21,7 +21,7 @@
                 <a
                   routerLink="/"
                   class="b-navbar-brand">
-                  <i class="fa fa-area-chart" aria-hidden="true"></i>
+                  <i class="fa fa-home" aria-hidden="true"></i>
                 </a>
               </div>
             </div>
@@ -39,7 +39,7 @@
                 <li class="leaf"
                     [ngClass]="{ active: router.url.indexOf('/auth/issues') !== -1}"
                     *ngIf="_authService.isLoggedIn()">
-                  <a 
+                  <a
                      routerLink="/auth/issues"
                      routerLinkActive="active"
                      [routerLinkActiveOptions]="{ exact: true }"
@@ -54,7 +54,9 @@
                      title="Usuarios">Usuarios</a>
                 </li> -->
                 <li class="leaf" >
-                  <a title="Cerrar sesión" (click)="logout()">Salir</a>
+                  <a title="Cerrar sesión" (click)="logout()">Salir
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -62,6 +64,6 @@
         </div>
       </div>
     </nav>
-  
+
   </header>
-  
+
