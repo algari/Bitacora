@@ -31,16 +31,16 @@
                     [routerLinkActiveOptions]="{ exact: true }"
                     title="Cursos">Juegos</a>
                 </li>
-                <!-- <li class="leaf"
-                    [ngClass]="{ active: router.url.indexOf('/auth/issues') !== -1}"
+                <li class="leaf"
+                    [ngClass]="{ active: router.url.indexOf('/private/strategies') !== -1}"
                     *ngIf="_authService.isLoggedIn()">
                   <a
-                     routerLink="/auth/issues"
+                     routerLink="/private/strategies"
                      routerLinkActive="active"
                      [routerLinkActiveOptions]="{ exact: true }"
-                     title="Issues">Issues</a>
+                     title="Issues">Estrategias</a>
                 </li>
-                <li class="leaf"
+                <!-- <li class="leaf"
                     [ngClass]="{ active: router.url.indexOf('/auth/usuarios') !== -1}"
                     *ngIf="_authService.isLoggedIn()">
                   <a routerLink="/auth/usuarios"

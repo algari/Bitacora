@@ -12,10 +12,10 @@ const routes: Routes = [
      path: 'games', loadChildren:'./../games/games.module#GamesModule',
      data: { name: 'Juegos' }, canActivate: [ AuthGuard ]
   },
-  // {
-  //   path: 'issues', loadChildren:'./../issue/issue.module#IssueModule',
-  //   data: { name: 'Issues' }, canActivate: [ AuthGuard ]
-  // },
+  {
+     path: 'strategies', loadChildren:'./../strategies/strategies.module#StrategiesModule',
+     data: { name: 'Estrategias' }, canActivate: [ AuthGuard ]
+   },
   // {
   //   path: 'usuarios', loadChildren:'./../user/user.module#UserModule',
   //   data: { name: 'Usuarios' }, canActivate: [ AuthGuard ]
