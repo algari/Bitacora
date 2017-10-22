@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
-import {AuthenticationService} from "../../public/services/authentication.service";
-import {Bitacora} from "../../common/models/bitacora.model";
-import { Config } from '../../common/config';
+import {AuthenticationService} from "../../../public/services/authentication.service";
+import {Bitacora} from "../../../common/models/bitacora.model";
+import { Config } from '../../../common/config';
 
 @Component({
   selector: 'app-bitacora',
-  templateUrl: './bitacora.component.html',
-  styleUrls: ['./bitacora.component.css']
+  templateUrl: 'bitacora.component.html',
+  styleUrls: ['bitacora.component.css']
 })
 export class BitacoraComponent implements OnInit {
 
@@ -22,12 +22,17 @@ export class BitacoraComponent implements OnInit {
       date_out: [ '01/01/2017 9:50:00', Validators.required ],
       commission: [ 2.00, [ Validators.required] ],
       comments: [ 'Buena entrada', Validators.required ],
-      symbol: [ 'TSLA', [ Validators.required] ],
-      strategie: [ 'BS', [ Validators.required] ],
       result: '',
       neto:0,
       netoCmm: 0,
-      r: 0,
+      symbol: this._formBuilder.group( {
+        symbol_id:1,
+        symbol: [ 'TSLA', [ Validators.required] ],
+      }),
+      strategie: this._formBuilder.group( {
+        strategie_id:1,
+        strategie: [ 'BS', [ Validators.required] ],
+      })
     } )
   } );
 
@@ -44,22 +49,31 @@ export class BitacoraComponent implements OnInit {
     if(bitacora.type.toString()=='Long' || bitacora.type.toString()=='Call' || bitacora.type.toString()=='Put'){
       this.form.value.bitacora.neto = (bitacora.price_out-bitacora.price_in)*this.form.value.bitacora.quantity;
       this.form.value.bitacora.netoCmm = this.form.value.bitacora.neto-bitacora.commission;
-      if (this.form.value.bitacora.neto>=0){
+      if (this.form.value.bitacora.neto>0){
         this.form.value.bitacora.result = Config.RESULT_POSITIVO
-      }else{
+      }
+      else if((bitacora.commission-this.form.value.bitacora.neto)==bitacora.commission){
+        this.form.value.bitacora.result = Config.RESULT_BREAKEVEN
+        this.form.value.bitacora.netoCmm = this.form.value.bitacora.neto-bitacora.commission;
+      }
+      else{
         this.form.value.bitacora.result = Config.RESULT_NEGATIVO
       }
     }else if(bitacora.type.toString()=='Short'){
       this.form.value.bitacora.neto = (bitacora.price_in-bitacora.price_out)*this.form.value.bitacora.quantity;
-      if (this.form.value.bitacora.neto>=0){
+      if (this.form.value.bitacora.neto>0){
         this.form.value.bitacora.result = Config.RESULT_POSITIVO
         this.form.value.bitacora.netoCmm = this.form.value.bitacora.neto-bitacora.commission;
-      }else{
+      }
+      else if((bitacora.commission-this.form.value.bitacora.neto)==bitacora.commission){
+        this.form.value.bitacora.result = Config.RESULT_BREAKEVEN
+        this.form.value.bitacora.netoCmm = this.form.value.bitacora.neto-bitacora.commission;
+      }
+      else{
         this.form.value.bitacora.result = Config.RESULT_NEGATIVO
         this.form.value.bitacora.netoCmm = this.form.value.bitacora.neto-bitacora.commission;
       }
     }
-    this.form.value.bitacora.r = this.form.value.bitacora.neto/Config.R;
   }
 
   isRequired( fieldName: string ): boolean {

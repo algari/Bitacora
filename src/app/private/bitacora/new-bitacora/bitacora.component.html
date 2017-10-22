@@ -13,7 +13,7 @@
 
       <div class="form-group" [ngClass]="{'has-error': isRequired('quantity')}">
         <label for="quantity">Cantidad Acciones/Opciones</label>
-        <input id="quantity" formControlName="quantity" class="form-control">
+        <input type="number" id="quantity" formControlName="quantity" class="form-control">
         <span class="help-block" *ngIf="isRequired('quantity')">
           Cantiadad de Acciones/Opciones requerido
         </span>
@@ -29,7 +29,7 @@
 
       <div class="form-group" [ngClass]="{'has-error': isRequired('price_in')}">
         <label for="price_in">Precio Entrada</label>
-        <input type="number" id="price_in" formControlName="price_in" class="form-control">
+        <input type="number" step="0000.01" id="price_in" formControlName="price_in" class="form-control">
         <span class="help-block" *ngIf="isRequired('price_in')">
           Precio Entrada requerido
         </span>
@@ -45,7 +45,7 @@
 
       <div class="form-group" [ngClass]="{'has-error': isRequired('price_out')}">
         <label for="price_out">Precio Salida</label>
-        <input id="price_out" formControlName="price_out" class="form-control">
+        <input id="price_out" type="number" step="0000.01" formControlName="price_out" class="form-control">
         <span class="help-block" *ngIf="isRequired('price_out')">
           Precio Salida requerido
         </span>
@@ -61,7 +61,7 @@
 
       <div class="form-group" [ngClass]="{'has-error': isRequired('commission')}">
         <label for="commission">Comisión</label>
-        <input id="commission" formControlName="commission" class="form-control">
+        <input id="commission" type="number" step="0000.01" formControlName="commission" class="form-control">
         <span class="help-block" *ngIf="isRequired('commission')">
           Comisión requerido
         </span>
@@ -75,37 +75,24 @@
         </span>
       </div>
 
-      <div class="form-group" [ngClass]="{'has-error': isRequired('symbol')}">
-        <label for="symbol">Símbolo</label>
-        <input id="symbol" formControlName="symbol" class="form-control">
-        <span class="help-block" *ngIf="isRequired('symbol')">
-          Símbolo requerido
-        </span>
+      <div formGroupName="symbol">
+        <div class="form-group" [ngClass]="{'has-error': isRequired('symbol')}">
+          <label for="symbol">Símbolo</label>
+          <input id="symbol" formControlName="symbol" class="form-control">
+          <span class="help-block" *ngIf="isRequired('symbol')">
+            Símbolo requerido
+          </span>
+        </div>
       </div>
-
-      <div class="form-group" [ngClass]="{'has-error': isRequired('strategie')}">
-        <label for="strategie">Estrategia</label>
-        <input id="strategie" formControlName="strategie" class="form-control">
-        <span class="help-block" *ngIf="isRequired('strategie')">
-          Estrategia
-        </span>
+      <div formGroupName="strategie">
+        <div class="form-group" [ngClass]="{'has-error': isRequired('strategie')}">
+          <label for="strategie">Estrategia</label>
+          <input id="strategie" formControlName="strategie" class="form-control">
+          <span class="help-block" *ngIf="isRequired('strategie')">
+            Estrategia
+          </span>
+        </div>
       </div>
-
-      <!--<div class="form-group">
-        <label for="neto">Neto</label>
-        <input id="neto" disabled="false" formControlName="neto" class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label for="netoCmm">Neto con Comisión</label>
-        <input id="netoCmm" disabled="false" formControlName="netoCmm" class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label for="r">Neto</label>
-        <input id="r" disabled="false" formControlName="r" class="form-control">
-      </div>-->
-
     </div>
     <div class="form-group margin-top-sm">
       <button

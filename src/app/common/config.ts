@@ -4,5 +4,5 @@ export const Config = {
 
   RESULT_POSITIVO : 'Positivo',
   RESULT_NEGATIVO : 'Negativo',
-  R:10
+  RESULT_BREAKEVEN:'Breakeven',
 };

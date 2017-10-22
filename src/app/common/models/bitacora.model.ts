@@ -1,8 +1,10 @@
+import {Symbol} from "./symbol.model";
+import {Strategie} from "./strategie.model";
 /**
  * Created by agalvis on 20/10/2017.
  */
 export class Bitacora {
-  id?: number;
+  bitacora_id?: number;
   date_in: string;
   quantity: number;
   type:string;
@@ -12,10 +14,9 @@ export class Bitacora {
   date_out: string;
   commission: number;
   comments: string;
-  symbol:string;
-  strategie: string;
+  symbol:Symbol;
+  strategie: Strategie;
   result:string;
   neto: number;
   netoCmm:number;
-  r:number;
 }
