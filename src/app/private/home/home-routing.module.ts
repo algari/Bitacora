@@ -9,8 +9,8 @@ const routes: Routes = [
     path: 'home', component: HomeComponent, pathMatch: 'full', canActivate: [ AuthGuard ]
   },
   {
-     path: 'bitacora', loadChildren:'./../bitacora/bitacora.module#BitacoraModule',
-     data: { name: 'Bitacora' }, canActivate: [ AuthGuard ]
+     path: 'games', loadChildren:'./../games/games.module#GamesModule',
+     data: { name: 'Juegos' }, canActivate: [ AuthGuard ]
   },
   // {
   //   path: 'issues', loadChildren:'./../issue/issue.module#IssueModule',
