@@ -3,7 +3,7 @@
  */
 export class Strategie {
   strategie_id: number;
-  bitacora_id: number;
+  game_id: number;
   user_id: number;
   strategie: string;
 }

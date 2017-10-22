@@ -4,7 +4,7 @@ import {Strategie} from "./strategie.model";
  * Created by agalvis on 20/10/2017.
  */
 export class Games {
-  bitacora_id?: number;
+  game_id?: number;
   date_in: string;
   quantity: number;
   type:string;

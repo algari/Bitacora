@@ -3,6 +3,6 @@
  */
 export class Symbol {
   symbol_id: number;
-  bitacora_id: number;
+  game_id: number;
   symbol: string;
 }
