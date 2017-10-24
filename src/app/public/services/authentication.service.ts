@@ -23,7 +23,7 @@ export class AuthenticationService {
   }
 
   public logIn(username: string, password: string) {
-    const url = `${this.apiBaseURL}/users/login`;
+    const url = `${this.apiBaseURL}/api/users/login`;
 
     return this._http.post(url, {
       'username': username,
