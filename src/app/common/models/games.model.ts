@@ -1,10 +1,7 @@
-import {Symbol} from "./symbol.model";
-import {Strategie} from "./strategie.model";
 /**
  * Created by agalvis on 20/10/2017.
  */
 export class Games {
-  game_id?: number;
   date_in: string;
   quantity: number;
   type:string;
@@ -14,8 +11,8 @@ export class Games {
   date_out: string;
   commission: number;
   comments: string;
-  symbol:Symbol;
-  strategie: Strategie;
+  symbol:string;
+  strategie: string;
   result:string;
   neto: number;
   netoCmm:number;

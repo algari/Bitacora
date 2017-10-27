@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Config } from '../config';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class HttpService {
-  apiBaseURL = Config.API_SERVER_URL;
 
   constructor(public _http: Http) {
   }
@@ -14,7 +12,7 @@ export class HttpService {
   public get(url, token): Observable<any> {
     const headers = new Headers({
       'Content-Type': 'application/json',
-      'Api-Token': token
+      'ApiToken': token
     });
     const options = new RequestOptions({headers: headers});
     return this._http.get(url, options).map(response => response.json());
@@ -23,7 +21,7 @@ export class HttpService {
   public post(url, params, token?): Observable<any> {
     const headers = !!token ? new Headers({
       'Content-Type': 'application/json',
-      'Api-Token': token
+      'ApiToken': token
     }) : new Headers({'Content-Type': 'application/json'});
 
     const options = new RequestOptions({headers: headers});
@@ -35,7 +33,7 @@ export class HttpService {
   public put(url, params, token?): Observable<any> {
     const headers = !!token ? new Headers({
       'Content-Type': 'application/json',
-      'Api-Token': token
+      'ApiToken': token
     }) : new Headers({'Content-Type': 'application/json'});
 
     const options = new RequestOptions({headers: headers});
@@ -47,7 +45,7 @@ export class HttpService {
   public delete(url, token): Observable<any> {
     const headers = new Headers({
       'Content-Type': 'application/json',
-      'Api-Token': token
+      'ApiToken': token
     });
     const options = new RequestOptions({headers: headers});
 

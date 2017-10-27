@@ -42,7 +42,7 @@ export class NewGameComponent implements OnInit {
                public _auth:AuthenticationService) { }
 
   ngOnInit() {
-    
+
   }
 
   onSubmit() {

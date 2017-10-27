@@ -1,6 +1,28 @@
-<p>
-  list-games works!
-</p>
+
+<div class="b-game-list">
+  <!--<h2>Proyectos</h2>-->
+  <table class="table table-striped table-hover " >
+    <thead>
+    <tr>
+      <th>Symbol</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let game of games">
+    <tr class="info">
+      <td> {{ game.symbol }}</td>
+      <td>
+        <a routerLink="/private/detail/{{game.id}}">
+          {{ game.symbol | uppercase}}
+        </a>
+      </td>
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+<div class="clearfix"></div>
+
 <div class="row">
   <div class="col-md-2 col-md-offset-10 margin-top-sm">
     <div class="b-btn-new-project overflow-hidden">

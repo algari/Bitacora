@@ -7,6 +7,7 @@ import {RouterModule} from "@angular/router";
 import {GamesRoutingModule} from "./games-routing.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CalendarModule} from "primeng/components/calendar/calendar";
+import {GamesService} from "../services/games.service";
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import {CalendarModule} from "primeng/components/calendar/calendar";
     GamesRoutingModule,
     ReactiveFormsModule,
     CalendarModule
+  ],
+  providers: [
+    GamesService,
   ],
   declarations: [NewGameComponent, ListGamesComponent, EditGameComponent],
   exports:[
