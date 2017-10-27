@@ -2,6 +2,7 @@
  * Created by agalvis on 20/10/2017.
  */
 export class Games {
+  _id?:any;
   date_in: string;
   quantity: number;
   type:string;

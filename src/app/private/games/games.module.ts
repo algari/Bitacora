@@ -8,6 +8,10 @@ import {GamesRoutingModule} from "./games-routing.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CalendarModule} from "primeng/components/calendar/calendar";
 import {GamesService} from "../services/games.service";
+import {SortingComponent} from "../../common/sorting/sorting.component";
+import {MomentPipePipe} from "../../common/pipes/moment-pipe.pipe";
+import {LoaderComponent} from "../../common/loader/loader.component";
+import {ConfirmationPopoverModule} from "angular-confirmation-popover";
 
 @NgModule({
   imports: [
@@ -15,12 +19,23 @@ import {GamesService} from "../services/games.service";
     RouterModule,
     GamesRoutingModule,
     ReactiveFormsModule,
-    CalendarModule
+    CalendarModule,
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'confirm' // set defaults here
+    })
   ],
   providers: [
     GamesService,
+
   ],
-  declarations: [NewGameComponent, ListGamesComponent, EditGameComponent],
+  declarations: [
+    NewGameComponent,
+    ListGamesComponent,
+    EditGameComponent,
+    SortingComponent,
+    MomentPipePipe,
+    LoaderComponent
+  ],
   exports:[
     ListGamesComponent
   ],

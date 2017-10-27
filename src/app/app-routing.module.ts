@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PublicGuard } from './common/guards/public.guard';
 import { AuthGuard } from './common/guards/auth.guard';
 import { HomeComponent } from './private/home/home.component';
+import {NotFoundComponent} from "./common/not-found/not-found.component";
 
 
 export const routes: Routes = [
@@ -20,9 +21,9 @@ export const routes: Routes = [
     path: 'private', loadChildren:'./private/home/home.module#HomeModule',
     data: { name: 'Home' },canActivate: [ AuthGuard ]
   },
-  // {
-  //   path: '**', component: NotFoundComponent
-  // }
+  {
+    path: '**', component: NotFoundComponent
+  }
 ];
 
 @NgModule({

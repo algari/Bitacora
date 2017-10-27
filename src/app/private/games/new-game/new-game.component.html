@@ -75,24 +75,21 @@
         </span>
         </div>
 
-        <div formGroupName="symbol">
-          <div class="form-group" [ngClass]="{'has-error': isRequired('symbol')}">
+        <div class="form-group" [ngClass]="{'has-error': isRequired('symbol')}">
             <label for="symbol">Símbolo</label>
             <input id="symbol" formControlName="symbol" class="form-control">
             <span class="help-block" *ngIf="isRequired('symbol')">
             Símbolo requerido
           </span>
-          </div>
         </div>
-        <div formGroupName="strategie">
-          <div class="form-group" [ngClass]="{'has-error': isRequired('strategie')}">
+
+         <div class="form-group" [ngClass]="{'has-error': isRequired('strategie')}">
             <label for="strategie">Estrategia</label>
             <input id="strategie" formControlName="strategie" class="form-control">
             <span class="help-block" *ngIf="isRequired('strategie')">
             Estrategia
           </span>
-          </div>
-        </div>
+         </div>
       </div>
       <div class="form-group margin-top-sm">
         <button

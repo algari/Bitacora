@@ -17,4 +17,24 @@ export class GamesService {
     const url = `${this.apiBaseURL}/api/game`;
     return this._http.get(url, this._authService.user.token);
   }
+
+  getSingle(id: number): Observable<Games> {
+    const url = `${this.apiBaseURL}/api/game/${id}`;
+    return this._http.get(url, this._authService.user.token);
+  }
+
+  onDelete(game: Games) {
+    const url = `${this.apiBaseURL}/api/game/${game._id}`;
+    return this._http.delete(url, this._authService.user.token);
+  }
+
+  create(game: Games) {
+    const url = `${this.apiBaseURL}/api/game`;
+    return this._http.post(url,  game, this._authService.user.token);
+  }
+
+  update(game: Games) {
+    const url = `${this.apiBaseURL}/api/game/${game._id}`;
+    return this._http.put(url,  game, this._authService.user.token);
+  }
 }

@@ -10,6 +10,7 @@ import {GamesService} from "../../services/games.service";
 export class ListGamesComponent implements OnInit {
 
   games: Array<Games>;
+  isLoading = true;
 
   constructor(private _gameService: GamesService,
   ) {
@@ -24,6 +25,7 @@ export class ListGamesComponent implements OnInit {
       (data: Games[]) => {
         //next
         this.games = data
+        this.isLoading = false;
       },
       err => {
         console.error(err);
@@ -33,6 +35,26 @@ export class ListGamesComponent implements OnInit {
 
       }
     )
+  }
+
+  onDeleteGame(game: Games) {
+    console.log(`Proyecto a eliminar: ${game.symbol}`);
+    this._gameService.onDelete(game).subscribe((data) => {
+        this.getAllGames();
+      },
+      errorResponse => {
+        const errorData = errorResponse.json();
+        console.error(errorData.error);
+      },
+      () => {
+        console.log('Finished onDeleteProject');
+
+      })
+  }
+
+  public setData(sortedData) {
+    console.log('sortedData: %o', sortedData);
+    this.games = sortedData;
   }
 
 }

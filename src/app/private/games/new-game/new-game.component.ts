@@ -3,6 +3,8 @@ import {Config} from "../../../common/config";
 import {Validators, FormBuilder} from "@angular/forms";
 import {AuthenticationService} from "../../../public/services/authentication.service";
 import {Games} from "../../../common/models/games.model";
+import {GamesService} from "../../services/games.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-game',
@@ -25,21 +27,15 @@ export class NewGameComponent implements OnInit {
       result: '',
       neto:0,
       netoCmm: 0,
-      symbol: this._formBuilder.group( {
-        symbol_id:1,
-        symbol: [ 'TSLA', [ Validators.required] ],
-      }),
-      strategie: this._formBuilder.group( {
-        strategie_id:1,
-        strategie: [ 'BS', [ Validators.required] ],
-      })
+      symbol: [ 'TSLA', [ Validators.required] ],
+      strategie: [ 'BS', [ Validators.required] ],
     } )
   } );
 
-  userName = this._auth.user.name;
-
   constructor( private _formBuilder: FormBuilder,
-               public _auth:AuthenticationService) { }
+               private _gameService: GamesService,
+               private _router: Router,
+  ) { }
 
   ngOnInit() {
 
@@ -75,6 +71,20 @@ export class NewGameComponent implements OnInit {
         this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
       }
     }
+    this._gameService.create(games).subscribe(
+      (game: Games) => {
+        setTimeout(() => {
+          this._router.navigate(['/private/games']);
+        }, 3000);
+      },
+      errorResponse => {
+        const errorData = errorResponse.json();
+        console.error(errorData.error);
+      },
+      () => {
+        console.log('Finished creation request');
+      }
+    );
   }
 
   isRequired( fieldName: string ): boolean {

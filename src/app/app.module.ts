@@ -13,11 +13,14 @@ import { PublicGuard } from './common/guards/public.guard';
 import { AuthGuard } from './common/guards/auth.guard';
 import { AuthenticationService } from './public/services/authentication.service';
 import { HeaderComponent } from './common/header/header.component';
+import {NotFoundComponent} from "./common/not-found/not-found.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    NotFoundComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -29,6 +32,7 @@ import { HeaderComponent } from './common/header/header.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     Ng2Webstorage,
+
   ],
   providers: [
     HttpService,
