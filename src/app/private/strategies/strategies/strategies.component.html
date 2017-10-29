@@ -1,2 +1,34 @@
 <h2>Analisis de Estrategias</h2>
-<p-chart type="bar" [data]="data"></p-chart>
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+    <fieldset>
+      <div formGroupName="find">
+        <div class="form-group" [ngClass]="{'has-error': isRequired('date_in')}">
+          <label for="date_in" >Fecha Entrada</label>
+          <input id="date_in" formControlName="date_in" class="form-control" (keyup)="onKey($event)">
+          <span class="help-block" *ngIf="isRequired('date_in')">
+          Fecha entrada requerida
+        </span>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': isRequired('date_out')}">
+          <label for="date_out">Fecha Salida</label>
+          <input id="date_out" formControlName="date_out" class="form-control">
+          <span class="help-block" *ngIf="isRequired('date_out')">
+          Fecha Salida requerido
+        </span>
+        </div>
+      </div>
+      <div class="form-group margin-top-sm">
+        <button
+          type="submit" class="btn btn-primary" [disabled]="form.invalid">Buscar
+        </button>
+        <button routerLink="/private/strategies" class="btn btn-primary"
+                title="Regresar">Regresar
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<p-chart type="bar" [data]="data" ></p-chart>
