@@ -5,4 +5,9 @@ export const Config = {
   RESULT_POSITIVO : 'Positive',
   RESULT_NEGATIVO : 'Negative',
   RESULT_BREAKEVEN:'Break Even',
+
+  TYPE_LONG:'Long',
+  TYPE_SHORT:'Short',
+  TYPE_CALL:'Call',
+  TYPE_PUT:'Put',
 };

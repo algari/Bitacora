@@ -4,7 +4,27 @@
   </div>
 </div>
 <ng-template #elseBlock>
-  <div class="margin-bottom-xs b-game-list-sorting">
+    <p-dataTable #dt [value]="games" [rows]="10" [paginator]="true" exportFilename="Games" >
+        <p-header>
+            <div class="ui-helper-clearfix">
+                <button type="button" pButton icon="fa-file-o" iconPos="left" 
+                label="All Data" (click)="dt.exportCSV()" style="float:left"></button>
+            </div>
+        </p-header>
+        <p-column field="symbol" header="Symbol" sortable="true"></p-column>
+        <p-column field="type" header="Type"></p-column>
+        <p-column field="quantity" header="Quantity"></p-column>
+        <p-column field="time_frame" header="Time Frame"></p-column>
+        <p-column field="date_in" header="Date In">
+            <ng-template let-col let-g="rowData" pTemplate="body">
+                <span>{{g[col.field]|moment}}</span>
+            </ng-template>
+        </p-column>
+        <p-column field="neto" header="Neto"></p-column>
+        <p-column field="netoCmm"  header="NetoCmm"></p-column>
+        
+    </p-dataTable>
+  <!-- <div class="margin-bottom-xs b-game-list-sorting">
     <app-sorting [data]="games"
                  [elements]="[
                {name: 'symbol', displayName: 'Symbol'},
@@ -40,7 +60,7 @@
         <td>{{ game.quantity }}</td>
         <td>{{ game.time_frame }}</td>
         <!--se puede enviar solo moment y retorna la fecha por defecto Oct 5, 2017 1:29 AM-->
-        <td>{{ game.date_in | moment}}</td>
+        <!--<td>{{ game.date_in | moment}}</td>
         <td>{{ game.neto}}</td>
         <td>{{ game.netoCmm }}</td>
         <td>
@@ -63,7 +83,7 @@
       </tbody>
 
     </table>
-  </div>
+  </div> -->
 
   <div class="clearfix"></div>
 

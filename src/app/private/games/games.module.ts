@@ -12,6 +12,9 @@ import {SortingComponent} from "../../common/sorting/sorting.component";
 import {MomentPipePipe} from "../../common/pipes/moment-pipe.pipe";
 import {LoaderComponent} from "../../common/loader/loader.component";
 import {ConfirmationPopoverModule} from "angular-confirmation-popover";
+import {DropdownModule} from 'primeng/primeng';
+import {DataTableModule,SharedModule} from 'primeng/primeng';
+import {PaginatorModule} from 'primeng/primeng';
 
 @NgModule({
   imports: [
@@ -22,7 +25,11 @@ import {ConfirmationPopoverModule} from "angular-confirmation-popover";
     CalendarModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'confirm' // set defaults here
-    })
+    }),
+    DropdownModule,
+    DataTableModule,
+    SharedModule,
+    PaginatorModule
   ],
   providers: [
     GamesService,

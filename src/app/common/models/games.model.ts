@@ -13,7 +13,7 @@ export class Games {
   commission: number;
   comments: string;
   symbol:string;
-  strategie: string;
+  strategy: string;
   result:string;
   neto: number;
   netoCmm:number;
