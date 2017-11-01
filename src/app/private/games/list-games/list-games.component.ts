@@ -38,6 +38,7 @@ export class ListGamesComponent implements OnInit {
   }
 
   onDeleteGame(game: Games) {
+    this.isLoading = true;
     console.log(`Proyecto a eliminar: ${game.symbol}`);
     this._gameService.onDelete(game).subscribe((data) => {
         this.getAllGames();
@@ -48,8 +49,8 @@ export class ListGamesComponent implements OnInit {
       },
       () => {
         console.log('Finished onDeleteProject');
-
       })
+      this.isLoading = false;
   }
 
   public setData(sortedData) {

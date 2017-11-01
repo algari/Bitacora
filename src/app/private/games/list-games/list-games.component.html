@@ -7,7 +7,7 @@
     <p-dataTable #dt [value]="games" [rows]="10" [paginator]="true" exportFilename="Games" >
         <p-header>
             <div class="ui-helper-clearfix">
-                <button type="button" pButton icon="fa-file-o" iconPos="left" 
+                <button type="button" pButton icon="fa-file-o" iconPos="left"
                 label="All Data" (click)="dt.exportCSV()" style="float:left"></button>
             </div>
         </p-header>
@@ -22,7 +22,25 @@
         </p-column>
         <p-column field="neto" header="Neto"></p-column>
         <p-column field="netoCmm"  header="NetoCmm"></p-column>
-        
+        <p-column field="symbol" header="Actions">
+          <ng-template let-col let-g="rowData" pTemplate="body">
+            <a
+              mwlConfirmationPopover
+              title="Delete Game"
+              message="Esta seguro de eliminar: {{g[col.field]}}"
+              confirmText="SI"
+              cancelText="NO"
+              placement="top"
+              (confirm)="onDeleteGame(g)"
+              (cancel)="cancelClicked"
+              confirmButtonType="primary"
+              cancelButtonType="default">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+          </ng-template>
+
+        </p-column>
+
     </p-dataTable>
   <!-- <div class="margin-bottom-xs b-game-list-sorting">
     <app-sorting [data]="games"

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Config} from "../../../common/config";
 import {Validators, FormBuilder} from "@angular/forms";
-import {AuthenticationService} from "../../../public/services/authentication.service";
 import {Games} from "../../../common/models/games.model";
 import {GamesService} from "../../services/games.service";
 import {Router} from "@angular/router";
-import * as moment from 'moment';
 import {SelectItem} from 'primeng/primeng';
+import {StrategiesService} from "../../services/strategies.service";
+import {Strategies} from "../../../common/models/strategies.model";
 
 @Component({
   selector: 'app-new-game',
@@ -30,7 +30,7 @@ export class NewGameComponent implements OnInit {
       neto:0,
       netoCmm: 0,
       symbol: [ 'TSLA', [ Validators.required] ],
-      strategy: [ 'BS', [ Validators.required] ],
+      strategy: [, [ Validators.required] ],
     } )
   } );
 
@@ -38,11 +38,14 @@ export class NewGameComponent implements OnInit {
 
   timeFrames:SelectItem[];
 
+  strategies:Strategies[];
+
   constructor( private _formBuilder: FormBuilder,
                private _gameService: GamesService,
                private _router: Router,
-  ) 
-  { 
+               private _strategyService: StrategiesService,
+  )
+  {
     this.types = [
       {label:'Select', value:null},
       {label:'Long', value:'Long'},
@@ -61,10 +64,12 @@ export class NewGameComponent implements OnInit {
       {label:'1 Dia', value:'1D'},
       {label:'1 Semana', value:'1W'}
     ];
+
+    this.loadStrategies();
   }
 
   ngOnInit() {
-    
+
   }
 
   onSubmit() {
@@ -125,4 +130,23 @@ export class NewGameComponent implements OnInit {
     );
   }
 
+  private loadStrategies() {
+    this._strategyService.getAll().subscribe(
+      (data: Strategies[]) => {
+        this.strategies = data;
+        //data.forEach((s:Strategies,i)=>{
+          //let item:SelectItem = {label: s.strategy, value: s.strategy};
+          //that.strategies.push(item);
+        //})
+        //console.log(this.strategies);
+      },
+      err => {
+        console.error(err);
+      },
+      () => {
+        console.log('Finished getAllGames');
+
+      }
+    )
+  }
 }

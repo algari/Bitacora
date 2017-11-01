@@ -15,6 +15,7 @@ import {ConfirmationPopoverModule} from "angular-confirmation-popover";
 import {DropdownModule} from 'primeng/primeng';
 import {DataTableModule,SharedModule} from 'primeng/primeng';
 import {PaginatorModule} from 'primeng/primeng';
+import {StrategiesService} from "../services/strategies.service";
 
 @NgModule({
   imports: [
@@ -32,7 +33,7 @@ import {PaginatorModule} from 'primeng/primeng';
     PaginatorModule
   ],
   providers: [
-    GamesService,
+    GamesService,StrategiesService
 
   ],
   declarations: [

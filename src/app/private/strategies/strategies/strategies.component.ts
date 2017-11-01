@@ -23,8 +23,8 @@ export class StrategiesComponent implements OnInit {
 
   form = this._formBuilder.group( {
     find: this._formBuilder.group( {
-      date_in: [ '03/10/2017 9:55:00', Validators.required ],
-      date_out: [ '04/10/2017 16:30:00', Validators.required ],
+      date_in: [ , Validators.required ],
+      date_out: [ , Validators.required ],
     } )
   } );
 
