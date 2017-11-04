@@ -79,7 +79,7 @@
             <label for="date_out" class="col-lg-4 control-label">Fecha Salida</label>
             <div class="col-lg-8">
                 <p-calendar id="date_out" formControlName="date_out" showTime="showTime"
-                [showIcon]="true" hourFormat="12" dateFormat="dd/mm/yyyy "></p-calendar>
+                [showIcon]="true" hourFormat="12"></p-calendar>
                 <!-- <input id="date_out" formControlName="date_out" class="form-control"> -->
                 <span class="help-block" *ngIf="isRequired('date_out')">
                 Fecha Salida requerido
@@ -124,8 +124,7 @@
            <div class="form-group" [ngClass]="{'has-error': isRequired('strategy')}">
               <label for="strategy" class="col-lg-4 control-label">Estrategia</label>
               <div class="col-lg-8">
-                <input id="strategy" formControlName="strategy" class="form-control">
-                <!-- <p-dropdown id="strategy" [options]="strategies" optionLabel="_id,description,strategy"></p-dropdown> -->
+                <p-dropdown id="strategy" [options]="strategies" formControlName="strategy"></p-dropdown>
                 <span class="help-block" *ngIf="isRequired('strategy')">
                   Estrategia
                 </span>
@@ -138,7 +137,7 @@
                   <input id="r" formControlName="r" class="form-control">
               </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="source" class="col-lg-4 control-label">Fuente del Juego</label>
                 <div class="col-lg-8">
@@ -151,7 +150,7 @@
                 <div class="col-lg-8">
                     <p-dropdown id="followed" [options]="followed" formControlName="followed"></p-dropdown>
                 </div>
-    
+
             </div>
         </div>
         <div class="form-group margin-top-sm">
@@ -162,9 +161,9 @@
                   title="Regresar">Regresar
           </button>
         </div>
-        <pre>
-        {{ form.value | json }}
-      </pre>
+        <!--<pre>
+          {{ form.value | json }}
+        </pre>-->
     </form>
   </div>
 </ng-template>

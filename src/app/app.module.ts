@@ -20,7 +20,6 @@ import {NotFoundComponent} from "./common/not-found/not-found.component";
     AppComponent,
     HeaderComponent,
     NotFoundComponent,
-
   ],
   imports: [
     BrowserModule,

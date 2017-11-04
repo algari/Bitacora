@@ -4,6 +4,20 @@
   </div>
 </div>
 <ng-template #elseBlock>
+  <div class="alert alert-dismissible alert-success" *ngIf="!alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p><strong>R {{_authS.user.r}}</strong></p>
+    <p><strong>Max Perdida Semanal {{_authS.user.max_loss_w}}</strong> Cantidad perdido {{perdido}}</p>
+    <p><strong>Meta Semanal {{_authS.user.goal_w}}</strong> Cantidad Ganado {{ganado}}</p>
+    <p><strong>Aun pueden Operar!!</strong></p>
+  </div>
+  <div class="alert alert-dismissible alert-danger" *ngIf="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p><strong>R {{_authS.user.r}}</strong></p>
+    <p><strong>Max Perdida Semanal {{_authS.user.max_loss_w}}</strong> Cantidad perdido {{perdido}}</p>
+    <p><strong>Meta Semanal {{_authS.user.goal_w}}</strong> Cantidad Ganado {{ganado}}</p>
+    <p><strong>No puedes Operar mas!!</strong></p>
+  </div>
     <p-dataTable #dt [value]="games" [rows]="10" [paginator]="true" exportFilename="Games" >
         <p-header>
             <div class="ui-helper-clearfix">
@@ -15,8 +29,8 @@
             <ng-template let-col let-g="rowData" pTemplate="body">
                 <a routerLink="/private/edit/{{g._id}}" >
                   {{ g[col.field] | uppercase}}
-                </a>  
-            </ng-template>  
+                </a>
+            </ng-template>
         </p-column>
         <p-column field="type" header="Type"></p-column>
         <p-column field="quantity" header="Quantity"></p-column>
@@ -52,67 +66,6 @@
         </p-column>
 
     </p-dataTable>
-  <!-- <div class="margin-bottom-xs b-game-list-sorting">
-    <app-sorting [data]="games"
-                 [elements]="[
-               {name: 'symbol', displayName: 'Symbol'},
-               {name: 'strategie', displayName: 'Strategie'},
-               {name: 'time_frame', displayName: 'Time Frame'},
-               {name: 'type', displayName: 'Type'}
-               ]" (sortedData)="setData($event)">
-    </app-sorting>
-  </div>
-
-  <div class="b-game-list">
-    <table class="table table-striped table-hover " >
-      <thead>
-      <tr>
-        <th>Symbol</th>
-        <th>Type</th>
-        <th>Quantity</th>
-        <th>Time Frame</th>
-        <th>Date In</th>
-        <th>Neto</th>
-        <th>NetoCmm</th>
-        <th>Acción</th>
-      </tr>
-      </thead>
-      <tbody *ngFor="let game of games">
-      <tr class="info">
-        <td>
-          <a routerLink="/private/edit/{{game._id}}">
-            {{ game.symbol | uppercase}}
-          </a>
-        </td>
-        <td>{{ game.type }}</td>
-        <td>{{ game.quantity }}</td>
-        <td>{{ game.time_frame }}</td>
-        <!--se puede enviar solo moment y retorna la fecha por defecto Oct 5, 2017 1:29 AM-->
-        <!--<td>{{ game.date_in | moment}}</td>
-        <td>{{ game.neto}}</td>
-        <td>{{ game.netoCmm }}</td>
-        <td>
-          <a
-            mwlConfirmationPopover
-            title="Delete Game"
-            message="Esta seguro de eliminar: {{ game.symbol }}"
-            confirmText="SI"
-            cancelText="NO"
-            placement="top"
-            (confirm)="onDeleteGame(game)"
-            (cancel)="cancelClicked"
-            confirmButtonType="primary"
-            cancelButtonType="default">
-            <i class="fa fa-trash" aria-hidden="true"></i>
-          </a>
-      </tr>
-
-
-      </tbody>
-
-    </table>
-  </div> -->
-
   <div class="clearfix"></div>
 
   <div class="row">

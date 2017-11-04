@@ -9,6 +9,10 @@ import {StrategiesService} from "../services/strategies.service";
 import {AnalysisService} from "../services/analysis.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import { CalendarModule } from 'primeng/components/calendar/calendar';
+import {ConfirmationPopoverModule} from "angular-confirmation-popover";
+import {PaginatorModule} from 'primeng/primeng';
+import {DataTableModule,SharedModule} from 'primeng/primeng';
+import {LoaderComponent} from "../../common/loader/loader.component";
 
 @NgModule({
   imports: [
@@ -17,10 +21,19 @@ import { CalendarModule } from 'primeng/components/calendar/calendar';
     ReactiveFormsModule,
     StrategiesRoutingModule,
     ChartModule,
-    CalendarModule
+    CalendarModule,
+    DataTableModule,
+    SharedModule,
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'confirm' // set defaults here
+    }),
+    PaginatorModule
   ],
   providers:[StrategiesService,AnalysisService],
-  declarations: [StrategiesComponent, ListStrategiesComponent],
+  declarations: [
+    StrategiesComponent,
+    ListStrategiesComponent,
+    ],
   exports:[
     ListStrategiesComponent
   ],

@@ -1,12 +1,63 @@
-<p>
-  list-strategies works!
-</p>
-<div class="row">
-  <div class="col-md-2 col-md-offset-10 margin-top-sm">
-    <div class="b-btn-new-project overflow-hidden">
-      <button class="btn btn-primary pull-right" [routerLink]="['/private/strategies/analysis']">
-        Analisis de Estrategias
-      </button>
-    </div>
+<div *ngIf="isLoading; else elseBlock">
+  <div class="auth-loader-container">
+    <app-loader></app-loader>
   </div>
 </div>
+<ng-template #elseBlock>
+  <p-dataTable [value]="strategies" [rows]="10" [paginator]="true"  >
+    <p-column field="strategy" header="Strategy" sortable="true">
+      <ng-template let-col let-s="rowData" pTemplate="body">
+        <a routerLink="/private/edit/{{s._id}}" >
+          {{ g[col.field] | uppercase}}
+        </a>
+      </ng-template>
+    </p-column>
+    <p-column field="description" header="Description"></p-column>
+    <p-column field="strategy" header="Actions">
+      <ng-template let-col let-s="rowData" pTemplate="body">
+        <a routerLink="/private/edit/{{s._id}}" >
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </a>
+        -
+        <a
+          mwlConfirmationPopover
+          title="Delete Game"
+          message="Esta seguro de eliminar: {{s[col.field]}}"
+          confirmText="SI"
+          cancelText="NO"
+          placement="top"
+          (confirm)="onDeleteGame(s)"
+          (cancel)="cancelClicked"
+          confirmButtonType="primary"
+          cancelButtonType="default">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
+      </ng-template>
+
+    </p-column>
+
+  </p-dataTable>
+  <div class="clearfix"></div>
+
+  <div class="row">
+    <div class="col-md-2 col-md-offset-10 margin-top-sm">
+      <div class="b-btn-new-game overflow-hidden">
+        <button class="btn btn-primary pull-right" [routerLink]="['/private/new']">
+          Nuevo Juego
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-10 margin-top-sm">
+      <div class="b-btn-new-project overflow-hidden">
+        <button class="btn btn-primary pull-right" [routerLink]="['/private/strategies/analysis']">
+          Analisis de Estrategias
+        </button>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+

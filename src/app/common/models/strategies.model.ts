@@ -3,6 +3,7 @@
  */
 export class Strategies {
   _id?:any;
+  username:string;
   strategy: string;
   description:string;
 }

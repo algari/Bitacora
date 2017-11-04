@@ -3,6 +3,7 @@
  */
 export class Games {
   _id?:any;
+  username:string;
   date_in: string;
   quantity: number;
   type:string;
@@ -20,6 +21,6 @@ export class Games {
   r: number;
   source:string;
   followed:string;
-  
+
 
 }

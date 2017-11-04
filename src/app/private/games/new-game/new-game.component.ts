@@ -18,15 +18,16 @@ export class NewGameComponent implements OnInit {
 
   form = this._formBuilder.group( {
     games: this._formBuilder.group( {
+      username: [ this._authS.user.username],
       date_in: [ , Validators.required ],
-      quantity: [ 100, [ Validators.required ] ],
+      quantity: [ , [ Validators.required ] ],
       type: [,Validators.required],
-      price_in: [ 51.66, [ Validators.required] ],
+      price_in: [ , [ Validators.required] ],
       time_frame: [,Validators.required ],
-      price_out: [ 51.66, [ Validators.required ] ],
+      price_out: [ , [ Validators.required ] ],
       date_out: [ , Validators.required ],
-      commission: [ 2.00, [ Validators.required] ],
-      comments: [ 'Buena entrada', Validators.required ],
+      commission: [ , [ Validators.required] ],
+      comments: [ , Validators.required ],
       result: '',
       neto:0,
       netoCmm: 0,
@@ -34,7 +35,7 @@ export class NewGameComponent implements OnInit {
       strategy: [, [ Validators.required] ],
       r: [this._authS.user.r],
       source: 'ME',
-      followed: '',
+      followed: 'NO',
     } )
   } );
 
@@ -42,7 +43,7 @@ export class NewGameComponent implements OnInit {
 
   timeFrames:SelectItem[];
 
-  strategies:Strategies[];
+  strategies:SelectItem[];
 
   followed:SelectItem[];
 
@@ -81,7 +82,7 @@ export class NewGameComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   onSubmit() {
@@ -143,14 +144,17 @@ export class NewGameComponent implements OnInit {
   }
 
   private loadStrategies() {
-    this._strategyService.getAll().subscribe(
+    this._strategyService.getAllByUsername(this._authS.user.username).subscribe(
       (data: Strategies[]) => {
-        this.strategies = data;
-        //data.forEach((s:Strategies,i)=>{
-          //let item:SelectItem = {label: s.strategy, value: s.strategy};
-          //that.strategies.push(item);
-        //})
-        //console.log(this.strategies);
+        let str:SelectItem;
+        let strategies:Array<SelectItem> = new Array<SelectItem>();
+        strategies.push({label:'Select', value:null});
+        data.forEach(item=>{
+          str =  {label:item.strategy, value:item.strategy};
+          strategies.push(str);
+        })
+        console.log(strategies);
+        this.strategies = strategies;
       },
       err => {
         console.error(err);

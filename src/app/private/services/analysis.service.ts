@@ -13,8 +13,8 @@ export class AnalysisService {
   constructor(public _http: HttpService, private _authService: AuthenticationService) {
   }
 
-  strategiesAnalysis(date_in: string,date_out: string): Observable<StrategiesAnalysis> {
-    const url = `${this.apiBaseURL}/api/analysis/strategies?date_in=${date_in}&date_out=${date_out}`;
+  strategiesAnalysis(date_in: string,date_out: string,username:string): Observable<StrategiesAnalysis> {
+    const url = `${this.apiBaseURL}/api/analysis/strategies?date_in=${date_in}&date_out=${date_out}&username=${username}`;
     return this._http.get(url, this._authService.token);
   }
 

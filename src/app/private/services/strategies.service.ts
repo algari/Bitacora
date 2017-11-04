@@ -20,6 +20,11 @@ export class StrategiesService {
     return this._http.get(url, this._authService.token);
   }
 
+  getAllByUsername(username:string): Observable<Array<Strategies>> {
+    const url = `${this.apiBaseURL}/api/strategybyusername/${username}`;
+    return this._http.get(url, this._authService.token);
+  }
+
   getSingle(id: number): Observable<Strategies> {
     const url = `${this.apiBaseURL}/api/strategy/${id}`;
     return this._http.get(url, this._authService.token);

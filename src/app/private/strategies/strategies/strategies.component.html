@@ -4,7 +4,7 @@
     <fieldset>
       <div formGroupName="find">
         <div class="form-group" [ngClass]="{'has-error': isRequired('date_in')}">
-          <label for="date_in" class="control-label">Fecha Entrada</label>
+          <label for="date_in" class="control-label">Fecha Inicio</label>
           <div >
             <p-calendar id="date_in" formControlName="date_in"
             [showIcon]="true"></p-calendar>
@@ -15,7 +15,7 @@
         </div>
 
         <div class="form-group" [ngClass]="{'has-error': isRequired('date_out')}">
-          <label for="date_out" class="control-label">Fecha Salida</label>
+          <label for="date_out" class="control-label">Fecha Final</label>
           <!-- <input id="date_out" formControlName="date_out" class="form-control"> -->
           <div>
               <p-calendar id="date_out" formControlName="date_out"
