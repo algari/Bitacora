@@ -117,7 +117,7 @@ export class ListGamesComponent implements OnInit {
         console.error(errorData.error);
       },
       () => {
-        console.log('Finished onDeleteProject');
+        console.log('Finished onDeleteGame');
       })
       this.isLoading = false;
   }

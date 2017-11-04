@@ -36,4 +36,20 @@ export class ListStrategiesComponent implements OnInit {
       }
     )
   }
+
+  onDeleteStrategy(strategy: Strategies) {
+    this.isLoading = true;
+    console.log(`Estrategia a eliminar: ${strategy.strategy}`);
+    this._straS.onDelete(strategy).subscribe((data) => {
+        this.getAllStrategies();
+      },
+      errorResponse => {
+        const errorData = errorResponse.json();
+        console.error(errorData.error);
+      },
+      () => {
+        console.log('Finished onDeleteStrategy');
+      })
+      this.isLoading = false;
+  }
 }

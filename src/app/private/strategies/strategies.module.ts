@@ -11,8 +11,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { CalendarModule } from 'primeng/components/calendar/calendar';
 import {ConfirmationPopoverModule} from "angular-confirmation-popover";
 import {PaginatorModule} from 'primeng/primeng';
-import {DataTableModule,SharedModule} from 'primeng/primeng';
-import {LoaderComponent} from "../../common/loader/loader.component";
+import {DataTableModule} from 'primeng/primeng';
+import {SharedModule} from "../../common/shared.module";
+import { NewStrategyComponent } from './new-strategy/new-strategy.component';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import {LoaderComponent} from "../../common/loader/loader.component";
   declarations: [
     StrategiesComponent,
     ListStrategiesComponent,
+    NewStrategyComponent,
     ],
   exports:[
     ListStrategiesComponent

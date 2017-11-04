@@ -4,11 +4,20 @@
   </div>
 </div>
 <ng-template #elseBlock>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-10 margin-top-sm">
+      <div class="b-btn-new-project overflow-hidden">
+        <button class="btn btn-primary pull-right" [routerLink]="['/private/strategies/analysis']">
+          Analisis de Estrategias
+        </button>
+      </div>
+    </div>
+  </div>
   <p-dataTable [value]="strategies" [rows]="10" [paginator]="true"  >
     <p-column field="strategy" header="Strategy" sortable="true">
       <ng-template let-col let-s="rowData" pTemplate="body">
         <a routerLink="/private/edit/{{s._id}}" >
-          {{ g[col.field] | uppercase}}
+          {{ s[col.field]}}
         </a>
       </ng-template>
     </p-column>
@@ -26,7 +35,7 @@
           confirmText="SI"
           cancelText="NO"
           placement="top"
-          (confirm)="onDeleteGame(s)"
+          (confirm)="onDeleteStrategy(s)"
           (cancel)="cancelClicked"
           confirmButtonType="primary"
           cancelButtonType="default">
@@ -42,17 +51,8 @@
   <div class="row">
     <div class="col-md-2 col-md-offset-10 margin-top-sm">
       <div class="b-btn-new-game overflow-hidden">
-        <button class="btn btn-primary pull-right" [routerLink]="['/private/new']">
-          Nuevo Juego
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-2 col-md-offset-10 margin-top-sm">
-      <div class="b-btn-new-project overflow-hidden">
-        <button class="btn btn-primary pull-right" [routerLink]="['/private/strategies/analysis']">
-          Analisis de Estrategias
+        <button class="btn btn-primary pull-right" [routerLink]="['/private/strategies/new']">
+          Nueva Estrategia
         </button>
       </div>
     </div>

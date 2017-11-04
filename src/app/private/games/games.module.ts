@@ -8,14 +8,12 @@ import {GamesRoutingModule} from "./games-routing.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CalendarModule} from "primeng/components/calendar/calendar";
 import {GamesService} from "../services/games.service";
-import {SortingComponent} from "../../common/sorting/sorting.component";
-import {MomentPipePipe} from "../../common/pipes/moment-pipe.pipe";
-import {LoaderComponent} from "../../common/loader/loader.component";
 import {ConfirmationPopoverModule} from "angular-confirmation-popover";
 import {DropdownModule} from 'primeng/primeng';
-import {DataTableModule,SharedModule} from 'primeng/primeng';
+import {DataTableModule} from 'primeng/primeng';
 import {PaginatorModule} from 'primeng/primeng';
 import {StrategiesService} from "../services/strategies.service";
+import {SharedModule} from "../../common/shared.module";
 
 @NgModule({
   imports: [
@@ -29,8 +27,8 @@ import {StrategiesService} from "../services/strategies.service";
     }),
     DropdownModule,
     DataTableModule,
-    SharedModule,
-    PaginatorModule
+    PaginatorModule,
+    SharedModule
   ],
   providers: [
     GamesService,StrategiesService
@@ -40,9 +38,6 @@ import {StrategiesService} from "../services/strategies.service";
     NewGameComponent,
     ListGamesComponent,
     EditGameComponent,
-    SortingComponent,
-    MomentPipePipe,
-    LoaderComponent
   ],
   exports:[
     ListGamesComponent
