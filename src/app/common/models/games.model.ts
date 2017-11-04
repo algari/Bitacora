@@ -17,4 +17,9 @@ export class Games {
   result:string;
   neto: number;
   netoCmm:number;
+  r: number;
+  source:string;
+  followed:string;
+  
+
 }

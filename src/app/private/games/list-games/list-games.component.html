@@ -11,7 +11,13 @@
                 label="All Data" (click)="dt.exportCSV()" style="float:left"></button>
             </div>
         </p-header>
-        <p-column field="symbol" header="Symbol" sortable="true"></p-column>
+        <p-column field="symbol" header="Symbol" sortable="true">
+            <ng-template let-col let-g="rowData" pTemplate="body">
+                <a routerLink="/private/edit/{{g._id}}" >
+                  {{ g[col.field] | uppercase}}
+                </a>  
+            </ng-template>  
+        </p-column>
         <p-column field="type" header="Type"></p-column>
         <p-column field="quantity" header="Quantity"></p-column>
         <p-column field="time_frame" header="Time Frame"></p-column>
@@ -24,6 +30,10 @@
         <p-column field="netoCmm"  header="NetoCmm"></p-column>
         <p-column field="symbol" header="Actions">
           <ng-template let-col let-g="rowData" pTemplate="body">
+            <a routerLink="/private/edit/{{g._id}}" >
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            -
             <a
               mwlConfirmationPopover
               title="Delete Game"

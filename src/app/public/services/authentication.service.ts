@@ -8,15 +8,17 @@ import { User } from '../../common/models/user.model';
 export class AuthenticationService {
   hasSession = false;
   user:User;
+  token:string;
   apiBaseURL: string = Config.API_SERVER_URL;
 
   constructor(public _http: HttpService, public _locker: SessionStorageService) {
   }
 
   public isLoggedIn() {
-    const user = this._locker.retrieve('user');
+    const user = this._locker.retrieve('storage');
     if (!!user) {
-      this.user = user;
+      this.user = user.user[0];
+      this.token = user.token;
       this.hasSession = true;
     }
     return this.hasSession;
@@ -34,7 +36,7 @@ export class AuthenticationService {
   public logout() {
     this.user = null;
     this.hasSession = false;
-    this._locker.clear('user');
+    this._locker.clear('storage');
   }
 
 }

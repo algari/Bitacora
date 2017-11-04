@@ -17,27 +17,27 @@ export class StrategiesService {
 
   getAll(): Observable<Array<Strategies>> {
     const url = `${this.apiBaseURL}/api/strategies`;
-    return this._http.get(url, this._authService.user.token);
+    return this._http.get(url, this._authService.token);
   }
 
   getSingle(id: number): Observable<Strategies> {
     const url = `${this.apiBaseURL}/api/strategy/${id}`;
-    return this._http.get(url, this._authService.user.token);
+    return this._http.get(url, this._authService.token);
   }
 
   onDelete(strategy: Strategies) {
     const url = `${this.apiBaseURL}/api/strategy/${strategy._id}`;
-    return this._http.delete(url, this._authService.user.token);
+    return this._http.delete(url, this._authService.token);
   }
 
   create(strategy: Strategies) {
     const url = `${this.apiBaseURL}/api/strategy`;
-    return this._http.post(url,  strategy, this._authService.user.token);
+    return this._http.post(url,  strategy, this._authService.token);
   }
 
   update(strategy: Strategies) {
     const url = `${this.apiBaseURL}/api/strategy/${strategy._id}`;
-    return this._http.put(url,  strategy, this._authService.user.token);
+    return this._http.put(url,  strategy, this._authService.token);
   }
 
 }

@@ -15,7 +15,7 @@ export class AnalysisService {
 
   strategiesAnalysis(date_in: string,date_out: string): Observable<StrategiesAnalysis> {
     const url = `${this.apiBaseURL}/api/analysis/strategies?date_in=${date_in}&date_out=${date_out}`;
-    return this._http.get(url, this._authService.user.token);
+    return this._http.get(url, this._authService.token);
   }
 
 }

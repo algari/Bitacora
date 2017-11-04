@@ -15,26 +15,31 @@ export class GamesService {
 
   getAll(): Observable<Array<Games>> {
     const url = `${this.apiBaseURL}/api/game`;
-    return this._http.get(url, this._authService.user.token);
+    return this._http.get(url, this._authService.token);
+  }
+
+  getAllByDates(date_in: string,date_out: string): Observable<Array<Games>> {
+    const url = `${this.apiBaseURL}/api/gamebydates?date_in=${date_in}&date_out=${date_out}`;
+    return this._http.get(url, this._authService.token);
   }
 
   getSingle(id: number): Observable<Games> {
     const url = `${this.apiBaseURL}/api/game/${id}`;
-    return this._http.get(url, this._authService.user.token);
+    return this._http.get(url, this._authService.token);
   }
 
   onDelete(game: Games) {
     const url = `${this.apiBaseURL}/api/game/${game._id}`;
-    return this._http.delete(url, this._authService.user.token);
+    return this._http.delete(url, this._authService.token);
   }
 
   create(game: Games) {
     const url = `${this.apiBaseURL}/api/game`;
-    return this._http.post(url,  game, this._authService.user.token);
+    return this._http.post(url,  game, this._authService.token);
   }
 
   update(game: Games) {
     const url = `${this.apiBaseURL}/api/game/${game._id}`;
-    return this._http.put(url,  game, this._authService.user.token);
+    return this._http.put(url,  game, this._authService.token);
   }
 }

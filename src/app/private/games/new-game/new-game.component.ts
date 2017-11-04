@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {SelectItem} from 'primeng/primeng';
 import {StrategiesService} from "../../services/strategies.service";
 import {Strategies} from "../../../common/models/strategies.model";
+import { AuthenticationService } from '../../../public/services/authentication.service';
 
 @Component({
   selector: 'app-new-game',
@@ -31,6 +32,9 @@ export class NewGameComponent implements OnInit {
       netoCmm: 0,
       symbol: [ 'TSLA', [ Validators.required] ],
       strategy: [, [ Validators.required] ],
+      r: [this._authS.user.r],
+      source: 'ME',
+      followed: '',
     } )
   } );
 
@@ -40,10 +44,13 @@ export class NewGameComponent implements OnInit {
 
   strategies:Strategies[];
 
+  followed:SelectItem[];
+
   constructor( private _formBuilder: FormBuilder,
                private _gameService: GamesService,
                private _router: Router,
                private _strategyService: StrategiesService,
+               private _authS: AuthenticationService
   )
   {
     this.types = [
@@ -65,11 +72,16 @@ export class NewGameComponent implements OnInit {
       {label:'1 Semana', value:'1W'}
     ];
 
+    this.followed = [
+      {label:'NO', value:'NO'},
+      {label:'SI', value:'SI'},
+    ];
+
     this.loadStrategies();
   }
 
   ngOnInit() {
-
+    
   }
 
   onSubmit() {

@@ -7,6 +7,7 @@ import {Games} from "../../../common/models/games.model";
 import {FormBuilder, Validators} from "@angular/forms";
 import {AnalysisService} from "../../services/analysis.service";
 import {StrategiesAnalysis} from "../../../common/models/strategiesAnalysis";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-strategies',
@@ -43,8 +44,7 @@ export class StrategiesComponent implements OnInit {
     }
   }
   onSubmit() {
-    this._analysisService.strategiesAnalysis(this.form.value.find.date_in,this.form.value.find.date_out).subscribe((data:StrategiesAnalysis)=>{
-        console.log(data);
+    this._analysisService.strategiesAnalysis(moment(this.form.value.find.date_in).format('L') ,moment(this.form.value.find.date_out).format('L')).subscribe((data:StrategiesAnalysis)=>{
         this.data = data;
       },
       err => {

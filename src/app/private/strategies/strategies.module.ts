@@ -8,6 +8,7 @@ import { ListStrategiesComponent } from './list-strategies/list-strategies.compo
 import {StrategiesService} from "../services/strategies.service";
 import {AnalysisService} from "../services/analysis.service";
 import {ReactiveFormsModule} from "@angular/forms";
+import { CalendarModule } from 'primeng/components/calendar/calendar';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     RouterModule,
     ReactiveFormsModule,
     StrategiesRoutingModule,
-    ChartModule
+    ChartModule,
+    CalendarModule
   ],
   providers:[StrategiesService,AnalysisService],
   declarations: [StrategiesComponent, ListStrategiesComponent],
