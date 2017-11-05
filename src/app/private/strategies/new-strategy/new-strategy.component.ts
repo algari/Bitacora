@@ -3,7 +3,7 @@ import { StrategiesService } from '../../services/strategies.service';
 import { AuthenticationService } from '../../../public/services/authentication.service';
 import {Validators, FormBuilder} from "@angular/forms";
 import { Strategies } from '../../../common/models/strategies.model';
-import { Router } from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-new-strategy',
@@ -12,13 +12,19 @@ import { Router } from '@angular/router';
 })
 export class NewStrategyComponent implements OnInit {
 
-  constructor(private _formBuilder: FormBuilder,
+  edit:boolean = false;
+
+  constructor(
+    private _formBuilder: FormBuilder,
     private _strategyService: StrategiesService,
     private _authS: AuthenticationService,
-    private _router: Router,) { }
+    private _router: Router,
+    public _activatedRoute: ActivatedRoute
+  ) { }
 
   form = this._formBuilder.group( {
     strategy: this._formBuilder.group( {
+      _id:[],
       strategy: [ ,Validators.required],
       description: [ , Validators.required ],
       username: [ this._authS.user.username]
@@ -26,9 +32,47 @@ export class NewStrategyComponent implements OnInit {
   } );
 
   ngOnInit() {
+    this._activatedRoute.params.subscribe(params => {
+      const id: number = params['id'];
+      if(id){
+        this.loadStrategy(id);
+        this.edit = true;
+      }
+    });
   }
 
   onSubmit() {
+    if(this.edit){
+      this.editStrategy();
+    }else{
+      this.createStrategy();
+    }
+
+  }
+
+  isRequired( fieldName: string ): boolean {
+    return this.form.get( `strategy.${fieldName}` ).hasError( 'required' )
+      && this.form.get( `strategy.${fieldName}` ).touched;
+  }
+
+  private loadStrategy(id: number) {
+    this._strategyService.getSingle(id).subscribe(
+      (strategy: Strategies) => {
+        this.form.get('strategy._id').setValue(strategy._id);
+        this.form.get('strategy.strategy').setValue(strategy.strategy);
+        this.form.get('strategy.description').setValue(strategy.description);
+      },
+      errorResponse => {
+        const errorData = errorResponse.json();
+        console.error(errorData.error);
+      },
+      () => {
+        console.log('Finished loadStrategy');
+      }
+    );
+  }
+
+  private createStrategy() {
     this._strategyService.create(this.form.value.strategy).subscribe(
       (strategy: Strategies) => {
         setTimeout(() => {
@@ -40,13 +84,25 @@ export class NewStrategyComponent implements OnInit {
         console.error(errorData.error);
       },
       () => {
-        console.log('Finished creation request');
+        console.log('Finished createStrategy');
       }
     );
   }
 
-  isRequired( fieldName: string ): boolean {
-    return this.form.get( `strategy.${fieldName}` ).hasError( 'required' )
-      && this.form.get( `strategy.${fieldName}` ).touched;
+  private editStrategy() {
+    this._strategyService.update(this.form.value.strategy).subscribe(
+      (strategy: Strategies) => {
+        setTimeout(() => {
+          this._router.navigate(['/private/strategies']);
+        }, 3000);
+      },
+      errorResponse => {
+        const errorData = errorResponse.json();
+        console.error(errorData.error);
+      },
+      () => {
+        console.log('Finished editStrategy');
+      }
+    );
   }
 }

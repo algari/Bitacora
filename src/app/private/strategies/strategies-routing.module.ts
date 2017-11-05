@@ -14,6 +14,9 @@ const routes: Routes = [
     path: 'new', component: NewStrategyComponent, canActivate: [ AuthGuard ]
   },
   {
+    path: 'edit/:id', component: NewStrategyComponent, canActivate: [ AuthGuard ]
+  },
+  {
     path: 'analysis', component: StrategiesComponent, canActivate: [ AuthGuard ]
   },
 ];

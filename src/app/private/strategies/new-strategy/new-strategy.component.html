@@ -7,7 +7,7 @@
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-4">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
         <div formGroupName="strategy">
-          
+
           <div ngbDropdown class="form-group d-inline-block" [ngClass]="{'has-error': isRequired('strategy')}">
             <label for="strategy" class="col-lg-4 control-label">Tipo Entrada</label>
             <div class="col-lg-8">
@@ -28,7 +28,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="form-group margin-top-sm">
           <button
             type="submit" class="btn btn-primary" [disabled]="form.invalid">Guardar
@@ -37,9 +37,9 @@
                   title="Regresar">Regresar
           </button>
         </div>
-        <pre>
+        <!--<pre>
           {{ form.value | json }}
-        </pre>
+        </pre>-->
     </form>
   </div>
 </ng-template>

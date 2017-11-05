@@ -16,7 +16,7 @@
   <p-dataTable [value]="strategies" [rows]="10" [paginator]="true"  >
     <p-column field="strategy" header="Strategy" sortable="true">
       <ng-template let-col let-s="rowData" pTemplate="body">
-        <a routerLink="/private/edit/{{s._id}}" >
+        <a routerLink="/private/strategies/edit/{{s._id}}" >
           {{ s[col.field]}}
         </a>
       </ng-template>
@@ -24,7 +24,7 @@
     <p-column field="description" header="Description"></p-column>
     <p-column field="strategy" header="Actions">
       <ng-template let-col let-s="rowData" pTemplate="body">
-        <a routerLink="/private/edit/{{s._id}}" >
+        <a routerLink="/private/strategies/edit/{{s._id}}" >
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </a>
         -

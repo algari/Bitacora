@@ -5,8 +5,8 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 })
 export class AppCustomUsernameDirective {
 
-  constructor(private _element:ElementRef) { 
-    console.log(_element);
+  constructor(private _element:ElementRef) {
+
   }
 
   @HostListener('input',['$event'])

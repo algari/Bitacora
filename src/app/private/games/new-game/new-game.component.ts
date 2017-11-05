@@ -8,6 +8,7 @@ import {SelectItem} from 'primeng/primeng';
 import {StrategiesService} from "../../services/strategies.service";
 import {Strategies} from "../../../common/models/strategies.model";
 import { AuthenticationService } from '../../../public/services/authentication.service';
+import {PriceValidator} from "../priceValidator";
 
 @Component({
   selector: 'app-new-game',
@@ -22,16 +23,16 @@ export class NewGameComponent implements OnInit {
       date_in: [ , Validators.required ],
       quantity: [ , [ Validators.required ] ],
       type: [,Validators.required],
-      price_in: [ , [ Validators.required] ],
+      price_in: [ ,[ Validators.required, PriceValidator.checkPrice] ],
       time_frame: [,Validators.required ],
-      price_out: [ , [ Validators.required ] ],
+      price_out: [ , [ Validators.required, PriceValidator.checkPrice ] ],
       date_out: [ , Validators.required ],
       commission: [ , [ Validators.required] ],
       comments: [ , Validators.required ],
       result: '',
       neto:0,
       netoCmm: 0,
-      symbol: [ 'TSLA', [ Validators.required] ],
+      symbol: [ , [ Validators.required] ],
       strategy: [, [ Validators.required] ],
       r: [this._authS.user.r],
       source: 'ME',
@@ -88,8 +89,8 @@ export class NewGameComponent implements OnInit {
   onSubmit() {
     const games:Games = this.form.value.games;
     if(games.type.toString()==Config.TYPE_LONG || games.type.toString()==Config.TYPE_CALL || games.type.toString()==Config.TYPE_PUT){
-      this.form.value.games.neto = (games.price_out-games.price_in)*this.form.value.games.quantity;
-      this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
+      this.form.value.games.neto = (games.price_out-games.price_in)*this.form.value.games.quantity
+      this.form.value.games.netoCmm = (this.form.value.games.neto-games.commission).toFixed(4);
       if (this.form.value.games.neto>0){
         this.form.value.games.result = Config.RESULT_POSITIVO
       }
@@ -101,7 +102,7 @@ export class NewGameComponent implements OnInit {
         this.form.value.games.result = Config.RESULT_NEGATIVO
       }
     }else if(games.type.toString()==Config.TYPE_SHORT){
-      this.form.value.games.neto = (games.price_in-games.price_out)*this.form.value.games.quantity;
+      this.form.value.games.neto = ((games.price_in-games.price_out)*this.form.value.games.quantity).toFixed(4);;
       if (this.form.value.games.neto>0){
         this.form.value.games.result = Config.RESULT_POSITIVO
         this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
@@ -131,18 +132,6 @@ export class NewGameComponent implements OnInit {
     );
   }
 
-  isRequired( fieldName: string ): boolean {
-    return this.form.get( `games.${fieldName}` ).hasError( 'required' )
-      && this.form.get( `games.${fieldName}` ).touched;
-  }
-
-  isNumber(fieldName: string) {
-    const field = `games.${fieldName}`;
-    return (
-      this.form.get( field).hasError( fieldName )
-    );
-  }
-
   private loadStrategies() {
     this._strategyService.getAllByUsername(this._authS.user.username).subscribe(
       (data: Strategies[]) => {
@@ -150,7 +139,7 @@ export class NewGameComponent implements OnInit {
         let strategies:Array<SelectItem> = new Array<SelectItem>();
         strategies.push({label:'Select', value:null});
         data.forEach(item=>{
-          str =  {label:item.strategy, value:item.strategy};
+          str =  {label:item.strategy, value:item._id};
           strategies.push(str);
         })
         console.log(strategies);
@@ -164,5 +153,22 @@ export class NewGameComponent implements OnInit {
 
       }
     )
+  }
+
+  isRequired( fieldName: string ): boolean {
+    return this.form.get( `games.${fieldName}` ).hasError( 'required' )
+      && this.form.get( `games.${fieldName}` ).touched;
+  }
+
+  isInvalidPrice(fieldName: string ) {
+    const field = `games.${fieldName}`;
+    return (
+      this.form.get( field ).hasError( 'invalidPrice' )
+      &&
+      // The user has actually interacted with the field
+      this.form.get( field ).dirty &&
+      // The user has actually typed
+      ! this.isRequired( 'price_in' )
+    );
   }
 }

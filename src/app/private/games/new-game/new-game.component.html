@@ -40,14 +40,16 @@
             </div>
 
           </div>
-
-          <div class="form-group" [ngClass]="{'has-error': isRequired('price_in')}">
+          <div class="form-group" [ngClass]="{'has-error': isRequired('price_in') || isInvalidPrice('price_in')}">
             <label for="price_in" class="col-lg-4 control-label">Precio Entrada</label>
             <div class="col-lg-8">
-                <input type="number" step="0000.01" id="price_in" formControlName="price_in" class="form-control">
+                <input id="price_in" type="number" min="0.00" step="0.01" formControlName="price_in" class="form-control">
                 <span class="help-block" *ngIf="isRequired('price_in')">
-                Precio Entrada requerido
-              </span>
+                  Precio Entrada requerido
+                </span>
+                 <span class="help-block" *ngIf="form.get('games.price_in').hasError('invalidPrice')">
+                  Formato 1234,1234
+                </span>
             </div>
 
           </div>
@@ -64,13 +66,16 @@
 
           </div>
 
-          <div class="form-group" [ngClass]="{'has-error': isRequired('price_out')}">
+          <div class="form-group" [ngClass]="{'has-error': isRequired('price_out') || isInvalidPrice('price_out')}">
             <label for="price_out" class="col-lg-4 control-label">Precio Salida</label>
             <div class="col-lg-8">
-                <input id="price_out" type="number" step="0000.01" formControlName="price_out" class="form-control">
+                <input id="price_out" type="number" min="0.00" step="0.01" formControlName="price_out" class="form-control">
                 <span class="help-block" *ngIf="isRequired('price_out')">
                 Precio Salida requerido
-              </span>
+                </span>
+                <span class="help-block" *ngIf="form.get('games.price_out').hasError('invalidPrice')">
+                  Formato 1234,1234
+                </span>
             </div>
 
           </div>
