@@ -38,4 +38,42 @@
   </form>
 </div>
 
-<p-chart type="bar" [data]="data" ></p-chart>
+<div [hidden]="isLoading">
+  <table class="table table-striped table-hover table-bordered" >
+    <thead class="thead-dark">
+    <tr>
+      <th>Bruto</th>
+      <th>Comisiones</th>
+      <th>Total</th>
+      <th>Break even</th>
+      <th>Positive</th>
+      <th>Negative</th>
+      <th>Total operaciones</th>
+      <th>Efectividad</th>
+      <th>Sharp Ratio</th>
+      <th>R</th>
+      <th>Total Rs</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="success">
+      <td>{{gameAnalysis.bruto}}</td>
+      <td>{{gameAnalysis.comisiones}}</td>
+      <td>{{gameAnalysis.total}}</td>
+      <td>{{gameAnalysis.breakeven}}</td>
+      <td>{{gameAnalysis.positive}}</td>
+      <td>{{gameAnalysis.negative}}</td>
+      <td>{{gameAnalysis.totalOperaciones}}</td>
+      <td>{{gameAnalysis.efectividad}}</td>
+      <td>{{gameAnalysis.sharpRatio}}</td>
+      <td>{{gameAnalysis.r}}</td>
+      <td>{{gameAnalysis.cantidadR}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <p-chart type="bar" [data]="data" ></p-chart>
+</div>
+
+
+

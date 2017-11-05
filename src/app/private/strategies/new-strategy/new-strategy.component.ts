@@ -35,7 +35,7 @@ export class NewStrategyComponent implements OnInit {
     this._activatedRoute.params.subscribe(params => {
       const id: number = params['id'];
       if(id){
-        this.loadStrategy(id);
+        this.loadEditStrategy(id);
         this.edit = true;
       }
     });
@@ -55,7 +55,7 @@ export class NewStrategyComponent implements OnInit {
       && this.form.get( `strategy.${fieldName}` ).touched;
   }
 
-  private loadStrategy(id: number) {
+  private loadEditStrategy(id: number) {
     this._strategyService.getSingle(id).subscribe(
       (strategy: Strategies) => {
         this.form.get('strategy._id').setValue(strategy._id);
@@ -67,7 +67,7 @@ export class NewStrategyComponent implements OnInit {
         console.error(errorData.error);
       },
       () => {
-        console.log('Finished loadStrategy');
+        console.log('Finished loadEditStrategy');
       }
     );
   }

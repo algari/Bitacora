@@ -3,12 +3,13 @@ import {Config} from "../../../common/config";
 import {Validators, FormBuilder} from "@angular/forms";
 import {Games} from "../../../common/models/games.model";
 import {GamesService} from "../../services/games.service";
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import {SelectItem} from 'primeng/primeng';
 import {StrategiesService} from "../../services/strategies.service";
 import {Strategies} from "../../../common/models/strategies.model";
 import { AuthenticationService } from '../../../public/services/authentication.service';
 import {PriceValidator} from "../priceValidator";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-new-game',
@@ -19,6 +20,7 @@ export class NewGameComponent implements OnInit {
 
   form = this._formBuilder.group( {
     games: this._formBuilder.group( {
+      _id:[],
       username: [ this._authS.user.username],
       date_in: [ , Validators.required ],
       quantity: [ , [ Validators.required ] ],
@@ -48,11 +50,14 @@ export class NewGameComponent implements OnInit {
 
   followed:SelectItem[];
 
+  edit:boolean = false;
+
   constructor( private _formBuilder: FormBuilder,
                private _gameService: GamesService,
                private _router: Router,
                private _strategyService: StrategiesService,
-               private _authS: AuthenticationService
+               private _authS: AuthenticationService,
+               public _activatedRoute: ActivatedRoute
   )
   {
     this.types = [
@@ -83,53 +88,21 @@ export class NewGameComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this._activatedRoute.params.subscribe(params => {
+      const id: number = params['id'];
+      if(id){
+        this.loadEditGame(id);
+        this.edit = true;
+      }
+    });
   }
 
   onSubmit() {
-    const games:Games = this.form.value.games;
-    if(games.type.toString()==Config.TYPE_LONG || games.type.toString()==Config.TYPE_CALL || games.type.toString()==Config.TYPE_PUT){
-      this.form.value.games.neto = (games.price_out-games.price_in)*this.form.value.games.quantity
-      this.form.value.games.netoCmm = (this.form.value.games.neto-games.commission).toFixed(4);
-      if (this.form.value.games.neto>0){
-        this.form.value.games.result = Config.RESULT_POSITIVO
-      }
-      else if((games.commission-this.form.value.games.neto)==games.commission){
-        this.form.value.games.result = Config.RESULT_BREAKEVEN
-        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
-      }
-      else{
-        this.form.value.games.result = Config.RESULT_NEGATIVO
-      }
-    }else if(games.type.toString()==Config.TYPE_SHORT){
-      this.form.value.games.neto = ((games.price_in-games.price_out)*this.form.value.games.quantity).toFixed(4);;
-      if (this.form.value.games.neto>0){
-        this.form.value.games.result = Config.RESULT_POSITIVO
-        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
-      }
-      else if((games.commission-this.form.value.games.neto)==games.commission){
-        this.form.value.games.result = Config.RESULT_BREAKEVEN
-        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
-      }
-      else{
-        this.form.value.games.result = Config.RESULT_NEGATIVO
-        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
-      }
+    if(this.edit){
+      this.editGame();
+    }else{
+      this.createGame();
     }
-    this._gameService.create(games).subscribe(
-      (game: Games) => {
-        setTimeout(() => {
-          this._router.navigate(['/private/games']);
-        }, 3000);
-      },
-      errorResponse => {
-        const errorData = errorResponse.json();
-        console.error(errorData.error);
-      },
-      () => {
-        console.log('Finished creation request');
-      }
-    );
   }
 
   private loadStrategies() {
@@ -170,5 +143,105 @@ export class NewGameComponent implements OnInit {
       // The user has actually typed
       ! this.isRequired( 'price_in' )
     );
+  }
+
+  private createGame() {
+    let games:Games = this.calcuteValues();
+    this._gameService.create(games).subscribe(
+      (game: Games) => {
+        setTimeout(() => {
+          this._router.navigate(['/private/games']);
+        }, 3000);
+      },
+      errorResponse => {
+        const errorData = errorResponse.json();
+        console.error(errorData.error);
+      },
+      () => {
+        console.log('Finished creation request');
+      }
+    );
+  }
+
+  private editGame() {
+    let games:Games = this.calcuteValues();
+    this._gameService.update(games).subscribe(
+      (game: Games) => {
+        setTimeout(() => {
+          this._router.navigate(['/private/games']);
+        }, 3000);
+      },
+      errorResponse => {
+        const errorData = errorResponse.json();
+        console.error(errorData.error);
+      },
+      () => {
+        console.log('Finished editGame');
+      }
+    );
+  }
+
+  private loadEditGame(id: number) {
+    this._gameService.getSingle(id).subscribe(
+      (game: Games) => {
+        console.log(game);
+        this.form.get('games._id').setValue(game._id);
+        this.form.get('games.date_in').setValue(moment(game.date_in).format('L LT'));
+        this.form.get('games.quantity').setValue(game.quantity);
+        this.form.get('games.type').setValue(game.type);
+        this.form.get('games.price_in').setValue(game.price_in);
+        this.form.get('games.time_frame').setValue(game.time_frame);
+        this.form.get('games.price_out').setValue(game.price_out);
+        this.form.get('games.date_out').setValue(moment(game.date_out).format('L LT'));
+        this.form.get('games.commission').setValue(game.commission);
+        this.form.get('games.comments').setValue(game.comments);
+        this.form.get('games.symbol').setValue(game.symbol);
+        this.form.get('games.strategy').setValue(game.strategy);
+        this.form.get('games.r').setValue(game.r);
+        this.form.get('games.source').setValue(game.source);
+        this.form.get('games.followed').setValue(game.followed);
+
+      },
+      errorResponse => {
+        const errorData = errorResponse.json();
+        console.error(errorData.error);
+      },
+      () => {
+        console.log('Finished loadEditGame');
+      }
+    );
+  }
+
+  private calcuteValues():Games {
+    const games:Games = this.form.value.games;
+    if(games.type.toString()==Config.TYPE_LONG || games.type.toString()==Config.TYPE_CALL || games.type.toString()==Config.TYPE_PUT){
+      this.form.value.games.neto = ((games.price_out-games.price_in)*this.form.value.games.quantity).toFixed(4);
+      this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
+      if (this.form.value.games.neto>0){
+        this.form.value.games.result = Config.RESULT_POSITIVO
+      }
+      else if((games.commission-this.form.value.games.neto)==games.commission){
+        this.form.value.games.result = Config.RESULT_BREAKEVEN
+        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
+      }
+      else{
+        this.form.value.games.result = Config.RESULT_NEGATIVO
+      }
+    }else if(games.type.toString()==Config.TYPE_SHORT){
+      this.form.value.games.neto = ((games.price_in-games.price_out)*this.form.value.games.quantity).toFixed(4);;
+      if (this.form.value.games.neto>0){
+        this.form.value.games.result = Config.RESULT_POSITIVO
+        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
+      }
+      else if((games.commission-this.form.value.games.neto)==games.commission){
+        this.form.value.games.result = Config.RESULT_BREAKEVEN
+        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
+      }
+      else{
+        this.form.value.games.result = Config.RESULT_NEGATIVO
+        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
+      }
+    }
+    return games;
   }
 }
