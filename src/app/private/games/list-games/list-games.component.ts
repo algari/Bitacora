@@ -4,7 +4,7 @@ import {GamesService} from "../../services/games.service";
 import * as moment from 'moment';
 import {AuthenticationService} from "../../../public/services/authentication.service";
 import {Config} from "../../../common/config";
-import {logger} from "codelyzer/util/logger";
+import {Validators, FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-list-games',
@@ -19,7 +19,15 @@ export class ListGamesComponent implements OnInit {
   perdido:number;
   ganado:number;
 
-  constructor(private _gameService: GamesService,
+  form = this._formBuilder.group( {
+    find: this._formBuilder.group( {
+      date_in: [ , Validators.required ],
+      date_out: [ , Validators.required ],
+    } )
+  } );
+
+  constructor(private _formBuilder: FormBuilder,
+              private _gameService: GamesService,
               private _authS: AuthenticationService
   ) {
   }
@@ -28,6 +36,10 @@ export class ListGamesComponent implements OnInit {
     this.getAllGames();
     this.getProgress();
 
+  }
+
+  onSubmit() {
+    this.gamesByDate();
   }
 
   getAllGames() {
@@ -122,9 +134,27 @@ export class ListGamesComponent implements OnInit {
       this.isLoading = false;
   }
 
-  public setData(sortedData) {
-    console.log('sortedData: %o', sortedData);
-    this.games = sortedData;
+  isRequired( fieldName: string ): boolean {
+    return this.form.get( `find.${fieldName}` ).hasError( 'required' )
+      && this.form.get( `find.${fieldName}` ).touched;
   }
 
+  private gamesByDate() {
+    this._gameService.getAllByDates(
+      moment(this.form.value.find.date_in).format('L'),
+      moment(this.form.value.find.date_out).format('L'),
+      this._authS.user.username)
+      .subscribe(
+        (data: Games[]) => {
+          this.games = data;
+        },
+        err => {
+          console.error(err);
+        },
+        () => {
+          console.log('Finished getAllGames');
+
+        }
+      )
+  }
 }

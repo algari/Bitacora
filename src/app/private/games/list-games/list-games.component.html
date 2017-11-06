@@ -18,6 +18,43 @@
     <p><strong>Meta Semanal {{_authS.user.goal_w}}</strong> Cantidad Ganado {{ganado}}</p>
     <p><strong>No puedes Operar mas!!</strong></p>
   </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+    <fieldset>
+      <div formGroupName="find">
+        <div class="form-group" [ngClass]="{'has-error': isRequired('date_in')}">
+          <label for="date_in" class="control-label">Fecha Inicio</label>
+          <div >
+            <p-calendar id="date_in" formControlName="date_in"
+                        [showIcon]="true"></p-calendar>
+            <span class="help-block" *ngIf="isRequired('date_in')">
+              Fecha entrada requerida
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': isRequired('date_out')}">
+          <label for="date_out" class="control-label">Fecha Final</label>
+          <!-- <input id="date_out" formControlName="date_out" class="form-control"> -->
+          <div>
+            <p-calendar id="date_out" formControlName="date_out"
+                        [showIcon]="true"></p-calendar>
+            <span class="help-block" *ngIf="isRequired('date_out')">
+                Fecha Salida requerido
+              </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group margin-top-sm">
+        <button
+          type="submit" class="btn btn-primary" [disabled]="form.invalid">Buscar
+        </button>
+        <button routerLink="/private/home" class="btn btn-primary"
+                title="Regresar">Limpiar
+        </button>
+      </div>
+    </fieldset>
+  </form>
+
     <p-dataTable #dt [value]="games" [rows]="10" [paginator]="true" exportFilename="Games" >
         <p-header>
             <div class="ui-helper-clearfix">
