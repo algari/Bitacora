@@ -22,6 +22,7 @@ export class Games {
   percentCaptured:number;
   followed:string;
   chart:string;
+  maxMove:number;
   tags:Tag[];
   entries:Entry[];
   exits:Exit[];

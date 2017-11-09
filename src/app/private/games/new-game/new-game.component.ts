@@ -22,23 +22,30 @@ export class NewGameComponent implements OnInit {
     games: this._formBuilder.group( {
       _id:[],
       username: [ this._authS.user.username],
-      date_in: [ , Validators.required ],
-      quantity: [ , [ Validators.required ] ],
+      symbol: [ , [ Validators.required] ],
       type: [,Validators.required],
-      price_in: [ ,[ Validators.required, PriceValidator.checkPrice] ],
       time_frame: [,Validators.required ],
-      price_out: [ , [ Validators.required, PriceValidator.checkPrice ] ],
-      date_out: [ , Validators.required ],
+      strategy: [, [ Validators.required] ],
+      source: 'ME',
       commission: [ , [ Validators.required] ],
-      comments: [ , Validators.required ],
+      comments: [],
       result: '',
       neto:0,
       netoCmm: 0,
-      symbol: [ , [ Validators.required] ],
-      strategy: [, [ Validators.required] ],
       r: [this._authS.user.r],
-      source: 'ME',
+      netoR: 0,
+      percentCaptured:0,
       followed: 'NO',
+      chart:[],
+      maxMove:[],
+
+
+      date_in: [ , Validators.required ],
+      quantity: [ , [ Validators.required ] ],
+      price_in: [ ,[ Validators.required, PriceValidator.checkPrice] ],
+      price_out: [ , [ Validators.required, PriceValidator.checkPrice ] ],
+      date_out: [ , Validators.required ],
+
     } )
   } );
 
