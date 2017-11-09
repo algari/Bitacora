@@ -4,171 +4,198 @@
   </div>
 </div>
 <ng-template #elseBlock>
-  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-4">
+  <div class="container">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
-        <div formGroupName="games">
-          <div class="form-group" [ngClass]="{'has-error': isRequired('date_in')}">
-            <label for="date_in" class="col-lg-4 control-label">Fecha Entrada</label>
-            <div class="col-lg-8">
-              <p-calendar id="date_in" formControlName="date_in" showTime="showTime"
-              [showIcon]="true" hourFormat="12"></p-calendar>
-              <span class="help-block" *ngIf="isRequired('date_in')">
-                Fecha entrada requerida
-              </span>
-            </div>
-            <!-- <input id="date_in" formControlName="date_in" class="form-control" (keyup)="onKey($event)"> -->
-          </div>
+      <div formGroupName="games">
+        <div class="row">
+          <div class="col-md-3">
+            <fieldset>
+              <legend>Games</legend>
 
-          <div class="form-group" [ngClass]="{'has-error': isRequired('quantity')}">
-            <label for="quantity" class="col-lg-4 control-label">Cantidad Compra/Venta</label>
-            <div class="col-lg-8">
-              <input type="number" id="quantity" formControlName="quantity" class="form-control">
-              <span class="help-block" *ngIf="isRequired('quantity')">
-                  Cantidad Compra/Venta
-            </span>
-            </div>
-          </div>
-
-          <div ngbDropdown class="form-group d-inline-block" [ngClass]="{'has-error': isRequired('type')}">
-            <label for="type" class="col-lg-4 control-label">Tipo Entrada</label>
-            <div class="col-lg-8">
-              <p-dropdown id="type" [options]="types" formControlName="type"></p-dropdown>
-              <!-- <input id="type" formControlName="type" class="form-control">-->
-              <span class="help-block" *ngIf="isRequired('type')">
-                Tipo Entrada requerido
-              </span>
-            </div>
-
-          </div>
-          <div class="form-group" [ngClass]="{'has-error': isRequired('price_in') || isInvalidPrice('price_in')}">
-            <label for="price_in" class="col-lg-4 control-label">Precio Entrada</label>
-            <div class="col-lg-8">
-                <input id="price_in" type="number" min="0.00" step="0.01" formControlName="price_in" class="form-control">
-                <span class="help-block" *ngIf="isRequired('price_in')">
-                  Precio Entrada requerido
-                </span>
-                 <span class="help-block" *ngIf="form.get('games.price_in').hasError('invalidPrice')">
-                  Formato 1234,1234
-                </span>
-            </div>
-
-          </div>
-
-          <div class="form-group" [ngClass]="{'has-error': isRequired('time_frame')}">
-            <label for="time_frame" class="col-lg-4 control-label">Marco de Tiempo</label>
-            <div class="col-lg-8">
-                <p-dropdown id="time_frame" [options]="timeFrames" formControlName="time_frame"></p-dropdown>
-                <!-- <input id="time_frame" formControlName="time_frame" class="form-control"> -->
-                <span class="help-block" *ngIf="isRequired('time_frame')">
-                Marco de Tiempo requerido
-              </span>
-            </div>
-
-          </div>
-
-          <div class="form-group" [ngClass]="{'has-error': isRequired('price_out') || isInvalidPrice('price_out')}">
-            <label for="price_out" class="col-lg-4 control-label">Precio Salida</label>
-            <div class="col-lg-8">
-                <input id="price_out" type="number" min="0.00" step="0.01" formControlName="price_out" class="form-control">
-                <span class="help-block" *ngIf="isRequired('price_out')">
-                Precio Salida requerido
-                </span>
-                <span class="help-block" *ngIf="form.get('games.price_out').hasError('invalidPrice')">
-                  Formato 1234,1234
-                </span>
-            </div>
-
-          </div>
-
-          <div class="form-group" [ngClass]="{'has-error': isRequired('date_out')}">
-            <label for="date_out" class="col-lg-4 control-label">Fecha Salida</label>
-            <div class="col-lg-8">
-                <p-calendar id="date_out" formControlName="date_out" showTime="showTime"
-                [showIcon]="true" hourFormat="12"></p-calendar>
-                <!-- <input id="date_out" formControlName="date_out" class="form-control"> -->
-                <span class="help-block" *ngIf="isRequired('date_out')">
-                Fecha Salida requerido
-              </span>
-            </div>
-
-          </div>
-
-          <div class="form-group" [ngClass]="{'has-error': isRequired('commission')}">
-            <label for="commission" class="col-lg-4 control-label">Comisión</label>
-            <div class="col-lg-8">
-                <input id="commission" type="number" step="0000.01" formControlName="commission" class="form-control">
-                <span class="help-block" *ngIf="isRequired('commission')">
-                Comisión requerido
-              </span>
-            </div>
-
-          </div>
-
-          <div class="form-group" [ngClass]="{'has-error': isRequired('comments')}">
-            <label for="comments" class="col-lg-4 control-label">Comentarios</label>
-            <div class="col-lg-8">
-                <textarea rows="3" id="comments" formControlName="comments" class="form-control"></textarea>
-                <span class="help-block" *ngIf="isRequired('comments')">
-                Comentario requerido
-              </span>
-            </div>
-
-          </div>
-
-          <div class="form-group" [ngClass]="{'has-error': isRequired('symbol')}">
-              <label for="symbol" class="col-lg-4 control-label">Símbolo</label>
-              <div class="col-lg-8">
+              <div class="form-group" [ngClass]="{'has-error': isRequired('symbol')}">
+                <label for="symbol" class="col-lg-4 control-label">Símbolo</label>
+                <div class="col-lg-8">
                   <input id="symbol" formControlName="symbol" class="form-control">
                   <span class="help-block" *ngIf="isRequired('symbol')">
-                  Símbolo requerido
-                </span>
+                    Símbolo requerido
+                  </span>
+                </div>
               </div>
 
-          </div>
-
-           <div class="form-group" [ngClass]="{'has-error': isRequired('strategy')}">
-              <label for="strategy" class="col-lg-4 control-label">Estrategia</label>
-              <div class="col-lg-8">
-                <p-dropdown id="strategy" [options]="strategies" formControlName="strategy"></p-dropdown>
-                <span class="help-block" *ngIf="isRequired('strategy')">
-                  Estrategia
-                </span>
+              <div ngbDropdown class="form-group d-inline-block" [ngClass]="{'has-error': isRequired('type')}">
+                <label for="type" class="col-lg-4 control-label">Tipo Entrada</label>
+                <div class="col-lg-8">
+                  <p-dropdown id="type" [options]="types" formControlName="type"></p-dropdown>
+                  <span class="help-block" *ngIf="isRequired('type')">
+                    Tipo Entrada requerido
+                  </span>
+                </div>
               </div>
-           </div>
 
-           <div class="form-group">
-              <label for="r" class="col-lg-4 control-label">R</label>
-              <div class="col-lg-8">
-                  <input id="r" formControlName="r" class="form-control">
+              <div class="form-group" [ngClass]="{'has-error': isRequired('time_frame')}">
+                <label for="time_frame" class="col-lg-4 control-label">Marco de Tiempo</label>
+                <div class="col-lg-8">
+                  <p-dropdown id="time_frame" [options]="timeFrames" formControlName="time_frame"></p-dropdown>
+                  <span class="help-block" *ngIf="isRequired('time_frame')">
+                    Marco de Tiempo requerido
+                  </span>
+                </div>
               </div>
-            </div>
 
-            <div class="form-group">
+              <div class="form-group" [ngClass]="{'has-error': isRequired('strategy')}">
+                <label for="strategy" class="col-lg-4 control-label">Estrategia</label>
+                <div class="col-lg-8">
+                  <p-dropdown id="strategy" [options]="strategies" formControlName="strategy"></p-dropdown>
+                  <span class="help-block" *ngIf="isRequired('strategy')">
+                    Estrategia
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group">
                 <label for="source" class="col-lg-4 control-label">Fuente del Juego</label>
                 <div class="col-lg-8">
-                    <input id="source" formControlName="source" class="form-control">
+                  <input id="source" formControlName="source" class="form-control">
                 </div>
-            </div>
+              </div>
 
-            <div class="form-group">
-                <label for="followed" class="col-lg-4 control-label">Juego Continuó</label>
+            </fieldset>
+          </div>
+          <div class="col-md-3">
+            <fieldset>
+              <legend>Tags</legend>
+              <div class="form-group" [ngClass]="{'has-error': isRequired('comments')}">
+                <label for="comments" class="col-lg-4 control-label">Comentarios</label>
                 <div class="col-lg-8">
-                    <p-dropdown id="followed" [options]="followed" formControlName="followed"></p-dropdown>
+                  <textarea rows="3" id="comments" formControlName="comments" class="form-control"></textarea>
+                  <span class="help-block" *ngIf="isRequired('comments')">
+                  Comentario requerido
+                </span>
                 </div>
-
-            </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <h2>Entradas/Salidas</h2>
+          </div>
         </div>
-        <div class="form-group margin-top-sm">
-          <button
-            type="submit" class="btn btn-primary" [disabled]="form.invalid">Guardar
-          </button>
-          <button routerLink="/private/games" class="btn btn-primary"
-                  title="Regresar">Regresar
-          </button>
-        </div>
-        <!--<pre>
-          {{ form.value | json }}
-        </pre>-->
+      </div>
     </form>
+
   </div>
+  <!--<div class="col-xs-12 col-sm-12 col-md-8 col-lg-4">-->
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+    <div formGroupName="games">
+      <div class="form-group" [ngClass]="{'has-error': isRequired('date_in')}">
+        <label for="date_in" class="col-lg-4 control-label">Fecha Entrada</label>
+        <div class="col-lg-8">
+          <p-calendar id="date_in" formControlName="date_in" showTime="showTime"
+                      [showIcon]="true" hourFormat="12"></p-calendar>
+          <span class="help-block" *ngIf="isRequired('date_in')">
+            Fecha entrada requerida
+          </span>
+        </div>
+        <!-- <input id="date_in" formControlName="date_in" class="form-control" (keyup)="onKey($event)"> -->
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error': isRequired('quantity')}">
+        <label for="quantity" class="col-lg-4 control-label">Cantidad Compra/Venta</label>
+        <div class="col-lg-8">
+          <input type="number" id="quantity" formControlName="quantity" class="form-control">
+          <span class="help-block" *ngIf="isRequired('quantity')">
+                  Cantidad Compra/Venta
+            </span>
+        </div>
+      </div>
+
+
+      <div class="form-group" [ngClass]="{'has-error': isRequired('price_in') || isInvalidPrice('price_in')}">
+        <label for="price_in" class="col-lg-4 control-label">Precio Entrada</label>
+        <div class="col-lg-8">
+          <input id="price_in" type="number" min="0.00" step="0.01" formControlName="price_in" class="form-control">
+          <span class="help-block" *ngIf="isRequired('price_in')">
+                  Precio Entrada requerido
+                </span>
+          <span class="help-block" *ngIf="form.get('games.price_in').hasError('invalidPrice')">
+                  Formato 1234,1234
+                </span>
+        </div>
+
+      </div>
+
+
+
+      <div class="form-group" [ngClass]="{'has-error': isRequired('price_out') || isInvalidPrice('price_out')}">
+        <label for="price_out" class="col-lg-4 control-label">Precio Salida</label>
+        <div class="col-lg-8">
+          <input id="price_out" type="number" min="0.00" step="0.01" formControlName="price_out" class="form-control">
+          <span class="help-block" *ngIf="isRequired('price_out')">
+                Precio Salida requerido
+                </span>
+          <span class="help-block" *ngIf="form.get('games.price_out').hasError('invalidPrice')">
+                  Formato 1234,1234
+                </span>
+        </div>
+
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error': isRequired('date_out')}">
+        <label for="date_out" class="col-lg-4 control-label">Fecha Salida</label>
+        <div class="col-lg-8">
+          <p-calendar id="date_out" formControlName="date_out" showTime="showTime"
+                      [showIcon]="true" hourFormat="12"></p-calendar>
+          <!-- <input id="date_out" formControlName="date_out" class="form-control"> -->
+          <span class="help-block" *ngIf="isRequired('date_out')">
+                Fecha Salida requerido
+              </span>
+        </div>
+
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error': isRequired('commission')}">
+        <label for="commission" class="col-lg-4 control-label">Comisión</label>
+        <div class="col-lg-8">
+          <input id="commission" type="number" step="0000.01" formControlName="commission" class="form-control">
+          <span class="help-block" *ngIf="isRequired('commission')">
+                Comisión requerido
+              </span>
+        </div>
+
+      </div>
+
+
+
+
+
+
+      <div class="form-group">
+        <label for="r" class="col-lg-4 control-label">R</label>
+        <div class="col-lg-8">
+          <input id="r" formControlName="r" class="form-control">
+        </div>
+      </div>
+
+
+
+      <div class="form-group">
+        <label for="followed" class="col-lg-4 control-label">Juego Continuó</label>
+        <div class="col-lg-8">
+          <p-dropdown id="followed" [options]="followed" formControlName="followed"></p-dropdown>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-group margin-top-sm">
+      <button
+        type="submit" class="btn btn-primary" [disabled]="form.invalid">Guardar
+      </button>
+      <button routerLink="/private/games" class="btn btn-primary"
+              title="Regresar">Regresar
+      </button>
+    </div>
+    <pre>
+          {{ form.value | json }}
+        </pre>
+  </form>
+  <!--</div>-->
 </ng-template>

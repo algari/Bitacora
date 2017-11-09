@@ -15,9 +15,9 @@ export class ListGamesComponent implements OnInit {
 
   games: Array<Games>;
   isLoading = true;
-  alert=false;
-  perdido:number;
-  ganado:number;
+  // alert=false;
+  // perdido:number;
+  // ganado:number;
 
   form = this._formBuilder.group( {
     find: this._formBuilder.group( {
@@ -34,12 +34,12 @@ export class ListGamesComponent implements OnInit {
 
   ngOnInit() {
     this.getAllGames();
-    this.getProgress();
+    //this.getProgress();
 
   }
 
   onSubmit() {
-    this.gamesByDate();
+    // this.gamesByDate();
   }
 
   getAllGames() {
@@ -59,7 +59,7 @@ export class ListGamesComponent implements OnInit {
     )
   }
 
-  getProgress() {
+  /*getProgress() {
     let dateI ;
     let dateF = moment().format('L');
     if(moment().format('dddd')=='Sunday'){
@@ -115,14 +115,14 @@ export class ListGamesComponent implements OnInit {
       )
     }
 
-  }
+  }*/
 
   onDeleteGame(game: Games) {
     this.isLoading = true;
-    console.log(`Proyecto a eliminar: ${game.symbol}`);
+    console.log(`Game a eliminar: ${game.symbol}`);
     this._gameService.onDelete(game).subscribe((data) => {
         this.getAllGames();
-        this.getProgress();
+        // this.getProgress();
       },
       errorResponse => {
         const errorData = errorResponse.json();
@@ -134,12 +134,12 @@ export class ListGamesComponent implements OnInit {
       this.isLoading = false;
   }
 
-  isRequired( fieldName: string ): boolean {
+  /*isRequired( fieldName: string ): boolean {
     return this.form.get( `find.${fieldName}` ).hasError( 'required' )
       && this.form.get( `find.${fieldName}` ).touched;
-  }
+  }*/
 
-  private gamesByDate() {
+  /*private gamesByDate() {
     this._gameService.getAllByDates(
       moment(this.form.value.find.date_in).format('L'),
       moment(this.form.value.find.date_out).format('L'),
@@ -156,5 +156,5 @@ export class ListGamesComponent implements OnInit {
 
         }
       )
-  }
+  }*/
 }

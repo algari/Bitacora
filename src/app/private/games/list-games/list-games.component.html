@@ -4,7 +4,7 @@
   </div>
 </div>
 <ng-template #elseBlock>
-  <div class="alert alert-dismissible alert-success" *ngIf="!alert">
+  <!--<div class="alert alert-dismissible alert-success" *ngIf="!alert">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p><strong>R {{_authS.user.r}}</strong></p>
     <p><strong>Max Perdida Semanal {{_authS.user.max_loss_w}}</strong> Cantidad perdido {{perdido}}</p>
@@ -17,8 +17,8 @@
     <p><strong>Max Perdida Semanal {{_authS.user.max_loss_w}}</strong> Cantidad perdido {{perdido}}</p>
     <p><strong>Meta Semanal {{_authS.user.goal_w}}</strong> Cantidad Ganado {{ganado}}</p>
     <p><strong>No puedes Operar mas!!</strong></p>
-  </div>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+  </div>-->
+  <!--<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
     <fieldset>
       <div formGroupName="find">
         <div class="form-group" [ngClass]="{'has-error': isRequired('date_in')}">
@@ -34,7 +34,6 @@
 
         <div class="form-group" [ngClass]="{'has-error': isRequired('date_out')}">
           <label for="date_out" class="control-label">Fecha Final</label>
-          <!-- <input id="date_out" formControlName="date_out" class="form-control"> -->
           <div>
             <p-calendar id="date_out" formControlName="date_out"
                         [showIcon]="true"></p-calendar>
@@ -53,7 +52,7 @@
         </button>
       </div>
     </fieldset>
-  </form>
+  </form>-->
 
     <p-dataTable #dt [value]="games" [rows]="10" [paginator]="true" exportFilename="Games" >
         <p-header>

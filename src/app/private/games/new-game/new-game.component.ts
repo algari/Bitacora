@@ -91,7 +91,7 @@ export class NewGameComponent implements OnInit {
     this._activatedRoute.params.subscribe(params => {
       const id: number = params['id'];
       if(id){
-        this.loadEditGame(id);
+        // this.loadEditGame(id);
         this.edit = true;
       }
     });
@@ -146,7 +146,7 @@ export class NewGameComponent implements OnInit {
   }
 
   private createGame() {
-    let games:Games = this.calcuteValues();
+    /*let games:Games = this.calcuteValues();
     this._gameService.create(games).subscribe(
       (game: Games) => {
         setTimeout(() => {
@@ -160,11 +160,11 @@ export class NewGameComponent implements OnInit {
       () => {
         console.log('Finished creation request');
       }
-    );
+    );*/
   }
 
   private editGame() {
-    let games:Games = this.calcuteValues();
+    /*let games:Games = this.calcuteValues();
     this._gameService.update(games).subscribe(
       (game: Games) => {
         setTimeout(() => {
@@ -178,10 +178,10 @@ export class NewGameComponent implements OnInit {
       () => {
         console.log('Finished editGame');
       }
-    );
+    );*/
   }
 
-  private loadEditGame(id: number) {
+  /*private loadEditGame(id: number) {
     this._gameService.getSingle(id).subscribe(
       (game: Games) => {
         console.log(game);
@@ -210,9 +210,9 @@ export class NewGameComponent implements OnInit {
         console.log('Finished loadEditGame');
       }
     );
-  }
+  }*/
 
-  private calcuteValues():Games {
+  /*private calcuteValues():Games {
     const games:Games = this.form.value.games;
     if(games.type.toString()==Config.TYPE_LONG || games.type.toString()==Config.TYPE_CALL || games.type.toString()==Config.TYPE_PUT){
       this.form.value.games.neto = ((games.price_out-games.price_in)*this.form.value.games.quantity).toFixed(4);
@@ -243,5 +243,5 @@ export class NewGameComponent implements OnInit {
       }
     }
     return games;
-  }
+  }*/
 }
