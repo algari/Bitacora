@@ -44,12 +44,18 @@ export class NewGameComponent implements OnInit {
       followed: 'NO',
       chart:[],
       maxMove:[],
-      entries:[this.entries],
+      entries:[,[Validators.required]],
       exities:[this.exits]
     } ),
   } );
 
-  entry:Entry;
+  entry = this._formBuilder.group( {
+    date:[,Validators.required ],
+    time: [,Validators.required ],
+    quantity: [ , [ Validators.required] ],
+    price: [,Validators.required],
+    stopLoss: [,Validators.required ],
+  } );
 
   exit:Exit;
 
@@ -100,9 +106,8 @@ export class NewGameComponent implements OnInit {
 
   ngOnInit() {
     this.entries = new Array<Entry>();
-    this.entry = new Entry();
     this.exit = new Exit();
-
+    
     this._activatedRoute.params.subscribe(params => {
       const id: number = params['id'];
       if(id){
@@ -144,8 +149,15 @@ export class NewGameComponent implements OnInit {
   }
 
   isRequired(fieldName: string ): boolean {
+    console.log(fieldName);
     return this.form.get( `${fieldName}` ).hasError( 'required' )
       && this.form.get( `${fieldName}` ).touched;
+  }
+
+  isRequiredEntry(fieldName: string ): boolean {
+    console.log(fieldName);
+    return this.entry.get( `${fieldName}` ).hasError( 'required' )
+      && this.entry.get( `${fieldName}` ).touched;
   }
 
   isInvalidPrice(fieldName: string ) {
@@ -158,6 +170,12 @@ export class NewGameComponent implements OnInit {
       // The user has actually typed
       ! this.isRequired( `${fieldName}` )
     );
+  }
+
+  addEntry(){
+    this.entries.push(this.entry.value);
+    this.form.get('games.entries').setValue(this.entries);
+    this.entry.reset();
   }
 
   private createGame() {
