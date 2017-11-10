@@ -6,5 +6,4 @@ export class Exit {
   time: string;
   quantity:number
   price: number;
-  stopLoss: number;
 }

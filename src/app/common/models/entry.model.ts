@@ -6,4 +6,5 @@ export class Entry {
   time: string;
   quantity:number
   price: number;
+  stopLoss: number;
 }

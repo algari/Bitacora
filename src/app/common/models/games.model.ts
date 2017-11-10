@@ -26,4 +26,5 @@ export class Games {
   tags:Tag[];
   entries:Entry[];
   exits:Exit[];
+  status:string;
 }

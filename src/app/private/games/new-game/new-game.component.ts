@@ -10,6 +10,9 @@ import {Strategies} from "../../../common/models/strategies.model";
 import { AuthenticationService } from '../../../public/services/authentication.service';
 import {PriceValidator} from "../priceValidator";
 import * as moment from 'moment';
+import { Tag } from '../../../common/models/tag';
+import { Entry } from '../../../common/models/entry.model';
+import { Exit } from '../../../common/models/exit.model';
 
 @Component({
   selector: 'app-new-game',
@@ -17,6 +20,9 @@ import * as moment from 'moment';
   styleUrls: ['./new-game.component.css']
 })
 export class NewGameComponent implements OnInit {
+
+  entries:Array<Entry> ;
+  exits:Array<Exit> ;
 
   form = this._formBuilder.group( {
     games: this._formBuilder.group( {
@@ -38,16 +44,14 @@ export class NewGameComponent implements OnInit {
       followed: 'NO',
       chart:[],
       maxMove:[],
-
-
-      date_in: [ , Validators.required ],
-      quantity: [ , [ Validators.required ] ],
-      price_in: [ ,[ Validators.required, PriceValidator.checkPrice] ],
-      price_out: [ , [ Validators.required, PriceValidator.checkPrice ] ],
-      date_out: [ , Validators.required ],
-
-    } )
+      entries:[this.entries],
+      exities:[this.exits]
+    } ),
   } );
+
+  entry:Entry;
+
+  exit:Exit;
 
   types:SelectItem[];
 
@@ -95,6 +99,10 @@ export class NewGameComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.entries = new Array<Entry>();
+    this.entry = new Entry();
+    this.exit = new Exit();
+
     this._activatedRoute.params.subscribe(params => {
       const id: number = params['id'];
       if(id){
@@ -135,20 +143,20 @@ export class NewGameComponent implements OnInit {
     )
   }
 
-  isRequired( fieldName: string ): boolean {
-    return this.form.get( `games.${fieldName}` ).hasError( 'required' )
-      && this.form.get( `games.${fieldName}` ).touched;
+  isRequired(fieldName: string ): boolean {
+    return this.form.get( `${fieldName}` ).hasError( 'required' )
+      && this.form.get( `${fieldName}` ).touched;
   }
 
   isInvalidPrice(fieldName: string ) {
-    const field = `games.${fieldName}`;
+    const field = `${fieldName}`;
     return (
       this.form.get( field ).hasError( 'invalidPrice' )
       &&
       // The user has actually interacted with the field
       this.form.get( field ).dirty &&
       // The user has actually typed
-      ! this.isRequired( 'price_in' )
+      ! this.isRequired( `${fieldName}` )
     );
   }
 
