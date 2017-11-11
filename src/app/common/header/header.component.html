@@ -38,7 +38,25 @@
                      routerLink="/private/strategies"
                      routerLinkActive="active"
                      [routerLinkActiveOptions]="{ exact: true }"
-                     title="Issues">Estrategias</a>
+                     title="Strategies">Estrategias</a>
+                </li>
+                <li class="leaf"
+                    [ngClass]="{ active: router.url.indexOf('/private/sources') !== -1}"
+                    *ngIf="_authService.isLoggedIn()">
+                  <a
+                    routerLink="/private/sources"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    title="Sources">Fuentes</a>
+                </li>
+                <li class="leaf"
+                    [ngClass]="{ active: router.url.indexOf('/private/tags') !== -1}"
+                    *ngIf="_authService.isLoggedIn()">
+                  <a
+                    routerLink="/private/tags"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    title="Tags">Etiquetas</a>
                 </li>
                 <li class="leaf"
                     [ngClass]="{ active: router.url.indexOf('/private/strategies/analysis') !== -1}"

@@ -16,10 +16,14 @@ const routes: Routes = [
      path: 'strategies', loadChildren:'./../strategies/strategies.module#StrategiesModule',
      data: { name: 'Estrategias' }, canActivate: [ AuthGuard ]
    },
-  // {
-  //   path: 'usuarios', loadChildren:'./../user/user.module#UserModule',
-  //   data: { name: 'Usuarios' }, canActivate: [ AuthGuard ]
-  // }
+  {
+    path: 'sources', loadChildren:'./../sources/sources.module#SourcesModule',
+    data: { name: 'Sources' }, canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'tags', loadChildren:'./../tags/tags.module#TagsModule',
+    data: { name: 'Tags' }, canActivate: [ AuthGuard ]
+  }
 ];
 
 @NgModule({

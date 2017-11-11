@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Config} from "../../../common/config";
-import {Validators, FormBuilder} from "@angular/forms";
+import {Validators, FormBuilder, FormArray} from "@angular/forms";
 import {Games} from "../../../common/models/games.model";
 import {GamesService} from "../../services/games.service";
 import {Router, ActivatedRoute} from "@angular/router";
@@ -20,9 +20,6 @@ import { Exit } from '../../../common/models/exit.model';
   styleUrls: ['./new-game.component.css']
 })
 export class NewGameComponent implements OnInit {
-
-  entries:Array<Entry> ;
-  exits:Array<Exit> ;
 
   form = this._formBuilder.group( {
     games: this._formBuilder.group( {
@@ -44,20 +41,33 @@ export class NewGameComponent implements OnInit {
       followed: 'NO',
       chart:[],
       maxMove:[],
-      entries:[,[Validators.required]],
-      exities:[this.exits]
+      entries:this._formBuilder.array([
+        this.initEntry()
+        ]),
+      exits:this._formBuilder.array([
+        this.initExit()
+      ])
     } ),
   } );
 
-  entry = this._formBuilder.group( {
-    date:[,Validators.required ],
-    time: [,Validators.required ],
-    quantity: [ , [ Validators.required] ],
-    price: [,Validators.required],
-    stopLoss: [,Validators.required ],
-  } );
+  initEntry(){
+    return this._formBuilder.group({
+      date:[,Validators.required ],
+      time: [,Validators.required ],
+      quantity: [ , [ Validators.required] ],
+      price: [,Validators.required],
+      stopLoss: [,Validators.required ],
+    });
+  }
 
-  exit:Exit;
+  initExit(){
+    return this._formBuilder.group({
+      date:[,Validators.required ],
+      time: [,Validators.required ],
+      quantity: [ , [ Validators.required] ],
+      price: [,Validators.required],
+    });
+  }
 
   types:SelectItem[];
 
@@ -105,9 +115,7 @@ export class NewGameComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.entries = new Array<Entry>();
-    this.exit = new Exit();
-    
+
     this._activatedRoute.params.subscribe(params => {
       const id: number = params['id'];
       if(id){
@@ -123,6 +131,30 @@ export class NewGameComponent implements OnInit {
     }else{
       this.createGame();
     }
+  }
+
+  get entriesFormArray(): FormArray{
+    return this.form.get('games.entries') as FormArray;
+  }
+
+  addEntry(){
+    this.entriesFormArray.push(this.initEntry());
+  }
+
+  removeEntry(i: number) {
+    this.entriesFormArray.removeAt(i);
+  }
+
+  get exitsFormArray(): FormArray{
+    return this.form.get('games.exits') as FormArray;
+  }
+
+  addExit(){
+    this.exitsFormArray.push(this.initExit());
+  }
+
+  removeExit(i: number) {
+    this.exitsFormArray.removeAt(i);
   }
 
   private loadStrategies() {
@@ -149,15 +181,8 @@ export class NewGameComponent implements OnInit {
   }
 
   isRequired(fieldName: string ): boolean {
-    console.log(fieldName);
     return this.form.get( `${fieldName}` ).hasError( 'required' )
       && this.form.get( `${fieldName}` ).touched;
-  }
-
-  isRequiredEntry(fieldName: string ): boolean {
-    console.log(fieldName);
-    return this.entry.get( `${fieldName}` ).hasError( 'required' )
-      && this.entry.get( `${fieldName}` ).touched;
   }
 
   isInvalidPrice(fieldName: string ) {
@@ -172,11 +197,11 @@ export class NewGameComponent implements OnInit {
     );
   }
 
-  addEntry(){
+  /*addEntry(){
     this.entries.push(this.entry.value);
     this.form.get('games.entries').setValue(this.entries);
     this.entry.reset();
-  }
+  }*/
 
   private createGame() {
     /*let games:Games = this.calcuteValues();
