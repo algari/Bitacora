@@ -1,3 +1,55 @@
-<p>
-  list-tags works!
-</p>
+<div *ngIf="isLoading; else elseBlock">
+  <div class="auth-loader-container">
+    <app-loader></app-loader>
+  </div>
+</div>
+<ng-template #elseBlock>
+
+  <p-dataTable [value]="tags" [rows]="10" [paginator]="true"  >
+    <p-column field="tag" header="Tag" sortable="true">
+      <ng-template let-col let-t="rowData" pTemplate="body">
+        <a routerLink="/private/tags/edit/{{t._id}}" >
+          {{ t[col.field]}}
+        </a>
+      </ng-template>
+    </p-column>
+    <p-column field="description" header="Description"></p-column>
+    <p-column field="tag" header="Actions">
+      <ng-template let-col let-t="rowData" pTemplate="body">
+        <a routerLink="/private/tags/edit/{{t._id}}" >
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </a>
+        -
+        <a
+          mwlConfirmationPopover
+          title="Delete Tag"
+          message="Esta seguro de eliminar: {{t[col.field]}}"
+          confirmText="SI"
+          cancelText="NO"
+          placement="top"
+          (confirm)="onDeleteTag(t)"
+          (cancel)="cancelClicked"
+          confirmButtonType="primary"
+          cancelButtonType="default">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
+      </ng-template>
+
+    </p-column>
+
+  </p-dataTable>
+  <div class="clearfix"></div>
+
+  <div class="row">
+    <div class="col-md-2 col-md-offset-10 margin-top-sm">
+      <div class="b-btn-new-game overflow-hidden">
+        <button class="btn btn-primary pull-right" [routerLink]="['/private/tags/new']">
+          Nuevo Tag
+        </button>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+

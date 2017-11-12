@@ -11,6 +11,7 @@ import {DataTableModule} from "primeng/components/datatable/datatable";
 import {SharedModule} from "../../common/shared.module";
 import {ConfirmationPopoverModule} from "angular-confirmation-popover";
 import {PaginatorModule} from "primeng/components/paginator/paginator";
+import {TagService} from "../services/tag.service";
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import {PaginatorModule} from "primeng/components/paginator/paginator";
     }),
     PaginatorModule
   ],
+  providers:[TagService],
   declarations: [
   ListTagsComponent,
   NewTagComponent
