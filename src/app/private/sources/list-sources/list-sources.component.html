@@ -1,3 +1,53 @@
-<p>
-  list-sources works!
-</p>
+<div *ngIf="isLoading; else elseBlock">
+  <div class="auth-loader-container">
+    <app-loader></app-loader>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <p-dataTable [value]="sources" [rows]="10" [paginator]="true"  >
+    <p-column field="source" header="Source" sortable="true">
+      <ng-template let-col let-s="rowData" pTemplate="body">
+        <a routerLink="/private/sources/edit/{{s._id}}" >
+          {{ s[col.field]}}
+        </a>
+      </ng-template>
+    </p-column>
+    <p-column field="source" header="Actions">
+      <ng-template let-col let-s="rowData" pTemplate="body">
+        <a routerLink="/private/sources/edit/{{s._id}}" >
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </a>
+        -
+        <a
+          mwlConfirmationPopover
+          title="Delete Source"
+          message="Esta seguro de eliminar: {{s[col.field]}}"
+          confirmText="SI"
+          cancelText="NO"
+          placement="top"
+          (confirm)="onDeleteSource(s)"
+          (cancel)="cancelClicked"
+          confirmButtonType="primary"
+          cancelButtonType="default">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
+      </ng-template>
+
+    </p-column>
+
+  </p-dataTable>
+  <div class="clearfix"></div>
+
+  <div class="row">
+    <div class="col-md-2 col-md-offset-10 margin-top-sm">
+      <div class="b-btn-new-game overflow-hidden">
+        <button class="btn btn-primary pull-right" [routerLink]="['/private/sources/new']">
+          Nueva Fuente
+        </button>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+
