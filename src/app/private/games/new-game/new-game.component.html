@@ -56,7 +56,7 @@
               <div class="form-group">
                 <label for="source" class="col-lg-4 control-label">Fuente del Juego</label>
                 <div class="col-lg-8">
-                  <input id="source" formControlName="source" class="form-control">
+                  <p-dropdown id="source" [options]="sources" formControlName="source"></p-dropdown>
                 </div>
               </div>
 
@@ -241,8 +241,8 @@
             </div>
           </div>
         </div>
-
         <div class="row">
+          <!--Gastos-->
           <div class="col-md-3">
             <div [formGroup]="form">
               <div formGroupName="games">
@@ -263,6 +263,7 @@
               </div>
             </div>
           </div>
+          <!--Resumen-->
           <div class="col-md-3">
             <fieldset>
               <legend>Resumen</legend>
@@ -281,6 +282,7 @@
             </fieldset>
           </div>
         </div>
+
         <div class="row">
 
         </div>

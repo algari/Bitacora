@@ -13,6 +13,8 @@ import * as moment from 'moment';
 import { Tag } from '../../../common/models/tag';
 import { Entry } from '../../../common/models/entry.model';
 import { Exit } from '../../../common/models/exit.model';
+import {SourcesService} from "../../services/sources.service";
+import {Sources} from "../../../common/models/sources.model";
 
 @Component({
   selector: 'app-new-game',
@@ -29,13 +31,13 @@ export class NewGameComponent implements OnInit {
       type: [,Validators.required],
       time_frame: [,Validators.required ],
       strategy: [, [ Validators.required] ],
-      source: 'ME',
+      source: [],
       commission: [ , [ Validators.required] ],
       comments: [],
       result: '',
       neto:0,
       netoCmm: 0,
-      r: [this._authS.user.r],
+      r: [],
       netoR: 0,
       percentCaptured:0,
       followed: 'NO',
@@ -75,6 +77,8 @@ export class NewGameComponent implements OnInit {
 
   strategies:SelectItem[];
 
+  sources:SelectItem[];
+
   followed:SelectItem[];
 
   edit:boolean = false;
@@ -84,7 +88,8 @@ export class NewGameComponent implements OnInit {
                private _router: Router,
                private _strategyService: StrategiesService,
                private _authS: AuthenticationService,
-               public _activatedRoute: ActivatedRoute
+               public _activatedRoute: ActivatedRoute,
+               private _sourceService:SourcesService
   )
   {
     this.types = [
@@ -112,6 +117,7 @@ export class NewGameComponent implements OnInit {
     ];
 
     this.loadStrategies();
+    this.loadSources();
   }
 
   ngOnInit() {
@@ -157,6 +163,10 @@ export class NewGameComponent implements OnInit {
     this.exitsFormArray.removeAt(i);
   }
 
+  loadResumen(){
+    console.log("loadResumen");
+  }
+
   private loadStrategies() {
     this._strategyService.getAllByUsername(this._authS.user.username).subscribe(
       (data: Strategies[]) => {
@@ -167,14 +177,35 @@ export class NewGameComponent implements OnInit {
           str =  {label:item.strategy, value:item._id};
           strategies.push(str);
         })
-        console.log(strategies);
         this.strategies = strategies;
       },
       err => {
         console.error(err);
       },
       () => {
-        console.log('Finished getAllGames');
+        console.log('Finished loadStrategies');
+
+      }
+    )
+  }
+
+  private loadSources() {
+    this._sourceService.getAllByUsername(this._authS.user.username).subscribe(
+      (data: Sources[]) => {
+        let str:SelectItem;
+        let sources:Array<SelectItem> = new Array<SelectItem>();
+        sources.push({label:'Select', value:null});
+        data.forEach(item=>{
+          str =  {label:item.source, value:item._id};
+          sources.push(str);
+        })
+        this.sources = sources;
+      },
+      err => {
+        console.error(err);
+      },
+      () => {
+        console.log('Finished loadSources');
 
       }
     )
@@ -184,24 +215,6 @@ export class NewGameComponent implements OnInit {
     return this.form.get( `${fieldName}` ).hasError( 'required' )
       && this.form.get( `${fieldName}` ).touched;
   }
-
-  isInvalidPrice(fieldName: string ) {
-    const field = `${fieldName}`;
-    return (
-      this.form.get( field ).hasError( 'invalidPrice' )
-      &&
-      // The user has actually interacted with the field
-      this.form.get( field ).dirty &&
-      // The user has actually typed
-      ! this.isRequired( `${fieldName}` )
-    );
-  }
-
-  /*addEntry(){
-    this.entries.push(this.entry.value);
-    this.form.get('games.entries').setValue(this.entries);
-    this.entry.reset();
-  }*/
 
   private createGame() {
     /*let games:Games = this.calcuteValues();

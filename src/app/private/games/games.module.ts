@@ -14,6 +14,7 @@ import {DataTableModule} from 'primeng/primeng';
 import {PaginatorModule} from 'primeng/primeng';
 import {StrategiesService} from "../services/strategies.service";
 import {SharedModule} from "../../common/shared.module";
+import {SourcesService} from "../services/sources.service";
 
 @NgModule({
   imports: [
@@ -31,7 +32,7 @@ import {SharedModule} from "../../common/shared.module";
     SharedModule
   ],
   providers: [
-    GamesService,StrategiesService
+    GamesService,StrategiesService, SourcesService
 
   ],
   declarations: [
