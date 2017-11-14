@@ -227,7 +227,7 @@
                   <div class="form-group">
                     <label for="chart" class="col-lg-4 control-label">Gráfico</label>
                     <div class="col-lg-8">
-                      <input id="chart" formControlName="chart" class="form-control">
+                        <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
                     </div>
                   </div>
 
@@ -301,9 +301,9 @@
         <button routerLink="/private/games" class="btn btn-primary" title="Regresar">Regresar
         </button>
       </div>
-      <pre>
+      <!-- <pre>
         {{ form.value | json }}
-      </pre>
+      </pre> -->
     </form>
 
   </div>

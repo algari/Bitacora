@@ -18,6 +18,7 @@ import {SourcesService} from "../services/sources.service";
 import {CheckboxModule} from 'primeng/primeng';
 import { TagService } from '../services/tag.service';
 import {ListboxModule} from 'primeng/primeng';
+import {FileUploadModule} from 'primeng/primeng';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import {ListboxModule} from 'primeng/primeng';
     PaginatorModule,
     SharedModule,
     CheckboxModule,
-    ListboxModule
+    ListboxModule,
+    FileUploadModule
   ],
   providers: [
     GamesService,StrategiesService, SourcesService,TagService

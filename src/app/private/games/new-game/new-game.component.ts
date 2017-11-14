@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Config} from "../../../common/config";
-import {Validators, FormBuilder, FormArray} from "@angular/forms";
+import { Validators, FormBuilder, FormArray, FormGroup } from "@angular/forms";
 import {Games} from "../../../common/models/games.model";
 import {GamesService} from "../../services/games.service";
 import {Router, ActivatedRoute} from "@angular/router";
@@ -41,9 +41,9 @@ export class NewGameComponent implements OnInit {
       r: [0,],
       netoR: 0,
       percentCaptured:0,
-      followed: 'SI',
-      chart:[],
-      maxMove:[995],
+      followed: 'NO',
+      chart:['url/image.jpeg',],
+      maxMove:[],
       entries:this._formBuilder.array([
         this.initEntry()
         ]),
@@ -59,9 +59,9 @@ export class NewGameComponent implements OnInit {
     return this._formBuilder.group({
       date:[,Validators.required],
       time: [,Validators.required],
-      quantity: [340,Validators.required],
-      price: [980,Validators.required],
-      stopLoss: [977,Validators.required],
+      quantity: [,Validators.required],
+      price: [,Validators.required],
+      stopLoss: [,Validators.required],
     });
   }
 
@@ -69,8 +69,8 @@ export class NewGameComponent implements OnInit {
     return this._formBuilder.group({
       date:[],
       time: [],
-      quantity: [340],
-      price: [985],
+      quantity: [],
+      price: [],
     });
   }
 
@@ -132,7 +132,7 @@ export class NewGameComponent implements OnInit {
     this._activatedRoute.params.subscribe(params => {
       const id: number = params['id'];
       if(id){
-        // this.loadEditGame(id);
+        this.loadEditGame(id);
         this.edit = true;
       }
     });
@@ -176,7 +176,7 @@ export class NewGameComponent implements OnInit {
         let tag:SelectItem;
         let tags:Array<SelectItem> = new Array<SelectItem>();
         data.forEach(item=>{
-          tag =  {label:item.tag, value:item._id};
+          tag =  {label:item.tag, value:item.tag};
           tags.push(tag);
         })
         this.tags = tags;
@@ -198,7 +198,7 @@ export class NewGameComponent implements OnInit {
         let strategies:Array<SelectItem> = new Array<SelectItem>();
         strategies.push({label:'Select', value:null});
         data.forEach(item=>{
-          str =  {label:item.strategy, value:item._id};
+          str =  {label:item.strategy, value:item.strategy};
           strategies.push(str);
         })
         this.strategies = strategies;
@@ -220,7 +220,7 @@ export class NewGameComponent implements OnInit {
         let sources:Array<SelectItem> = new Array<SelectItem>();
         sources.push({label:'Select', value:null});
         data.forEach(item=>{
-          str =  {label:item.source, value:item._id};
+          str =  {label:item.source, value:item.source};
           sources.push(str);
         })
         this.sources = sources;
@@ -241,8 +241,7 @@ export class NewGameComponent implements OnInit {
   }
 
   private createGame() {
-    /*let games:Games = this.calcuteValues();
-    this._gameService.create(games).subscribe(
+    this._gameService.create(this.form.value.games).subscribe(
       (game: Games) => {
         setTimeout(() => {
           this._router.navigate(['/private/games']);
@@ -255,7 +254,7 @@ export class NewGameComponent implements OnInit {
       () => {
         console.log('Finished creation request');
       }
-    );*/
+    );
   }
 
   private editGame() {
@@ -276,25 +275,53 @@ export class NewGameComponent implements OnInit {
     );*/
   }
 
-  /*private loadEditGame(id: number) {
+  private loadEditGame(id: number) {
     this._gameService.getSingle(id).subscribe(
       (game: Games) => {
-        console.log(game);
+        // console.log(game);
         this.form.get('games._id').setValue(game._id);
-        this.form.get('games.date_in').setValue(moment(game.date_in).format('L LT'));
-        this.form.get('games.quantity').setValue(game.quantity);
+        this.form.get('games.symbol').setValue(game.symbol);
         this.form.get('games.type').setValue(game.type);
-        this.form.get('games.price_in').setValue(game.price_in);
         this.form.get('games.time_frame').setValue(game.time_frame);
-        this.form.get('games.price_out').setValue(game.price_out);
-        this.form.get('games.date_out').setValue(moment(game.date_out).format('L LT'));
+        this.form.get('games.strategy').setValue(game.strategy);
+        this.form.get('games.source').setValue(game.source);
         this.form.get('games.commission').setValue(game.commission);
         this.form.get('games.comments').setValue(game.comments);
-        this.form.get('games.symbol').setValue(game.symbol);
-        this.form.get('games.strategy').setValue(game.strategy);
+        this.form.get('games.result').setValue(game.result);
+        this.form.get('games.neto').setValue(game.neto);
+        this.form.get('games.netoCmm').setValue(game.netoCmm);
         this.form.get('games.r').setValue(game.r);
-        this.form.get('games.source').setValue(game.source);
+        this.form.get('games.netoR').setValue(game.netoR);
+        this.form.get('games.percentCaptured').setValue(game.percentCaptured);
         this.form.get('games.followed').setValue(game.followed);
+        this.form.get('games.chart').setValue(game.chart);
+        this.form.get('games.maxMove').setValue(game.maxMove);
+        this.form.get('games.tags').setValue(game.tags);
+        
+        //entries
+        game.entries.forEach((item:Entry, i) => {
+          let entryForm = this._formBuilder.group({
+            date:[moment(item.date).format('L'),Validators.required],
+            time: [moment(item.time).format('LT'),Validators.required],
+            quantity: [item.quantity,Validators.required],
+            price: [item.price,Validators.required],
+            stopLoss: [item.stopLoss,Validators.required],
+          });
+          this.entriesFormArray.setControl(i,entryForm);
+        });
+        
+        //exits
+        game.exits.forEach((item:Exit, i) => {
+          let exitForm = this._formBuilder.group({
+            date:[moment(item.date).format('L')],
+            time: [moment(item.time).format('LT')],
+            quantity: [item.quantity],
+            price: [item.price],
+          });
+          this.exitsFormArray.setControl(i,exitForm);
+        });
+        
+        this.form.get('games.status').setValue(game.status);
 
       },
       errorResponse => {
@@ -305,7 +332,7 @@ export class NewGameComponent implements OnInit {
         console.log('Finished loadEditGame');
       }
     );
-  }*/
+  }
 
   
   loadResumen(){
@@ -387,36 +414,4 @@ export class NewGameComponent implements OnInit {
     }
   }
 
-  /*private calcuteValues():Games {
-    const games:Games = this.form.value.games;
-    if(games.type.toString()==Config.TYPE_LONG || games.type.toString()==Config.TYPE_CALL || games.type.toString()==Config.TYPE_PUT){
-      this.form.value.games.neto = ((games.price_out-games.price_in)*this.form.value.games.quantity).toFixed(4);
-      this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
-      if (this.form.value.games.neto>0){
-        this.form.value.games.result = Config.RESULT_POSITIVO
-      }
-      else if((games.commission-this.form.value.games.neto)==games.commission){
-        this.form.value.games.result = Config.RESULT_BREAKEVEN
-        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
-      }
-      else{
-        this.form.value.games.result = Config.RESULT_NEGATIVO
-      }
-    }else if(games.type.toString()==Config.TYPE_SHORT){
-      this.form.value.games.neto = ((games.price_in-games.price_out)*this.form.value.games.quantity).toFixed(4);;
-      if (this.form.value.games.neto>0){
-        this.form.value.games.result = Config.RESULT_POSITIVO
-        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
-      }
-      else if((games.commission-this.form.value.games.neto)==games.commission){
-        this.form.value.games.result = Config.RESULT_BREAKEVEN
-        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
-      }
-      else{
-        this.form.value.games.result = Config.RESULT_NEGATIVO
-        this.form.value.games.netoCmm = this.form.value.games.neto-games.commission;
-      }
-    }
-    return games;
-  }*/
 }
