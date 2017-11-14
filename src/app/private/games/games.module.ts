@@ -15,6 +15,9 @@ import {PaginatorModule} from 'primeng/primeng';
 import {StrategiesService} from "../services/strategies.service";
 import {SharedModule} from "../../common/shared.module";
 import {SourcesService} from "../services/sources.service";
+import {CheckboxModule} from 'primeng/primeng';
+import { TagService } from '../services/tag.service';
+import {ListboxModule} from 'primeng/primeng';
 
 @NgModule({
   imports: [
@@ -29,10 +32,12 @@ import {SourcesService} from "../services/sources.service";
     DropdownModule,
     DataTableModule,
     PaginatorModule,
-    SharedModule
+    SharedModule,
+    CheckboxModule,
+    ListboxModule
   ],
   providers: [
-    GamesService,StrategiesService, SourcesService
+    GamesService,StrategiesService, SourcesService,TagService
 
   ],
   declarations: [

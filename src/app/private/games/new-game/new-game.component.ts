@@ -15,6 +15,7 @@ import { Entry } from '../../../common/models/entry.model';
 import { Exit } from '../../../common/models/exit.model';
 import {SourcesService} from "../../services/sources.service";
 import {Sources} from "../../../common/models/sources.model";
+import { TagService } from '../../services/tag.service';
 
 @Component({
   selector: 'app-new-game',
@@ -31,43 +32,45 @@ export class NewGameComponent implements OnInit {
       type: [,Validators.required],
       time_frame: [,Validators.required ],
       strategy: [, [ Validators.required] ],
-      source: [],
+      source: [, [ Validators.required]],
       commission: [ , [ Validators.required] ],
       comments: [],
       result: '',
       neto:0,
       netoCmm: 0,
-      r: [],
+      r: [0,],
       netoR: 0,
       percentCaptured:0,
-      followed: 'NO',
+      followed: 'SI',
       chart:[],
-      maxMove:[],
+      maxMove:[995],
       entries:this._formBuilder.array([
         this.initEntry()
         ]),
       exits:this._formBuilder.array([
         this.initExit()
-      ])
+      ]),
+      tags:[[],],
+      status:''
     } ),
   } );
 
   initEntry(){
     return this._formBuilder.group({
-      date:[,Validators.required ],
-      time: [,Validators.required ],
-      quantity: [ , [ Validators.required] ],
-      price: [,Validators.required],
-      stopLoss: [,Validators.required ],
+      date:[,Validators.required],
+      time: [,Validators.required],
+      quantity: [340,Validators.required],
+      price: [980,Validators.required],
+      stopLoss: [977,Validators.required],
     });
   }
 
   initExit(){
     return this._formBuilder.group({
-      date:[,Validators.required ],
-      time: [,Validators.required ],
-      quantity: [ , [ Validators.required] ],
-      price: [,Validators.required],
+      date:[],
+      time: [],
+      quantity: [340],
+      price: [985],
     });
   }
 
@@ -83,13 +86,16 @@ export class NewGameComponent implements OnInit {
 
   edit:boolean = false;
 
+  tags:SelectItem[];
+
   constructor( private _formBuilder: FormBuilder,
                private _gameService: GamesService,
                private _router: Router,
                private _strategyService: StrategiesService,
                private _authS: AuthenticationService,
                public _activatedRoute: ActivatedRoute,
-               private _sourceService:SourcesService
+               private _sourceService:SourcesService,
+               private _tagService:TagService,
   )
   {
     this.types = [
@@ -118,6 +124,7 @@ export class NewGameComponent implements OnInit {
 
     this.loadStrategies();
     this.loadSources();
+    this.loadTags();
   }
 
   ngOnInit() {
@@ -163,8 +170,25 @@ export class NewGameComponent implements OnInit {
     this.exitsFormArray.removeAt(i);
   }
 
-  loadResumen(){
-    console.log("loadResumen");
+  loadTags(): void {
+    this._tagService.getAllByUsername(this._authS.user.username).subscribe(
+      (data: Tag[]) => {
+        let tag:SelectItem;
+        let tags:Array<SelectItem> = new Array<SelectItem>();
+        data.forEach(item=>{
+          tag =  {label:item.tag, value:item._id};
+          tags.push(tag);
+        })
+        this.tags = tags;
+      },
+      err => {
+        console.error(err);
+      },
+      () => {
+        console.log('Finished loadTags');
+
+      }
+    )
   }
 
   private loadStrategies() {
@@ -282,6 +306,86 @@ export class NewGameComponent implements OnInit {
       }
     );
   }*/
+
+  
+  loadResumen(){
+    let game:Games = this.form.value.games;
+    
+    let sumaR = 0,riesgo=0;
+    let sumaEntry =0, netoEntry = 0;
+    let sumaExit =0, netoExit = 0;
+    let sumaMaxMov = 0, maxMov = 0;
+    let quantityEntry = 0, quantityExit = 0;
+    game.entries.forEach(entry => {
+      //Calcula Riesgo
+      riesgo =  (entry.price - entry.stopLoss)*entry.quantity;
+      sumaR += riesgo;
+      //Calcula entrada
+      netoEntry = entry.quantity * entry.price;
+      sumaEntry += netoEntry;
+      //Cantidad de compra/venta
+      quantityEntry +=entry.quantity; 
+    });
+
+    game.exits.forEach(exit => {
+      //Calcula Salida
+      netoExit = exit.quantity * exit.price;
+      sumaExit += netoExit;
+
+      //Calcula Max Movimiento
+      maxMov = exit.quantity * game.maxMove;
+      sumaMaxMov += maxMov;
+
+      //Cantidad de compra/venta
+      quantityExit +=exit.quantity; 
+    });
+
+
+    let neto = 0;
+    if(game.type!=null && (game.type.toString()==Config.TYPE_LONG || game.type.toString()==Config.TYPE_CALL || game.type.toString()==Config.TYPE_PUT)){
+      // Asigna los valores para los typo Long, Call y put
+      this.form.get('games.r').setValue(sumaR.toFixed(2));
+      neto = sumaExit-sumaEntry;
+      this.form.get('games.neto').setValue(neto);
+      let netoCmm = neto-game.commission;
+      this.form.get('games.netoCmm').setValue(netoCmm);
+      let r = (netoCmm/sumaR).toFixed(2);
+      this.form.get('games.netoR').setValue(r);
+      let perCap = (neto/(sumaMaxMov-sumaEntry)).toFixed(2);
+      this.form.get('games.percentCaptured').setValue(perCap);
+    }  
+    else if(game.type!=null && (game.type.toString()==Config.TYPE_SHORT)){
+      // Asigna los valores para los typo Short
+      this.form.get('games.r').setValue(sumaR.toFixed(2));
+      neto = sumaEntry-sumaExit;
+      this.form.get('games.neto').setValue(neto);
+      let netoCmm = neto-game.commission;
+      this.form.get('games.netoCmm').setValue(netoCmm);
+      let r = (netoCmm/sumaR).toFixed(2);
+      this.form.get('games.netoR').setValue(r);
+      let perCap = (neto/(sumaEntry-sumaMaxMov)).toFixed(2);
+      this.form.get('games.percentCaptured').setValue(perCap);
+    }
+
+    //Calcual el resultado dependiendo del neto ganado
+    if (neto>0){
+      this.form.get('games.result').setValue(Config.RESULT_POSITIVO);
+    }
+    else if((game.commission-neto)==game.commission){
+      this.form.get('games.result').setValue(Config.RESULT_BREAKEVEN);
+    }
+    else{
+      this.form.get('games.result').setValue(Config.RESULT_NEGATIVO);
+    }
+
+    //Define el estado del juego
+    if (quantityEntry > quantityExit) {
+      this.form.get('games.status').setValue(Config.STATUS_OPEN);
+    }
+    else if (quantityEntry == quantityExit){
+      this.form.get('games.status').setValue(Config.STATUS_CLOSED);
+    }
+  }
 
   /*private calcuteValues():Games {
     const games:Games = this.form.value.games;
