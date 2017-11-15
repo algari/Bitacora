@@ -8,7 +8,6 @@ import {SelectItem} from 'primeng/primeng';
 import {StrategiesService} from "../../services/strategies.service";
 import {Strategies} from "../../../common/models/strategies.model";
 import { AuthenticationService } from '../../../public/services/authentication.service';
-import {PriceValidator} from "../priceValidator";
 import * as moment from 'moment';
 import { Tag } from '../../../common/models/tag';
 import { Entry } from '../../../common/models/entry.model';
@@ -241,6 +240,8 @@ export class NewGameComponent implements OnInit {
   }
 
   private createGame() {
+    //Cambia el formato de las fechas
+    
     this._gameService.create(this.form.value.games).subscribe(
       (game: Games) => {
         setTimeout(() => {
@@ -258,8 +259,7 @@ export class NewGameComponent implements OnInit {
   }
 
   private editGame() {
-    /*let games:Games = this.calcuteValues();
-    this._gameService.update(games).subscribe(
+    this._gameService.update(this.form.value.games).subscribe(
       (game: Games) => {
         setTimeout(() => {
           this._router.navigate(['/private/games']);
@@ -272,7 +272,7 @@ export class NewGameComponent implements OnInit {
       () => {
         console.log('Finished editGame');
       }
-    );*/
+    );
   }
 
   private loadEditGame(id: number) {
@@ -301,8 +301,8 @@ export class NewGameComponent implements OnInit {
         //entries
         game.entries.forEach((item:Entry, i) => {
           let entryForm = this._formBuilder.group({
-            date:[moment(item.date).format('L'),Validators.required],
-            time: [moment(item.time).format('LT'),Validators.required],
+            date:[new Date(item.date),Validators.required],
+            time: [new Date(item.time),Validators.required],
             quantity: [item.quantity,Validators.required],
             price: [item.price,Validators.required],
             stopLoss: [item.stopLoss,Validators.required],
@@ -313,8 +313,8 @@ export class NewGameComponent implements OnInit {
         //exits
         game.exits.forEach((item:Exit, i) => {
           let exitForm = this._formBuilder.group({
-            date:[moment(item.date).format('L')],
-            time: [moment(item.time).format('LT')],
+            date:[new Date(item.date)],
+            time: [new Date(item.time)],
             quantity: [item.quantity],
             price: [item.price],
           });
