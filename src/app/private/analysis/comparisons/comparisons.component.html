@@ -1,0 +1,47 @@
+<div *ngIf="isLoading; else elseBlock">
+  <div class="auth-loader-container">
+    <app-loader></app-loader>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <div class="container">
+    <div class="row">
+        <fieldset>
+            <legend>Dirección</legend>
+            <p-chart type="bar" [data]="data"></p-chart>
+        </fieldset>    
+    </div>
+    <!-- <div class="row">
+        <fieldset>
+            <legend>Dia de la Semana</legend>
+            <p-chart type="bar" [data]="data"></p-chart>
+        </fieldset>    
+    </div>
+    <div class="row">
+        <fieldset>
+            <legend>Primer Entrada del Dia</legend>
+            <p-chart type="bar" [data]="data"></p-chart>
+        </fieldset>    
+    </div>
+    <div class="row">
+        <fieldset>
+            <legend>Marco de Tiempo</legend>
+            <p-chart type="bar" [data]="data"></p-chart>
+        </fieldset>    
+    </div>
+    <div class="row">
+        <fieldset>
+            <legend>Estrategia</legend>
+            <p-chart type="bar" [data]="data"></p-chart>
+        </fieldset>    
+    </div>
+    <div class="row">
+        <fieldset>
+            <legend>Fuente</legend>
+            <p-chart type="bar" [data]="data"></p-chart>
+        </fieldset>    
+    </div> -->
+  </div>
+
+
+</ng-template>

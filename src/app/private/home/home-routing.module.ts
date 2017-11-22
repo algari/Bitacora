@@ -23,6 +23,10 @@ const routes: Routes = [
   {
     path: 'tags', loadChildren:'./../tags/tags.module#TagsModule',
     data: { name: 'Tags' }, canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'analysis', loadChildren:'./../analysis/analysis.module#AnalysisModule',
+    data: { name: 'Analysis' }, canActivate: [ AuthGuard ]
   }
 ];
 

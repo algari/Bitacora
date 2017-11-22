@@ -73,19 +73,19 @@ export class NewGameComponent implements OnInit {
     });
   }
 
-  types:SelectItem[];
+  types:SelectItem[] = Config.TYPES;
 
-  timeFrames:SelectItem[];
+  timeFrames:SelectItem[] = Config.TIME_FRAMES;
+
+  followed:SelectItem[] = Config.FOLLOWED;
 
   strategies:SelectItem[];
 
   sources:SelectItem[];
 
-  followed:SelectItem[];
-
-  edit:boolean = false;
-
   tags:SelectItem[];
+  
+  edit:boolean = false;
 
   constructor( private _formBuilder: FormBuilder,
                private _gameService: GamesService,
@@ -97,30 +97,6 @@ export class NewGameComponent implements OnInit {
                private _tagService:TagService,
   )
   {
-    this.types = [
-      {label:'Select', value:null},
-      {label:'Long', value:'Long'},
-      {label:'Short', value:'Short'},
-      {label:'Call', value:'Call'},
-      {label:'Put', value:'Put'}
-    ];
-
-    this.timeFrames = [
-      {label:'Select', value:null},
-      {label:'1 Minuto', value:'1M'},
-      {label:'2 Minutos', value:'2M'},
-      {label:'5 Minutos', value:'5M'},
-      {label:'15 Minutos', value:'15M'},
-      {label:'1 Hora', value:'1H'},
-      {label:'1 Dia', value:'1D'},
-      {label:'1 Semana', value:'1W'}
-    ];
-
-    this.followed = [
-      {label:'NO', value:'NO'},
-      {label:'SI', value:'SI'},
-    ];
-
     this.loadStrategies();
     this.loadSources();
     this.loadTags();

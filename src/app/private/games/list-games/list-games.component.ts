@@ -43,7 +43,11 @@ export class ListGamesComponent implements OnInit {
   }
 
   getAllGames() {
-    this._gameService.getAllByUsername(this._authS.user.username).subscribe(
+    this._gameService.getAllByUsername(this._authS.user.username, 
+      // moment('10/01/2017').format('L'),
+      // moment('11/22/2017').format('L')
+    )
+    .subscribe(
       (data: Games[]) => {
         //next
         this.games = data
