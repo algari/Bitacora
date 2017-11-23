@@ -54,18 +54,32 @@
             </div>
         </fieldset>    
     </div>
-    <!-- <div class="row">
+    <div class="row">
         <fieldset>
             <legend>Estrategia</legend>
-            <p-chart type="bar" [data]="data"></p-chart>
+            <div class="col-md-6">
+                    <legend>R</legend>
+                    <p-chart type="bar" [data]="dataStrategyR"></p-chart>
+                </div>
+               <div class="col-md-6">
+                    <legend>$</legend>
+                    <p-chart type="bar" [data]="dataStrategyPL"></p-chart>
+                </div>
         </fieldset>    
     </div>
     <div class="row">
         <fieldset>
             <legend>Fuente</legend>
-            <p-chart type="bar" [data]="data"></p-chart>
+            <div class="col-md-6">
+                    <legend>R</legend>
+                    <p-chart type="bar" [data]="dataSourceR"></p-chart>
+                </div>
+               <div class="col-md-6">
+                    <legend>$</legend>
+                    <p-chart type="bar" [data]="dataSourcePL"></p-chart>
+                </div>
         </fieldset>    
-    </div> -->
+    </div> 
   </div>
 
 

@@ -3,6 +3,10 @@ import { AuthenticationService } from '../../../public/services/authentication.s
 import { GamesService } from '../../services/games.service';
 import { Games } from "../../../common/models/games.model";
 import {Config} from "../../../common/config";
+import { SourcesService } from '../../services/sources.service';
+import { StrategiesService } from '../../services/strategies.service';
+import { Sources } from '../../../common/models/sources.model';
+import { Strategies } from '../../../common/models/strategies.model';
 
 @Component({
   selector: 'app-comparisons',
@@ -21,8 +25,16 @@ export class ComparisonsComponent implements OnInit {
   dataTimeFrameR:any = {};
   dataTimeFramePL:any = {};
 
+  dataSourceR:any = {};
+  dataSourcePL:any = {};
+
+  dataStrategyR:any ={};
+  dataStrategyPL:any ={};
+
   constructor(private _gameService: GamesService,
-    private _authS: AuthenticationService) {
+    private _authS: AuthenticationService,
+    private _sourceS: SourcesService,
+    private _stratS: StrategiesService) {
 
   }
 
@@ -57,10 +69,116 @@ export class ComparisonsComponent implements OnInit {
   }
 
   chartSource(games: Array<Games>){
+    let labels = [];
+    let dataR = [];
+    let dataPL = [];
+
+    this._sourceS.getAllByUsername(this._authS.user.username).subscribe(
+      (data: Sources[]) => {
+        data.forEach(source => {
+          let contR = 0;
+          let contPL = 0;
+          for (var index = 0; index < games.length; index++) {
+            var game = games[index];
+            if (game.source == source.source) {
+              contR += game.netoR;
+              contPL += game.netoCmm;
+            }
+          }
+          labels.push(source.source)
+          dataR.push(contR);
+          dataPL.push(contPL);
+        });
+
+        this.dataSourceR = {
+          labels: labels,
+          datasets: [
+              {
+                  label: 'Fuente',
+                  backgroundColor: '#42A5F5',
+                  borderColor: '#1E88E5',
+                  data: dataR
+              }
+          ]
+        }
+    
+        this.dataSourcePL = {
+          labels: labels,
+          datasets: [
+              {
+                  label: 'Fuente',
+                  backgroundColor: '#42A5F5',
+                  borderColor: '#1E88E5',
+                  data: dataPL
+              }
+          ]
+        }
+      },
+      err => {
+        console.error(err);
+      },
+      () => {
+        console.log('Finished getAllSources');
+
+      }
+   )
 
   }
 
   chartStrategy(games: Array<Games>){
+    let labels = [];
+    let dataR = [];
+    let dataPL = [];
+
+    this._stratS.getAllByUsername(this._authS.user.username).subscribe(
+      (data: Strategies[]) => {
+        data.forEach(strat => {
+          let contR = 0;
+          let contPL = 0;
+          for (var index = 0; index < games.length; index++) {
+            var game = games[index];
+            if (game.strategy == strat.strategy) {
+              contR += game.netoR;
+              contPL += game.netoCmm;
+            }
+          }
+          labels.push(strat.strategy)
+          dataR.push(contR);
+          dataPL.push(contPL);
+        });
+
+        this.dataStrategyR = {
+          labels: labels,
+          datasets: [
+              {
+                  label: 'Estrategia',
+                  backgroundColor: '#42A5F5',
+                  borderColor: '#1E88E5',
+                  data: dataR
+              }
+          ]
+        }
+    
+        this.dataStrategyPL = {
+          labels: labels,
+          datasets: [
+              {
+                  label: 'Estrategia',
+                  backgroundColor: '#42A5F5',
+                  borderColor: '#1E88E5',
+                  data: dataPL
+              }
+          ]
+        }
+      },
+      err => {
+        console.error(err);
+      },
+      () => {
+        console.log('Finished getAllStrategies');
+
+      }
+   )
 
   }
 

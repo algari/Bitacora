@@ -31,7 +31,7 @@ export class ListSourcesComponent implements OnInit {
         console.error(err);
       },
       () => {
-        console.log('Finished getAllGames');
+        console.log('Finished getAllSources');
 
       }
     )
