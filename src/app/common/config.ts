@@ -8,8 +8,6 @@ export const Config = {
 
   TYPE_LONG:'Long',
   TYPE_SHORT:'Short',
-  TYPE_CALL:'Call',
-  TYPE_PUT:'Put',
 
   STATUS_CLOSED : 'Closed',
   STATUS_OPEN : 'Open',

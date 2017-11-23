@@ -345,7 +345,9 @@ export class NewGameComponent implements OnInit {
 
 
     let neto = 0;
-    if(game.type!=null && (game.type.toString()==Config.TYPE_LONG || game.type.toString()==Config.TYPE_CALL || game.type.toString()==Config.TYPE_PUT)){
+    if(game.type!=null && (game.type.toString()==Config.TYPE_LONG 
+    //|| game.type.toString()==Config.TYPE_CALL || game.type.toString()==Config.TYPE_PUT
+    )){
       // Asigna los valores para los typo Long, Call y put
       this.form.get('games.r').setValue(sumaR.toFixed(2));
       neto = sumaExit-sumaEntry;

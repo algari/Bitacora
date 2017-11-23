@@ -8,28 +8,53 @@
     <div class="row">
         <fieldset>
             <legend>Dirección</legend>
-            <p-chart type="bar" [data]="data"></p-chart>
+            <div class="col-md-4">
+                <legend>Cantidad</legend>
+                <p-chart type="bar" [data]="dataDirection"></p-chart>
+            </div>
+            <div class="col-md-4">
+                <legend>R</legend>
+                <p-chart type="bar" [data]="dataDirectionR"></p-chart>
+            </div>
+            <div class="col-md-4">
+                <legend>$</legend>
+                <p-chart type="bar" [data]="dataDirectionPL"></p-chart>
+            </div>
         </fieldset>    
     </div>
     <!-- <div class="row">
         <fieldset>
             <legend>Dia de la Semana</legend>
-            <p-chart type="bar" [data]="data"></p-chart>
+            <div class="col-md-6">
+                <legend>R</legend>
+                <p-chart type="bar" [data]="dataDirection"></p-chart>
+            </div>
+            <div class="col-md-6">
+                <legend>$</legend>
+                <p-chart type="bar" [data]="dataDirection"></p-chart>
+            </div>
         </fieldset>    
-    </div>
-    <div class="row">
+    </div> -->
+    <!-- <div class="row">
         <fieldset>
             <legend>Primer Entrada del Dia</legend>
             <p-chart type="bar" [data]="data"></p-chart>
         </fieldset>    
-    </div>
+    </div> -->
     <div class="row">
         <fieldset>
             <legend>Marco de Tiempo</legend>
-            <p-chart type="bar" [data]="data"></p-chart>
+            <div class="col-md-6">
+                <legend>R</legend>
+                <p-chart type="bar" [data]="dataTimeFrameR"></p-chart>
+            </div>
+           <div class="col-md-6">
+                <legend>$</legend>
+                <p-chart type="bar" [data]="dataTimeFramePL"></p-chart>
+            </div>
         </fieldset>    
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <fieldset>
             <legend>Estrategia</legend>
             <p-chart type="bar" [data]="data"></p-chart>
