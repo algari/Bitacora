@@ -7,6 +7,7 @@ import { SourcesService } from '../../services/sources.service';
 import { StrategiesService } from '../../services/strategies.service';
 import { Sources } from '../../../common/models/sources.model';
 import { Strategies } from '../../../common/models/strategies.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-comparisons',
@@ -30,6 +31,9 @@ export class ComparisonsComponent implements OnInit {
 
   dataStrategyR:any ={};
   dataStrategyPL:any ={};
+
+  dataDayWeekR:any ={}
+  dataDayWeekPL:any ={}
 
   constructor(private _gameService: GamesService,
     private _authS: AuthenticationService,
@@ -232,18 +236,47 @@ export class ComparisonsComponent implements OnInit {
   }
 
   chartDayWeek(games: Array<Games>){
-    // this.dataTimeFramePL = {
-    //   labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-    //   datasets: [
-    //       {
-    //           label: 'Dias',
-    //           backgroundColor: '#42A5F5',
-    //           borderColor: '#1E88E5',
-    //           data: [65, 59, 80, 81, 56, 90, 98]
-    //       }
-    //   ]
-    // }
+    let labels = [];
+    let dataR = [];
+    let dataPL = [];
+    Config.DAYS_WEEK.forEach(day => {
+      let contR = 0;
+      let contPL = 0;
+      games.forEach(game => {
+        if (moment(game.entries[0].date).format('dddd')==day.value) {
+          contR += game.netoR;
+          contPL += game.netoCmm;
+        }
+      });
+      labels.push(day.label)
+      dataR.push(contR);
+      dataPL.push(contPL);
+          
+    });
+    
+    this.dataDayWeekR = {
+      labels: labels,
+      datasets: [
+          {
+              label: 'Dia de la Semana',
+              backgroundColor: '#42A5F5',
+              borderColor: '#1E88E5',
+              data: dataR
+          }
+      ]
+    }
 
+    this.dataDayWeekPL = {
+      labels: labels,
+      datasets: [
+          {
+              label: 'Dia de la Semana',
+              backgroundColor: '#42A5F5',
+              borderColor: '#1E88E5',
+              data: dataPL
+          }
+      ]
+    }
   }
 
   chartDirection(games: Array<Games>) {
@@ -257,14 +290,14 @@ export class ComparisonsComponent implements OnInit {
 
       let rLong:number = 0;
       let rShort:number = 0;
-
+      
       games.forEach(game => {
         if (game.type == Config.TYPE_LONG) {
           cantLong +=1;
           plLong += game.netoCmm;
           rLong += game.netoR;
 
-        }else if (game.type == Config.TYPE_LONG){
+        }else if (game.type == Config.TYPE_SHORT){
           cantShort +=1;
           plShort += game.netoCmm;
           rShort += game.netoR;
@@ -272,6 +305,7 @@ export class ComparisonsComponent implements OnInit {
       });
       
       this.dataDirection = {
+        labels: ['Long', 'Short'],
         datasets: [
           {
             label: 'Long',
@@ -289,6 +323,7 @@ export class ComparisonsComponent implements OnInit {
       }
 
       this.dataDirectionR = {
+        labels: ['Long', 'Short'],
         datasets: [
           {
             label: 'Long',
@@ -306,6 +341,7 @@ export class ComparisonsComponent implements OnInit {
       }
 
       this.dataDirectionPL = {
+        labels: ['Long', 'Short'],
         datasets: [
           {
             label: 'Long',

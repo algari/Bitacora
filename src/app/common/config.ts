@@ -34,4 +34,14 @@ export const Config = {
     {label:'SI', value:'SI'},
   ],
 
+  DAYS_WEEK : [
+    {label:'Lunes', value:'Monday'},
+    {label:'Martes', value:'Tuesday'},
+    {label:'Miercoles', value:'Wednesday'},
+    {label:'Jueves', value:'Thursday'},
+    {label:'Viernes', value:'Friday'},
+    {label:'Sabado', value:'Saturday'},
+    {label:'Domingo', value:'Sunday'}
+  ],
+
 };

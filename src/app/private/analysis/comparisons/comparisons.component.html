@@ -5,7 +5,7 @@
 </div>
 <ng-template #elseBlock>
   <div class="container">
-    <div class="row">
+    <div class="row well">
         <fieldset>
             <legend>Dirección</legend>
             <div class="col-md-4">
@@ -22,26 +22,33 @@
             </div>
         </fieldset>    
     </div>
-    <!-- <div class="row">
+    <div class="row well">
         <fieldset>
             <legend>Dia de la Semana</legend>
             <div class="col-md-6">
                 <legend>R</legend>
-                <p-chart type="bar" [data]="dataDirection"></p-chart>
+                <p-chart type="bar" [data]="dataDayWeekR"></p-chart>
             </div>
             <div class="col-md-6">
                 <legend>$</legend>
-                <p-chart type="bar" [data]="dataDirection"></p-chart>
+                <p-chart type="bar" [data]="dataDayWeekPL"></p-chart>
             </div>
         </fieldset>    
-    </div> -->
+    </div>
     <!-- <div class="row">
         <fieldset>
             <legend>Primer Entrada del Dia</legend>
-            <p-chart type="bar" [data]="data"></p-chart>
+            <div class="col-md-6">
+                <legend>R</legend>
+                <p-chart type="bar" [data]="dataTimeFrameR"></p-chart>
+            </div>
+           <div class="col-md-6">
+                <legend>$</legend>
+                <p-chart type="bar" [data]="dataTimeFramePL"></p-chart>
+            </div>
         </fieldset>    
     </div> -->
-    <div class="row">
+    <div class="row well">
         <fieldset>
             <legend>Marco de Tiempo</legend>
             <div class="col-md-6">
@@ -54,7 +61,7 @@
             </div>
         </fieldset>    
     </div>
-    <div class="row">
+    <div class="row well">
         <fieldset>
             <legend>Estrategia</legend>
             <div class="col-md-6">
@@ -67,7 +74,7 @@
                 </div>
         </fieldset>    
     </div>
-    <div class="row">
+    <div class="row well">
         <fieldset>
             <legend>Fuente</legend>
             <div class="col-md-6">
