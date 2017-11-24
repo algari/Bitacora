@@ -77,8 +77,26 @@
                 <span>{{g.entries[0].date|moment:'MM/DD/YYYY'}}</span>
             </ng-template>
         </p-column>
-        <p-column field="neto" header="Neto"></p-column>
-        <p-column field="netoCmm"  header="NetoCmm"></p-column>
+        <p-column field="neto" header="Neto">
+            <ng-template let-col let-g="rowData" pTemplate="body">
+                <span>{{ g[col.field]  | number}}</span>
+            </ng-template>
+        </p-column>
+        <p-column field="netoCmm"  header="NetoCmm">
+            <ng-template let-col let-g="rowData" pTemplate="body">
+                <span>{{ g[col.field]  | number}}</span>
+            </ng-template>
+        </p-column>
+        <p-column field="netoR"  header="R">
+            <ng-template let-col let-g="rowData" pTemplate="body">
+                <span>{{ g[col.field]  | number}}</span>
+            </ng-template>
+        </p-column>
+        <p-column field="r"  header="Riesgo">
+            <ng-template let-col let-g="rowData" pTemplate="body">
+                <span>{{ g[col.field]  | number}}</span>
+            </ng-template>
+        </p-column>
         <p-column field="status" header="Status"></p-column>
         <p-column field="" header="Actions">
           <ng-template let-col let-g="rowData" pTemplate="body">

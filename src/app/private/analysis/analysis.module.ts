@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AnalysisRoutingModule } from './analysis-routing.module';
 import {ChartModule} from "primeng/components/chart/chart";
 import { SharedModule } from '../../common/shared.module';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { SharedModule } from '../../common/shared.module';
     SharedModule,
   ],
   declarations: [
-    ComparisonsComponent
+    ComparisonsComponent,
+    SummaryComponent
   ],
   exports:[
     ComparisonsComponent

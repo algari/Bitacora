@@ -16,7 +16,6 @@ import * as moment from 'moment';
 })
 export class ComparisonsComponent implements OnInit {
 
-  games: Array<Games> = new Array<Games>();
   isLoading = true;
 
   dataDirection: any = {};
@@ -47,7 +46,7 @@ export class ComparisonsComponent implements OnInit {
   }
 
   getAllGames() {
-    return this._gameService.getAllByUsername(this._authS.user.username)
+    this._gameService.getAllByUsername(this._authS.user.username)
       .subscribe(
       (data: Games[]) => {
         this.chartDirection(data);
@@ -60,7 +59,6 @@ export class ComparisonsComponent implements OnInit {
 
         this.chartSource(data);
         this.isLoading = false;
-        return data;
       },
       err => {
         console.error(err);

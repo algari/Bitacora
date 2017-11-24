@@ -1,0 +1,61 @@
+<div *ngIf="isLoading; else elseBlock">
+  <div class="auth-loader-container">
+    <app-loader></app-loader>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <div class="container">
+    <div class="row ">
+        <fieldset>
+            <div class="col-md-4">
+                <legend>Resumen</legend>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="badge">{{overview.numberTrades | number}}</span>
+                    Numero de Trades
+                    <br/>
+                    <span class="badge">{{overview.averageTradesDay | number}}</span>
+                    Porcentaje de Trades por dia
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">$ {{overview.profit | number}}</span>
+                    Beneficio Bruto
+                    <br/>
+                    <span class="badge">$ {{overview.commission | number}}</span>
+                    Comisiones
+                    <br/>
+                    <span class="badge">$ {{overview.neto | number}}</span>
+                    Beneficio Neto
+                    <br/>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">{{overview.netoR | number}}</span>
+                    Neto Beneficio R
+                    <br/>
+                    <span class="badge">$ {{overview.risk | number}}</span>
+                    Total Riesgo
+                    <br/>
+                    <span class="badge">$ {{overview.averageR | number}}</span>
+                    Porcentaje Riesgo por Trade
+                    <br/>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">{{overview.averageTradesDay}}</span>
+                    Promedio de Bateo
+                    <br/>
+                    <span class="badge">{{overview.averageTradesDay}}</span>
+                    Ratio $
+                    <br/>
+                  </li>
+                </ul>
+                <hr/>
+            </div>
+            <div class="col-md-8 well">
+                <p-chart type="bar" [data]="dataSummary"></p-chart>
+            </div>
+        </fieldset>    
+    </div>
+  </div>
+
+
+</ng-template>
