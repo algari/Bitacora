@@ -84,7 +84,7 @@ export class NewGameComponent implements OnInit {
   sources:SelectItem[];
 
   tags:SelectItem[];
-  
+
   edit:boolean = false;
 
   constructor( private _formBuilder: FormBuilder,
@@ -217,7 +217,7 @@ export class NewGameComponent implements OnInit {
 
   private createGame() {
     //Cambia el formato de las fechas
-    
+
     this._gameService.create(this.form.value.games).subscribe(
       (game: Games) => {
         setTimeout(() => {
@@ -273,7 +273,7 @@ export class NewGameComponent implements OnInit {
         this.form.get('games.chart').setValue(game.chart);
         this.form.get('games.maxMove').setValue(game.maxMove);
         this.form.get('games.tags').setValue(game.tags);
-        
+
         //entries
         game.entries.forEach((item:Entry, i) => {
           let entryForm = this._formBuilder.group({
@@ -285,7 +285,7 @@ export class NewGameComponent implements OnInit {
           });
           this.entriesFormArray.setControl(i,entryForm);
         });
-        
+
         //exits
         game.exits.forEach((item:Exit, i) => {
           let exitForm = this._formBuilder.group({
@@ -296,7 +296,7 @@ export class NewGameComponent implements OnInit {
           });
           this.exitsFormArray.setControl(i,exitForm);
         });
-        
+
         this.form.get('games.status').setValue(game.status);
 
       },
@@ -310,24 +310,30 @@ export class NewGameComponent implements OnInit {
     );
   }
 
-  
+
   loadResumen(){
     let game:Games = this.form.value.games;
-    
+
     let sumaR = 0,riesgo=0;
     let sumaEntry =0, netoEntry = 0;
     let sumaExit =0, netoExit = 0;
     let sumaMaxMov = 0, maxMov = 0;
     let quantityEntry = 0, quantityExit = 0;
     game.entries.forEach(entry => {
-      //Calcula Riesgo
-      riesgo =  (entry.price - entry.stopLoss)*entry.quantity;
+      if(game.type!=null && (game.type.toString()==Config.TYPE_LONG)){
+        //Calcula Riesgo
+        riesgo =  (entry.price - entry.stopLoss)*entry.quantity;
+      }else if(game.type!=null && (game.type.toString()==Config.TYPE_SHORT)){
+        //Calcula Riesgo
+        riesgo =  (entry.stopLoss - entry.price)*entry.quantity;
+      }
+
       sumaR += riesgo;
       //Calcula entrada
       netoEntry = entry.quantity * entry.price;
       sumaEntry += netoEntry;
       //Cantidad de compra/venta
-      quantityEntry +=entry.quantity; 
+      quantityEntry +=entry.quantity;
     });
 
     game.exits.forEach(exit => {
@@ -340,36 +346,36 @@ export class NewGameComponent implements OnInit {
       sumaMaxMov += maxMov;
 
       //Cantidad de compra/venta
-      quantityExit +=exit.quantity; 
+      quantityExit +=exit.quantity;
     });
 
 
     let neto = 0;
-    if(game.type!=null && (game.type.toString()==Config.TYPE_LONG 
+    if(game.type!=null && (game.type.toString()==Config.TYPE_LONG
     //|| game.type.toString()==Config.TYPE_CALL || game.type.toString()==Config.TYPE_PUT
     )){
       // Asigna los valores para los typo Long, Call y put
-      this.form.get('games.r').setValue(sumaR.toFixed(2));
+      this.form.get('games.r').setValue(sumaR);
       neto = sumaExit-sumaEntry;
       this.form.get('games.neto').setValue(neto);
       let netoCmm = neto-game.commission;
       this.form.get('games.netoCmm').setValue(netoCmm);
-      let r = (netoCmm/sumaR).toFixed(2);
-      this.form.get('games.netoR').setValue(r);
-      let perCap = (neto/(sumaMaxMov-sumaEntry)).toFixed(2);
-      this.form.get('games.percentCaptured').setValue(perCap);
-    }  
+      let r = (netoCmm/sumaR);
+      this.form.get('games.netoR').setValue(isNaN(r)?0:r);
+      let perCap = (neto/(sumaMaxMov-sumaEntry));
+      this.form.get('games.percentCaptured').setValue(isNaN(perCap)?0:perCap);
+    }
     else if(game.type!=null && (game.type.toString()==Config.TYPE_SHORT)){
       // Asigna los valores para los typo Short
-      this.form.get('games.r').setValue(sumaR.toFixed(2));
+      this.form.get('games.r').setValue(sumaR);
       neto = sumaEntry-sumaExit;
       this.form.get('games.neto').setValue(neto);
       let netoCmm = neto-game.commission;
       this.form.get('games.netoCmm').setValue(netoCmm);
-      let r = (netoCmm/sumaR).toFixed(2);
-      this.form.get('games.netoR').setValue(r);
-      let perCap = (neto/(sumaEntry-sumaMaxMov)).toFixed(2);
-      this.form.get('games.percentCaptured').setValue(perCap);
+      let r = (netoCmm/sumaR);
+      this.form.get('games.netoR').setValue(isNaN(r)?0:r);
+      let perCap = (neto/(sumaEntry-sumaMaxMov));
+      this.form.get('games.percentCaptured').setValue(isNaN(perCap) || perCap< 0 ? 0 : perCap);
     }
 
     //Calcual el resultado dependiendo del neto ganado

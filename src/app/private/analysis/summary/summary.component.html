@@ -14,8 +14,8 @@
                     <span class="badge">{{overview.numberTrades | number}}</span>
                     Numero de Trades
                     <br/>
-                    <span class="badge">{{overview.averageTradesDay | number}}</span>
-                    Porcentaje de Trades por dia
+                    <span class="badge">{{overview.numberTradesDay }}</span>
+                    Numero de Trades por dia
                   </li>
                   <li class="list-group-item">
                     <span class="badge">$ {{overview.profit | number}}</span>
@@ -40,20 +40,81 @@
                     <br/>
                   </li>
                   <li class="list-group-item">
-                    <span class="badge">{{overview.averageTradesDay}}</span>
-                    Promedio de Bateo
+                    <span class="badge">{{overview.battingAverage | number}} %</span>
+                    Efectividad
                     <br/>
-                    <span class="badge">{{overview.averageTradesDay}}</span>
-                    Ratio $
+                    <span class="badge">{{overview.sharpeRatio | number}}</span>
+                    Promedio de Bateo
                     <br/>
                   </li>
                 </ul>
-                <hr/>
+                <!--<hr/>-->
             </div>
             <div class="col-md-8 well">
-                <p-chart type="bar" [data]="dataSummary"></p-chart>
+                <p-chart type="line" [data]="dataOverviewR"></p-chart>
             </div>
-        </fieldset>    
+        </fieldset>
+    </div>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-8 well">
+        <p-chart type="line" [data]="dataOverviewPL"></p-chart>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <legend>Ganadores</legend>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="badge">{{winnersLosers.numberTradesW | number}}</span>
+            Numero de Trades Ganados
+            <br/>
+            <span class="badge">$ {{winnersLosers.netoWinPL | number}}</span>
+            Neto Ganado
+            <br/>
+            <span class="badge">$ {{winnersLosers.averageWinPL | number}}</span>
+            Promedio Ganado
+            <br/>
+            <span class="badge">{{winnersLosers.netoWinR | number}}</span>
+            Neto Ganado R
+            <br/>
+            <span class="badge">{{winnersLosers.averageWinR | number}}</span>
+            Promedio Ganado R
+            <br/>
+            <span class="badge">$ {{winnersLosers.commissionsW | number}}</span>
+            Comisión
+        </li>
+          <legend>Perdedores</legend>
+          <li class="list-group-item">
+            <span class="badge">{{winnersLosers.numberTradesL | number}}</span>
+            Numero de Trades Perdidos
+            <br/>
+            <span class="badge">$ {{winnersLosers.netoLostPL | number}}</span>
+            Neto Perdido
+            <br/>
+            <span class="badge">$ {{winnersLosers.averageLostPL | number}}</span>
+            Promedio Perdido
+            <br/>
+            <span class="badge">{{winnersLosers.netoLostR | number}}</span>
+            Neto Perdido R
+            <br/>
+            <span class="badge">{{winnersLosers.averageLostR | number}}</span>
+            Promedio Perdido R
+            <br/>
+            <span class="badge">$ {{winnersLosers.commissionsL | number}}</span>
+            Comisión
+          </li>
+          <legend>Break Even</legend>
+          <li class="list-group-item">
+            <span class="badge">$ {{winnersLosers.commissionsB | number}}</span>
+            Comisión
+          </li>
+        </ul>
+
+      </div>
+      <div class="col-md-8 well">
+        <p-chart type="doughnut" [data]="dataWinnersLosers"></p-chart>
+      </div>
     </div>
   </div>
 

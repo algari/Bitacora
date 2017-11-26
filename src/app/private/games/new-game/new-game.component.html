@@ -276,11 +276,11 @@
               <div class="card text-white bg-primary">
                 <div class="card-body">
                   <blockquote class="card-blockquote">
-                    <p>Riesgo: {{form.get('games.r').value}}</p>  
-                    <p>Neto: {{form.get('games.neto').value}}</p>
-                    <p>NetoCmm: {{form.get('games.netoCmm').value}} </p>
-                    <p>R: {{form.get('games.netoR').value}}</p>
-                    <p>% Capturado: {{form.get('games.percentCaptured').value}}</p>
+                    <p>Riesgo: {{form.get('games.r').value | number}}</p>
+                    <p>Neto: {{form.get('games.neto').value | number}}</p>
+                    <p>NetoCmm: {{form.get('games.netoCmm').value | number}} </p>
+                    <p>R: {{form.get('games.netoR').value | number}}</p>
+                    <p>% Capturado: {{form.get('games.percentCaptured').value | number}}</p>
                   </blockquote>
                 </div>
               </div>
@@ -296,14 +296,14 @@
       <div class="form-group margin-top-sm">
         <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Guardar
           <div *ngIf="form.invalid;then loadResumen()">
-          </div>  
+          </div>
         </button>
         <button routerLink="/private/games" class="btn btn-primary" title="Regresar">Regresar
         </button>
       </div>
-      <pre>
+      <!--<pre>
         {{ form.value | json }}
-      </pre>
+      </pre>-->
     </form>
 
   </div>
