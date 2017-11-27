@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ComparisonsComponent } from './comparisons/comparisons.component';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { SummaryComponent } from './summary/summary.component';
+import { TagsComponent } from './tags/tags.component';
 
 const routes: Routes = [
   {
@@ -12,9 +13,9 @@ const routes: Routes = [
   {
     path: 'summary', component: SummaryComponent, canActivate: [ AuthGuard ]
   },
-  // {
-  //   path: 'edit/:id', component: NewTagComponent, canActivate: [ AuthGuard ]
-  // },
+  {
+    path: 'tags', component: TagsComponent, canActivate: [ AuthGuard ]
+  },
 ];
 @NgModule({
   imports: [

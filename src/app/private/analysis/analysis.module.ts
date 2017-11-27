@@ -7,6 +7,7 @@ import { AnalysisRoutingModule } from './analysis-routing.module';
 import {ChartModule} from "primeng/components/chart/chart";
 import { SharedModule } from '../../common/shared.module';
 import { SummaryComponent } from './summary/summary.component';
+import { TagsComponent } from './tags/tags.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { SummaryComponent } from './summary/summary.component';
   ],
   declarations: [
     ComparisonsComponent,
-    SummaryComponent
+    SummaryComponent,
+    TagsComponent
   ],
   exports:[
     ComparisonsComponent

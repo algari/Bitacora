@@ -57,15 +57,18 @@ export class SummaryComponent implements OnInit {
     let contN = 0;
     let contB = 0;
 
-    let netoWinPL = 0, netoWinR = 0,netoLostPL = 0, netoLostR = 0,commissionsW = 0, commissionsL = 0,commissionsB = 0;
+    let netoWinPL = 0, netoWinR = 0,netoLostPL = 0, netoLostR = 0,commissionsW = 0, 
+      commissionsL = 0,commissionsB = 0, brutoWinPL = 0, brutoLostPL = 0;
     games.forEach(game => {
       if (game.result==Config.RESULT_POSITIVO){
         contP += 1;
+        brutoWinPL += game.neto;
         netoWinPL += game.netoCmm;
         netoWinR += game.netoR;
         commissionsW += game.commission;
       }else if(game.result==Config.RESULT_NEGATIVO){
         contN += 1;
+        brutoLostPL += game.neto;
         netoLostPL += game.netoCmm;
         netoLostR += game.netoR;
         commissionsL += game.commission;
@@ -77,12 +80,14 @@ export class SummaryComponent implements OnInit {
     });
 
     this.winnersLosers.numberTradesW = contP;
+    this.winnersLosers.brutoWinPL = brutoWinPL;
     this.winnersLosers.netoWinPL = netoWinPL;
     this.winnersLosers.averageWinPL = netoWinPL/contP;
     this.winnersLosers.netoWinR = netoWinR;
     this.winnersLosers.averageWinR = netoWinR/contP;
     this.winnersLosers.commissionsW = commissionsW;
     this.winnersLosers.numberTradesL = contN;
+    this.winnersLosers.brutoLostPL = brutoLostPL;
     this.winnersLosers.netoLostPL = netoLostPL;
     this.winnersLosers.averageLostPL = netoLostPL/contN;
     this.winnersLosers.netoLostR = netoLostR;
