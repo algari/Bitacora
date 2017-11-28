@@ -1,3 +1,17 @@
-<p>
-  tags works!
-</p>
+<div *ngIf="isLoading; else elseBlock">
+  <div class="auth-loader-container">
+    <app-loader></app-loader>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <div class="container">
+    <div class="row ">
+        <fieldset>
+            <div class="col-md-12">
+                <legend>Etiquetas</legend>
+                <p-chart type="radar" [data]="dataTags"></p-chart>
+            </div>
+        </fieldset>
+    </div>
+  </div>
+</ng-template>                

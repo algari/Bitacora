@@ -23,7 +23,7 @@ export class Games {
   followed:string;
   chart:string;
   maxMove:number;
-  tags:Tag[];
+  tags:String[];
   entries:Entry[];
   exits:Exit[];
   status:string;

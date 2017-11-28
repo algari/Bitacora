@@ -115,44 +115,6 @@ export class SummaryComponent implements OnInit {
     };
   }
 
-  /*chartOverview(games: Array<Games>) {
-    let labels = [];
-    let dataR = [];
-    let dataPL = [];
-
-    games.forEach(game => {
-      if(game.status==Config.STATUS_CLOSED){
-        labels.push(moment(game.entries[0].date).format('L'))
-        dataR.push(game.netoCmm);
-        dataPL.push(game.netoR);
-      }
-    });
-
-    this.dataOverviewR = {
-      labels: labels,
-      datasets: [
-        {
-          label: 'Resumen R',
-          data: dataR,
-          fill: false,
-          borderColor: '#1E88E5'
-        }
-      ]
-    }
-
-    this.dataOverviewPL = {
-      labels: labels,
-      datasets: [
-        {
-          label: 'Resumen $',
-          data: dataPL,
-          fill: false,
-          borderColor: '#1E88E5'
-        }
-      ]
-    }
-  }*/
-
   chartOverview(games: Array<Games>) {
     if (games) {
 

@@ -8,6 +8,7 @@ import {ChartModule} from "primeng/components/chart/chart";
 import { SharedModule } from '../../common/shared.module';
 import { SummaryComponent } from './summary/summary.component';
 import { TagsComponent } from './tags/tags.component';
+import { TickerComponent } from './ticker/ticker.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { TagsComponent } from './tags/tags.component';
   declarations: [
     ComparisonsComponent,
     SummaryComponent,
-    TagsComponent
+    TagsComponent,
+    TickerComponent
   ],
   exports:[
     ComparisonsComponent

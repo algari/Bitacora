@@ -5,6 +5,7 @@ import { ComparisonsComponent } from './comparisons/comparisons.component';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { SummaryComponent } from './summary/summary.component';
 import { TagsComponent } from './tags/tags.component';
+import { TickerComponent } from './ticker/ticker.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'tags', component: TagsComponent, canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'ticker', component: TickerComponent, canActivate: [ AuthGuard ]
   },
 ];
 @NgModule({
