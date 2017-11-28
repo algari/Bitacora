@@ -26,9 +26,9 @@ export class ListGamesComponent implements OnInit {
     } )
   } );
 
-  constructor(private _formBuilder: FormBuilder,
-              private _gameService: GamesService,
-              private _authS: AuthenticationService
+  constructor(public _formBuilder: FormBuilder,
+              public _gameService: GamesService,
+              public _authS: AuthenticationService
   ) {
   }
 

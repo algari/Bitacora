@@ -16,10 +16,10 @@ export class NewSourceComponent implements OnInit {
   isLoading = true;
 
   constructor(
-    private _formBuilder: FormBuilder,
-    private _sourceService: SourcesService,
-    private _authS: AuthenticationService,
-    private _router: Router,
+    public _formBuilder: FormBuilder,
+    public _sourceService: SourcesService,
+    public _authS: AuthenticationService,
+    public _router: Router,
     public _activatedRoute: ActivatedRoute
   ) { }
 

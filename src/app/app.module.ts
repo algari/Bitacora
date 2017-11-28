@@ -14,6 +14,7 @@ import { AuthGuard } from './common/guards/auth.guard';
 import { AuthenticationService } from './public/services/authentication.service';
 import { HeaderComponent } from './common/header/header.component';
 import {NotFoundComponent} from "./common/not-found/not-found.component";
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {NotFoundComponent} from "./common/not-found/not-found.component";
     AuthenticationService,
     PublicGuard,
     AuthGuard,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

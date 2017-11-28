@@ -10,6 +10,9 @@ import { SummaryComponent } from './summary/summary.component';
 import { TagsComponent } from './tags/tags.component';
 import { TickerComponent } from './ticker/ticker.component';
 
+import {MessagesModule} from 'primeng/primeng';
+import {MessageModule} from 'primeng/primeng';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +21,9 @@ import { TickerComponent } from './ticker/ticker.component';
     AnalysisRoutingModule,
     ChartModule,
     SharedModule,
+
+    MessagesModule,
+    MessageModule
   ],
   declarations: [
     ComparisonsComponent,

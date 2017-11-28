@@ -15,10 +15,10 @@ export class NewStrategyComponent implements OnInit {
   edit:boolean = false;
 
   constructor(
-    private _formBuilder: FormBuilder,
-    private _strategyService: StrategiesService,
-    private _authS: AuthenticationService,
-    private _router: Router,
+    public _formBuilder: FormBuilder,
+    public _strategyService: StrategiesService,
+    public _authS: AuthenticationService,
+    public _router: Router,
     public _activatedRoute: ActivatedRoute
   ) { }
 

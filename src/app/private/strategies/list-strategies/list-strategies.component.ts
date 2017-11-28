@@ -13,8 +13,8 @@ export class ListStrategiesComponent implements OnInit {
   strategies: Array<Strategies>;
   isLoading = true;
 
-  constructor(private _authS: AuthenticationService,
-              private _straS:StrategiesService) { }
+  constructor(public _authS: AuthenticationService,
+    public _straS:StrategiesService) { }
 
   ngOnInit() {
     this.getAllStrategies();

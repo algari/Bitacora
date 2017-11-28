@@ -10,7 +10,7 @@ export class AnalysisService {
 
   apiBaseURL: string = Config.API_SERVER_URL;
 
-  constructor(public _http: HttpService, private _authService: AuthenticationService) {
+  constructor(public _http: HttpService, public _authService: AuthenticationService) {
   }
 
   strategiesAnalysis(date_in: string,date_out: string,username:string): Observable<StrategiesAnalysis> {

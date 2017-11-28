@@ -16,10 +16,10 @@ export class NewTagComponent implements OnInit {
   isLoading = true;
 
   constructor(
-    private _formBuilder: FormBuilder,
-    private _tagS: TagService,
-    private _authS: AuthenticationService,
-    private _router: Router,
+    public _formBuilder: FormBuilder,
+    public _tagS: TagService,
+    public _authS: AuthenticationService,
+    public _router: Router,
     public _activatedRoute: ActivatedRoute
   ) { }
 

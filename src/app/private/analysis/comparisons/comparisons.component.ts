@@ -34,10 +34,10 @@ export class ComparisonsComponent implements OnInit {
   dataDayWeekR:any ={}
   dataDayWeekPL:any ={}
 
-  constructor(private _gameService: GamesService,
-    private _authS: AuthenticationService,
-    private _sourceS: SourcesService,
-    private _stratS: StrategiesService) {
+  constructor(public _gameService: GamesService,
+    public _authS: AuthenticationService,
+    public _sourceS: SourcesService,
+    public _stratS: StrategiesService) {
 
   }
 

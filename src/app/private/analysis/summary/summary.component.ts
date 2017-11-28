@@ -24,8 +24,8 @@ export class SummaryComponent implements OnInit {
 
   dataWinnersLosers:any = {};
 
-  constructor(private _gameService: GamesService,
-    private _authS: AuthenticationService,) { }
+  constructor(public _gameService: GamesService,
+    public _authS: AuthenticationService,) { }
 
   ngOnInit() {
     this.getAllGames();

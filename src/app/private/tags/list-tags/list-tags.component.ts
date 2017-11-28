@@ -13,8 +13,8 @@ export class ListTagsComponent implements OnInit {
   tags: Array<Tag>;
   isLoading = true;
 
-  constructor(private _authS: AuthenticationService,
-              private _tagS:TagService) { }
+  constructor(public _authS: AuthenticationService,
+    public _tagS:TagService) { }
 
   ngOnInit() {
     this.getAllTag();

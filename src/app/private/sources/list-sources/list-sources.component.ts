@@ -13,8 +13,8 @@ export class ListSourcesComponent implements OnInit {
   sources: Array<Sources>;
   isLoading = true;
 
-  constructor(private _authS: AuthenticationService,
-              private _sourceS:SourcesService) { }
+  constructor(public _authS: AuthenticationService,
+    public _sourceS:SourcesService) { }
 
   ngOnInit() {
     this.getAllSources();

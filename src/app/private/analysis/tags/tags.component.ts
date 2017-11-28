@@ -18,9 +18,9 @@ export class TagsComponent implements OnInit {
 
   dataTags: any = {};
 
-  constructor(private _gameService: GamesService,
-    private _authS: AuthenticationService,
-    private _tagS: TagService) { }
+  constructor(public _gameService: GamesService,
+    public _authS: AuthenticationService,
+    public _tagS: TagService) { }
 
   ngOnInit() {
     this.getAllGames();
@@ -77,9 +77,6 @@ export class TagsComponent implements OnInit {
           dataP.push(contP);
           dataN.push(contN); 
         });
-        
-        console.log(dataP);
-        console.log(dataN);
         
         this.dataTags = {
           labels: label,

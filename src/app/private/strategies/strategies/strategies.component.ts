@@ -28,10 +28,10 @@ export class StrategiesComponent implements OnInit {
     } )
   } );
 
-  constructor(private _formBuilder: FormBuilder,
-              private _analysisService:AnalysisService,
-              private _authS: AuthenticationService,
-              private _gameService:GamesService) {
+  constructor(public _formBuilder: FormBuilder,
+    public _analysisService:AnalysisService,
+    public _authS: AuthenticationService,
+    public _gameService:GamesService) {
 
   }
 

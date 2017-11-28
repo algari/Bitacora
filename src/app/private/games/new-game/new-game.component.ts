@@ -15,6 +15,7 @@ import { Exit } from '../../../common/models/exit.model';
 import {SourcesService} from "../../services/sources.service";
 import {Sources} from "../../../common/models/sources.model";
 import { TagService } from '../../services/tag.service';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-new-game',
@@ -87,14 +88,15 @@ export class NewGameComponent implements OnInit {
 
   edit:boolean = false;
 
-  constructor( private _formBuilder: FormBuilder,
-               private _gameService: GamesService,
-               private _router: Router,
-               private _strategyService: StrategiesService,
-               private _authS: AuthenticationService,
+  constructor( public _formBuilder: FormBuilder,
+               public _gameService: GamesService,
+               public _router: Router,
+               public _strategyService: StrategiesService,
+               public _authS: AuthenticationService,
                public _activatedRoute: ActivatedRoute,
-               private _sourceService:SourcesService,
-               private _tagService:TagService,
+               public _sourceService:SourcesService,
+               public _tagService:TagService,
+               public messageService: MessageService
   )
   {
     this.loadStrategies();
