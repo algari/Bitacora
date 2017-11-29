@@ -7,7 +7,7 @@ import {Tag} from "./tag";
 export class Games {
   _id?:any;
   username:string;
-  symbol:string;
+  ticker:string;
   type:string;
   time_frame: string;
   strategy: string;
@@ -20,7 +20,8 @@ export class Games {
   r: number;
   netoR:number;
   percentCaptured:number;
-  followed:string;
+  aon:number;
+  aonr:number;
   chart:string;
   maxMove:number;
   tags:String[];

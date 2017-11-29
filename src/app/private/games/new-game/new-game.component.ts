@@ -28,7 +28,7 @@ export class NewGameComponent implements OnInit {
     games: this._formBuilder.group( {
       _id:[],
       username: [ this._authS.user.username],
-      symbol: [ , [ Validators.required] ],
+      ticker: [ , [ Validators.required] ],
       type: [,Validators.required],
       time_frame: [,Validators.required ],
       strategy: [, [ Validators.required] ],
@@ -41,9 +41,10 @@ export class NewGameComponent implements OnInit {
       r: [0,],
       netoR: 0,
       percentCaptured:0,
-      followed: 'NO',
+      aon: 0,
+      aonr: 0,
       chart:['url/image.jpeg',],
-      maxMove:[],
+      maxMove:[ , [ Validators.required] ],
       entries:this._formBuilder.array([
         this.initEntry()
         ]),
@@ -219,7 +220,7 @@ export class NewGameComponent implements OnInit {
 
   private createGame() {
     //Cambia el formato de las fechas
-
+    
     this._gameService.create(this.form.value.games).subscribe(
       (game: Games) => {
         setTimeout(() => {
@@ -258,7 +259,7 @@ export class NewGameComponent implements OnInit {
       (game: Games) => {
         // console.log(game);
         this.form.get('games._id').setValue(game._id);
-        this.form.get('games.symbol').setValue(game.symbol);
+        this.form.get('games.ticker').setValue(game.ticker);
         this.form.get('games.type').setValue(game.type);
         this.form.get('games.time_frame').setValue(game.time_frame);
         this.form.get('games.strategy').setValue(game.strategy);
@@ -271,7 +272,7 @@ export class NewGameComponent implements OnInit {
         this.form.get('games.r').setValue(game.r);
         this.form.get('games.netoR').setValue(game.netoR);
         this.form.get('games.percentCaptured').setValue(game.percentCaptured);
-        this.form.get('games.followed').setValue(game.followed);
+        this.form.get('games.aon').setValue(game.aon);
         this.form.get('games.chart').setValue(game.chart);
         this.form.get('games.maxMove').setValue(game.maxMove);
         this.form.get('games.tags').setValue(game.tags);
@@ -322,13 +323,13 @@ export class NewGameComponent implements OnInit {
     let sumaMaxMov = 0, maxMov = 0;
     let quantityEntry = 0, quantityExit = 0;
     game.entries.forEach(entry => {
-      if(game.type!=null && (game.type.toString()==Config.TYPE_LONG)){
+      // if(game.type!=null && (game.type.toString()==Config.TYPE_LONG)){
         //Calcula Riesgo
         riesgo =  (entry.price - entry.stopLoss)*entry.quantity;
-      }else if(game.type!=null && (game.type.toString()==Config.TYPE_SHORT)){
-        //Calcula Riesgo
-        riesgo =  (entry.stopLoss - entry.price)*entry.quantity;
-      }
+      // }else if(game.type!=null && (game.type.toString()==Config.TYPE_SHORT)){
+      //   //Calcula Riesgo
+      //   riesgo =  (entry.price-entry.stopLoss)*entry.quantity;
+      // }
 
       sumaR += riesgo;
       //Calcula entrada
@@ -352,7 +353,7 @@ export class NewGameComponent implements OnInit {
     });
 
 
-    let neto = 0;
+    let neto = 0, aon = 0;
     if(game.type!=null && (game.type.toString()==Config.TYPE_LONG
     //|| game.type.toString()==Config.TYPE_CALL || game.type.toString()==Config.TYPE_PUT
     )){
@@ -366,6 +367,9 @@ export class NewGameComponent implements OnInit {
       this.form.get('games.netoR').setValue(isNaN(r)?0:r);
       let perCap = (neto/(sumaMaxMov-sumaEntry));
       this.form.get('games.percentCaptured').setValue(isNaN(perCap)?0:perCap);
+      aon = (game.maxMove-game.entries[0].price)*game.entries[0].quantity;
+      this.form.get('games.aon').setValue(aon);
+      this.form.get('games.aonr').setValue(aon/sumaR);
     }
     else if(game.type!=null && (game.type.toString()==Config.TYPE_SHORT)){
       // Asigna los valores para los typo Short
@@ -378,6 +382,9 @@ export class NewGameComponent implements OnInit {
       this.form.get('games.netoR').setValue(isNaN(r)?0:r);
       let perCap = (neto/(sumaEntry-sumaMaxMov));
       this.form.get('games.percentCaptured').setValue(isNaN(perCap) || perCap< 0 ? 0 : perCap);
+      aon = (game.entries[0].price - game.maxMove)*game.entries[0].quantity;
+      this.form.get('games.aon').setValue(aon);
+      this.form.get('games.aonr').setValue(aon/sumaR);
     }
 
     //Calcual el resultado dependiendo del neto ganado

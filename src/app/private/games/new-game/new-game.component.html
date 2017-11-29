@@ -13,11 +13,11 @@
 
             <fieldset>
               <legend>Juego</legend>
-              <div class="form-group" [ngClass]="{'has-error': isRequired('games.symbol')}">
-                <label for="symbol" class="col-lg-4 control-label">Símbolo</label>
+              <div class="form-group" [ngClass]="{'has-error': isRequired('games.ticker')}">
+                <label for="ticker" class="col-lg-4 control-label">Símbolo</label>
                 <div class="col-lg-8">
-                  <input id="symbol" formControlName="symbol" class="form-control">
-                  <span class="help-block" *ngIf="isRequired('games.symbol')">
+                  <input id="ticker" formControlName="ticker" class="form-control">
+                  <span class="help-block" *ngIf="isRequired('games.ticker')">
                       Símbolo requerido
                     </span>
                 </div>
@@ -231,18 +231,13 @@
                     </div>
                   </div>
 
-                  <div class="form-group">
-                    <label for="followed" class="col-lg-4 control-label">Continuó</label>
-                    <div class="col-lg-8">
-                      <p-dropdown id="followed" [options]="followed" formControlName="followed"></p-dropdown>
-                    </div>
-
-                  </div>
-
-                  <div class="form-group" [hidden]="form.value.games.followed=='NO'">
+                  <div class="form-group" [ngClass]="{'has-error': isRequired('games.maxMove')}">
                     <label for="maxMove" class="col-lg-4 control-label">Max Movimiento</label>
                     <div class="col-lg-8">
-                      <input id="maxMove" formControlName="maxMove" class="form-control">
+                      <input type="number" id="maxMove" formControlName="maxMove" class="form-control">
+                      <span class="help-block" *ngIf="isRequired('games.maxMove')">
+                          Max Movimiento requerido
+                        </span>
                     </div>
 
                   </div>
@@ -281,6 +276,10 @@
                     <p>NetoCmm: {{form.get('games.netoCmm').value | number}} </p>
                     <p>R: {{form.get('games.netoR').value | number}}</p>
                     <p>% Capturado: {{form.get('games.percentCaptured').value | number}}</p>
+                    <hr>
+                    <p>TON: {{form.get('games.aon').value | number}}</p>
+                    <p>TON R: {{form.get('games.aonr').value | number}}</p>
+                    
                   </blockquote>
                 </div>
               </div>

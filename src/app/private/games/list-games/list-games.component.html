@@ -61,7 +61,7 @@
                 label="All Data" (click)="dt.exportCSV()" style="float:left"></button>
             </div>
         </p-header>
-        <p-column field="symbol" header="Symbol" sortable="true">
+        <p-column field="ticker" header="Ticker" sortable="true">
             <ng-template let-col let-g="rowData" pTemplate="body">
                 <a routerLink="/private/edit/{{g._id}}" >
                   {{ g[col.field] | uppercase}}

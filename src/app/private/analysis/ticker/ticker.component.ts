@@ -47,10 +47,10 @@ export class TickerComponent implements OnInit {
       let contP = 0, contN = 0;
       games.forEach(game => {
         if (game.status == Config.STATUS_CLOSED && game.result == Config.RESULT_POSITIVO &&
-           ticker == game.symbol) {
+           ticker == game.ticker) {
            contP += 1; 
         } else if (game.status == Config.STATUS_CLOSED && game.result == Config.RESULT_NEGATIVO &&
-          ticker == game.symbol) {
+          ticker == game.ticker) {
           contN += 1; 
        }
       });
@@ -81,7 +81,7 @@ export class TickerComponent implements OnInit {
   getTickers(games: Array<Games>){
     let tickers:Set<String> = new Set<String>();
     games.forEach(game => {
-      tickers.add(game.symbol);
+      tickers.add(game.ticker);
     });
     return tickers;
   }

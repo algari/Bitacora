@@ -123,7 +123,7 @@ export class ListGamesComponent implements OnInit {
 
   onDeleteGame(game: Games) {
     this.isLoading = true;
-    console.log(`Game a eliminar: ${game.symbol}`);
+    console.log(`Game a eliminar: ${game.ticker}`);
     this._gameService.onDelete(game).subscribe((data) => {
         this.getAllGames();
         // this.getProgress();
