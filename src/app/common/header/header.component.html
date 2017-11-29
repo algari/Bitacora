@@ -1,12 +1,100 @@
 <header class="b-header">
-
-    <!--[if lt IE 7]>
+  
+      <!--[if lt IE 7]>
     <p class="browsehappy">Nos está visitando con un <strong>navegador antiguo</strong>. Para disfrutar este
       sitio que hemos preparado para ti, por favor descarga un navegador más nuevo y mejor <a
         href="http://browsehappy.com/">aquí</a>, gracias.</p>
     <![endif]-->
 
-    <nav class="navbar navbar-default webtraining-nav" role="navigation">
+    <nav class="navbar navbar-default" *ngIf="_authService.isLoggedIn()">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/">
+              <i class="fa fa-line-chart" aria-hidden="true"></i>
+              Bitácora
+            </a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+
+                <li class="leaf"
+                [ngClass]="{ active: router.url.indexOf('/private/games') !== -1}"
+                *ngIf="_authService.isLoggedIn()">
+              <a
+                routerLink="/private/games"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                title="Cursos">Juegos</a>
+            </li>
+            <li class="leaf"
+                [ngClass]="{ active: router.url.indexOf('/private/strategies') !== -1}"
+                *ngIf="_authService.isLoggedIn()">
+              <a
+                 routerLink="/private/strategies"
+                 routerLinkActive="active"
+                 [routerLinkActiveOptions]="{ exact: true }"
+                 title="Strategies">Estrategias</a>
+            </li>
+            <li class="leaf"
+                [ngClass]="{ active: router.url.indexOf('/private/sources') !== -1}"
+                *ngIf="_authService.isLoggedIn()">
+              <a
+                routerLink="/private/sources"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                title="Sources">Fuentes</a>
+            </li>
+            <li class="leaf"
+                [ngClass]="{ active: router.url.indexOf('/private/tags') !== -1}"
+                *ngIf="_authService.isLoggedIn()">
+              <a
+                routerLink="/private/tags"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                title="Tags">Etiquetas</a>
+            </li>
+             <li class="dropdown"
+            [ngClass]="{ active: router.url.indexOf('/private/analysis') !== -1}"
+            *ngIf="_authService.isLoggedIn()">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Analisis 
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a routerLink="/private/analysis/summary"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  title="summary">Resumen</a></li>
+                <li><a routerLink="/private/analysis/comparisons"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  title="comparisons">Comparaciones</a></li>
+                <li><a routerLink="/private/analysis/tags"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  title="tags">Etiquetas</a></li>
+                <li><a routerLink="/private/analysis/ticker"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  title="ticker">Tickers</a></li>  
+                    
+              </ul>
+            </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                  <li class="leaf" >
+                      <a title="Cerrar sesión" (click)="logout()">Salir
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                      </a>
+                    </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+
+
+    <!-- <nav class="navbar navbar-default" role="navigation">
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -58,14 +146,6 @@
                     [routerLinkActiveOptions]="{ exact: true }"
                     title="Tags">Etiquetas</a>
                 </li>
-                <!-- <li class="leaf"
-                    [ngClass]="{ active: router.url.indexOf('/private/analysis/comparisons') !== -1}"
-                    *ngIf="_authService.isLoggedIn()">
-                  <a routerLink="/private/analysis/comparisons"
-                     routerLinkActive="active"
-                     [routerLinkActiveOptions]="{ exact: true }"
-                     title="Analisis">Analisis</a>
-                </li> -->
                 <li class="dropdown"
                 [ngClass]="{ active: router.url.indexOf('/private/analysis') !== -1}"
                 *ngIf="_authService.isLoggedIn()">
@@ -101,6 +181,6 @@
           </div>
         </div>
       </div>
-    </nav>
+    </nav> -->
 </header>
 
