@@ -4,6 +4,7 @@ import {Routes, RouterModule} from "@angular/router";
 import {AuthGuard} from "../../common/guards/auth.guard";
 import {NewGameComponent} from "./new-game/new-game.component";
 import {ListGamesComponent} from "./list-games/list-games.component";
+import { LoadGamesComponent } from './load-games/load-games.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,9 @@ const routes: Routes = [
   },
   {
     path: 'edit/:id', component: NewGameComponent, canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'load', component: LoadGamesComponent, canActivate: [ AuthGuard ]
   },
 ]
 @NgModule({

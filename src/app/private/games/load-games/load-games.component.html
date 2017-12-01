@@ -1,0 +1,31 @@
+<div *ngIf="isLoading; else elseBlock">
+  <div class="auth-loader-container">
+    <app-loader></app-loader>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <div class="container">
+    <div class="row ">
+      <fieldset>
+        <legend>Cargar Juegos del Dia TWS</legend>
+        <div class="col-md-4">
+            <form #projectForm="ngForm" (ngSubmit)="onSubmit($event)">
+            
+                <div class="form-group">
+                    <label for="operations">Operaciones TWS</label>
+                    <textarea rows="10"  type="text" id="operations" class="form-control"
+                           name="operations" required
+                           [(ngModel)]="operations"></textarea>
+                  </div>  
+
+            <button type="submit" class="btn btn-primary" [disabled]="!projectForm.form.valid">Cargar
+              </button>
+            <button class="btn btn-primary" routerLink="/private/games" title="Regresar">Regresar
+              </button>
+          </form>
+
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</ng-template>

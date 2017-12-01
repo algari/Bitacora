@@ -18,6 +18,7 @@ import {CheckboxModule} from 'primeng/primeng';
 import { TagService } from '../services/tag.service';
 import {ListboxModule} from 'primeng/primeng';
 import {FileUploadModule} from 'primeng/primeng';
+import { LoadGamesComponent } from './load-games/load-games.component';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import {FileUploadModule} from 'primeng/primeng';
   declarations: [
     NewGameComponent,
     ListGamesComponent,
+    LoadGamesComponent,
   ],
   exports:[
     ListGamesComponent
