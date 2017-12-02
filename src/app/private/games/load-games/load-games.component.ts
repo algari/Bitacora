@@ -35,26 +35,26 @@
 
     let games:Array<Games> =this.buildGames(listGames);
 
-    let cont = 0, contError = 0;
+    if (games && games.length>0){
+      //Insert Games
+      games.forEach(game=>{
+        this._gameService.create(game).subscribe(
+          (game: Games) => {
+          },
+          errorResponse => {
+            const errorData = errorResponse.json();
+            console.error(errorData.error);
+          },
+          () => {
+            console.log('Finished creation game');
+          });
+      });
 
-    //Insert Games
-    games.forEach(game=>{
-      this._gameService.create(game).subscribe(
-        (game: Games) => {
-          cont += 1;
-        },
-        errorResponse => {
-          const errorData = errorResponse.json();
-          console.error(errorData.error);
-          contError += 1;
-        },
-        () => {
-          console.log('Finished creation game');
-        });
-    });
-
-    this.operations = '';
-    this.messageService.add({severity:'success', summary:'Cargue', detail:'Exitoso'});
+      this.operations = '';
+      this.messageService.add({severity:'info', summary:'Cargue', detail:'Exitoso'});
+    } {
+      this.messageService.add({severity:'warn', summary:'Cargue', detail:'Sin Exito'});
+    }
   }
 
   buildGames(listGames:Array<any>):Array<Games>{

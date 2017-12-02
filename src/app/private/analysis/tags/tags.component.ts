@@ -3,7 +3,6 @@ import { GamesService } from '../../services/games.service';
 import { AuthenticationService } from '../../../public/services/authentication.service';
 import { Games } from '../../../common/models/games.model';
 import { TagService } from '../../services/tag.service';
-import { Sources } from '../../../common/models/sources.model';
 import { Tag } from '../../../common/models/tag';
 import { Config } from '../../../common/config';
 
@@ -45,7 +44,7 @@ export class TagsComponent implements OnInit {
       })
   }
 
-  encontrarTags(gametag:Tag) { 
+  encontrarTags(gametag:Tag) {
     return gametag.tag === 'Mucho spread'
   }
 
@@ -55,10 +54,10 @@ export class TagsComponent implements OnInit {
     let dataP = [];
     let dataN = [];
 
-   
+
     this._tagS.getAllByUsername(this._authS.user.username).subscribe(
       (data: Tag[]) => {
-        
+
         data.forEach(tag => {
           let contP = 0;
           let contN = 0;
@@ -67,7 +66,7 @@ export class TagsComponent implements OnInit {
             // debugger
             if (game.status == Config.STATUS_CLOSED && game.result == Config.RESULT_POSITIVO) {
               contP += game.tags.filter(gametag=>gametag==tag.tag).length;
-                           
+
             }
             else if (game.status == Config.STATUS_CLOSED && game.result == Config.RESULT_NEGATIVO) {
               contN += game.tags.filter(gametag=>gametag==tag.tag).length;
@@ -75,9 +74,9 @@ export class TagsComponent implements OnInit {
           }
           label.push(tag.tag);
           dataP.push(contP);
-          dataN.push(contN); 
+          dataN.push(contN);
         });
-        
+
         this.dataTags = {
           labels: label,
           datasets: [
@@ -113,7 +112,7 @@ export class TagsComponent implements OnInit {
       }
    )
   }
-  
+
 }
 
 
