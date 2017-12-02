@@ -11,7 +11,8 @@ export const Config = {
 
   STATUS_CLOSED : 'Closed',
   STATUS_OPEN : 'Open',
-  
+  STATUS_IMPORTED:'Imported',
+
   TYPES : [
     {label:'Select', value:null},
     {label:'Long', value:'Long'},
@@ -43,5 +44,11 @@ export const Config = {
     {label:'Sabado', value:'Saturday'},
     {label:'Domingo', value:'Sunday'}
   ],
+
+  YES :'YES',
+  NO:'NO',
+
+  SLD_SHORT:'SLD',
+  BOT_LONG:'BOT'
 
 };

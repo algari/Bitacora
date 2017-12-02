@@ -8,7 +8,6 @@ import {SelectItem} from 'primeng/primeng';
 import {StrategiesService} from "../../services/strategies.service";
 import {Strategies} from "../../../common/models/strategies.model";
 import { AuthenticationService } from '../../../public/services/authentication.service';
-import * as moment from 'moment';
 import { Tag } from '../../../common/models/tag';
 import { Entry } from '../../../common/models/entry.model';
 import { Exit } from '../../../common/models/exit.model';
@@ -44,7 +43,7 @@ export class NewGameComponent implements OnInit {
       aon: 0,
       aonr: 0,
       chart:['url/image.jpeg',],
-      maxMove:[ , [ Validators.required] ],
+      maxMove:[ ,[ Validators.required] ],
       entries:this._formBuilder.array([
         this.initEntry()
         ]),
@@ -78,8 +77,6 @@ export class NewGameComponent implements OnInit {
   types:SelectItem[] = Config.TYPES;
 
   timeFrames:SelectItem[] = Config.TIME_FRAMES;
-
-  followed:SelectItem[] = Config.FOLLOWED;
 
   strategies:SelectItem[];
 
@@ -220,7 +217,7 @@ export class NewGameComponent implements OnInit {
 
   private createGame() {
     //Cambia el formato de las fechas
-    
+
     this._gameService.create(this.form.value.games).subscribe(
       (game: Games) => {
         setTimeout(() => {
@@ -321,7 +318,7 @@ export class NewGameComponent implements OnInit {
     let sumaEntry =0, netoEntry = 0;
     let sumaExit =0, netoExit = 0;
     let sumaMaxMov = 0, maxMov = 0;
-    let quantityEntry = 0, quantityExit = 0;
+    let quantityEntry:number = 0, quantityExit:number = 0;
     game.entries.forEach(entry => {
       // if(game.type!=null && (game.type.toString()==Config.TYPE_LONG)){
         //Calcula Riesgo
@@ -336,7 +333,7 @@ export class NewGameComponent implements OnInit {
       netoEntry = entry.quantity * entry.price;
       sumaEntry += netoEntry;
       //Cantidad de compra/venta
-      quantityEntry +=entry.quantity;
+      quantityEntry += entry.quantity;
     });
 
     game.exits.forEach(exit => {
@@ -349,7 +346,7 @@ export class NewGameComponent implements OnInit {
       sumaMaxMov += maxMov;
 
       //Cantidad de compra/venta
-      quantityExit +=exit.quantity;
+      quantityExit += exit.quantity;
     });
 
 

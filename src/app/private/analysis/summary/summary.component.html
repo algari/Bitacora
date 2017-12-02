@@ -14,7 +14,7 @@
                     <span class="badge">{{overview.numberTrades | number}}</span>
                     Numero de Trades
                     <br/>
-                    <span class="badge">{{overview.numberTradesDay }}</span>
+                    <span class="badge">{{overview.numberTradesDay | number}}</span>
                     Numero de Trades por dia
                   </li>
                   <li class="list-group-item">
@@ -112,6 +112,9 @@
           </li>
           <legend>Break Even</legend>
           <li class="list-group-item">
+            <span class="badge">{{winnersLosers.numberTradesB | number}}</span>
+            Numero de Trades Break Even
+            <br/>
             <span class="badge">$ {{winnersLosers.commissionsB | number}}</span>
             Comisión
           </li>

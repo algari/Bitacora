@@ -5,18 +5,19 @@
 </div>
 <ng-template #elseBlock>
   <div class="container">
+    <p-messages [(value)]="msgs"></p-messages>
     <div class="row ">
       <fieldset>
         <legend>Cargar Juegos del Dia TWS</legend>
         <div class="col-md-4">
             <form #projectForm="ngForm" (ngSubmit)="onSubmit($event)">
-            
+
                 <div class="form-group">
                     <label for="operations">Operaciones TWS</label>
                     <textarea rows="10"  type="text" id="operations" class="form-control"
                            name="operations" required
                            [(ngModel)]="operations"></textarea>
-                  </div>  
+                  </div>
 
             <button type="submit" class="btn btn-primary" [disabled]="!projectForm.form.valid">Cargar
               </button>

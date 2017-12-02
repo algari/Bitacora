@@ -25,7 +25,7 @@ export class Games {
   chart:string;
   maxMove:number;
   tags:String[];
-  entries:Entry[];
-  exits:Exit[];
+  entries:Entry[] = [];
+  exits:Exit[] = [];
   status:string;
 }

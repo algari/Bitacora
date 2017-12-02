@@ -234,7 +234,7 @@
                   <div class="form-group" [ngClass]="{'has-error': isRequired('games.maxMove')}">
                     <label for="maxMove" class="col-lg-4 control-label">Max Movimiento</label>
                     <div class="col-lg-8">
-                      <input type="number" id="maxMove" formControlName="maxMove" class="form-control">
+                      <input type="number" id="maxMove" step="0000.01" formControlName="maxMove" class="form-control">
                       <span class="help-block" *ngIf="isRequired('games.maxMove')">
                           Max Movimiento requerido
                         </span>
@@ -279,7 +279,7 @@
                     <hr>
                     <p>TON: {{form.get('games.aon').value | number}}</p>
                     <p>TON R: {{form.get('games.aonr').value | number}}</p>
-                    
+
                   </blockquote>
                 </div>
               </div>
