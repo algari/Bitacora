@@ -320,13 +320,13 @@ export class NewGameComponent implements OnInit {
     let sumaMaxMov = 0, maxMov = 0;
     let quantityEntry:number = 0, quantityExit:number = 0;
     game.entries.forEach(entry => {
-      // if(game.type!=null && (game.type.toString()==Config.TYPE_LONG)){
+       if(game.type!=null && (game.type.toString()==Config.TYPE_LONG)){
         //Calcula Riesgo
         riesgo =  (entry.price - entry.stopLoss)*entry.quantity;
-      // }else if(game.type!=null && (game.type.toString()==Config.TYPE_SHORT)){
-      //   //Calcula Riesgo
-      //   riesgo =  (entry.price-entry.stopLoss)*entry.quantity;
-      // }
+       }else if(game.type!=null && (game.type.toString()==Config.TYPE_SHORT)){
+         //Calcula Riesgo
+         riesgo =  (entry.stopLoss-entry.price)*entry.quantity;
+       }
 
       sumaR += riesgo;
       //Calcula entrada

@@ -62,7 +62,7 @@
 
     let game:Games = new Games();
     let commissions = 0;
-
+    console.log(listGames);
     listGames.forEach(load => {
       game.ticker = load.ticker;
       if(load.entry==Config.YES && load.type == Config.SLD_SHORT){
@@ -127,14 +127,11 @@
     let listOperations = this.operations.split('\n');
     listOperations.forEach(operation => {
       //Elimina los espacios
-      operation = operation.replace('	',',')
-        .replace('	',',')
-        .replace('	',',')
-        .replace('	',',')
-        .replace('	',',')
-        .replace('	',',');
+      operation = operation.trim()
+        .replace(/\t/g,',')
       let objetGame = operation.split(',');
-      if (objetGame && objetGame.length==7) {
+      console.log(objetGame);
+      if (objetGame && (objetGame.length==6 || objetGame.length==7)) {
         let game:any = {};
         game.ticker = objetGame[1];
         game.date = moment().format('YYYY-MM-DD');
@@ -143,10 +140,10 @@
         game.quantity = parseInt(objetGame[3]);
         game.price = parseFloat(objetGame[4]);
         game.commission = parseFloat(objetGame[5]);
-        if ((objetGame[6].toString().trim()=='')){
-          game.entry = 'YES'
-        }else{
-          game.entry = 'NO'
+        if ((objetGame.length==6)){
+          game.entry = Config.YES;
+        }else if ((objetGame.length==7)){
+          game.entry = Config.NO;
         }
         listGames.push(game);
       }
