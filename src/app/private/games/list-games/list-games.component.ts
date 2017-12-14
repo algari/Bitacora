@@ -34,6 +34,7 @@ export class ListGamesComponent implements OnInit {
 
   ngOnInit() {
     this.getAllGames();
+    this.isLoading = false;
     //this.getProgress();
 
   }
@@ -43,7 +44,7 @@ export class ListGamesComponent implements OnInit {
   }
 
   getAllGames() {
-    this._gameService.getAllByUsername(this._authS.user.username, 
+    this._gameService.getAllByUsername(this._authS.user.username,
       // moment('10/01/2017').format('L'),
       // moment('11/22/2017').format('L')
     )
@@ -51,7 +52,6 @@ export class ListGamesComponent implements OnInit {
       (data: Games[]) => {
         //next
         this.games = data
-        this.isLoading = false;
       },
       err => {
         console.error(err);

@@ -86,6 +86,8 @@ export class NewGameComponent implements OnInit {
 
   edit:boolean = false;
 
+  isLoading = true;
+
   constructor( public _formBuilder: FormBuilder,
                public _gameService: GamesService,
                public _router: Router,
@@ -100,6 +102,8 @@ export class NewGameComponent implements OnInit {
     this.loadStrategies();
     this.loadSources();
     this.loadTags();
+
+    this.isLoading = false;
   }
 
   ngOnInit() {

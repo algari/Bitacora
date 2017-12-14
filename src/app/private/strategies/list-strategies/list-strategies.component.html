@@ -4,7 +4,7 @@
   </div>
 </div>
 <ng-template #elseBlock>
-  <div class="row">
+  <!--<div class="row">
     <div class="col-md-2 col-md-offset-10 margin-top-sm">
       <div class="b-btn-new-project overflow-hidden">
         <button class="btn btn-primary pull-right" [routerLink]="['/private/strategies/analysis']">
@@ -12,7 +12,7 @@
         </button>
       </div>
     </div>
-  </div>
+  </div>-->
   <p-dataTable [value]="strategies" [rows]="10" [paginator]="true"  >
     <p-column field="strategy" header="Strategy" sortable="true">
       <ng-template let-col let-s="rowData" pTemplate="body">

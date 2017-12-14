@@ -14,13 +14,17 @@ export class NewStrategyComponent implements OnInit {
 
   edit:boolean = false;
 
+  isLoading = true;
+
   constructor(
     public _formBuilder: FormBuilder,
     public _strategyService: StrategiesService,
     public _authS: AuthenticationService,
     public _router: Router,
     public _activatedRoute: ActivatedRoute
-  ) { }
+  ) {
+    this.isLoading = false;
+  }
 
   form = this._formBuilder.group( {
     strategy: this._formBuilder.group( {
