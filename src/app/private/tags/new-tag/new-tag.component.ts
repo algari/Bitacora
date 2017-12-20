@@ -27,7 +27,7 @@ export class NewTagComponent implements OnInit {
     tag: this._formBuilder.group( {
       _id:[],
       tag: [ ,Validators.required],
-      description: [ , Validators.required ],
+      description: [],
       username: [ this._authS.user.username]
     } )
   } );

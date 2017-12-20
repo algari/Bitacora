@@ -50,6 +50,8 @@ export const Config = {
   NO:'NO',
 
   SLD_SHORT:'SLD',
-  BOT_LONG:'BOT'
+  BOT_LONG:'BOT',
+
+  BREAKEVEN_VALUE:0.15
 
 };

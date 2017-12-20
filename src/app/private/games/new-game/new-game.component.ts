@@ -32,7 +32,7 @@ export class NewGameComponent implements OnInit {
       time_frame: [,Validators.required ],
       strategy: [, [ Validators.required] ],
       source: [, [ Validators.required]],
-      commission: [ , [ Validators.required] ],
+      commission: [],
       comments: [],
       result: '',
       neto:0,
@@ -389,10 +389,11 @@ export class NewGameComponent implements OnInit {
     }
 
     //Calcual el resultado dependiendo del neto ganado
+    let breakeven = riesgo*Config.BREAKEVEN_VALUE;
     if (neto>0){
       this.form.get('games.result').setValue(Config.RESULT_POSITIVO);
     }
-    else if((game.commission-neto)==game.commission){
+    else if((Math.abs(neto))<=breakeven){
       this.form.get('games.result').setValue(Config.RESULT_BREAKEVEN);
     }
     else{

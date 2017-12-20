@@ -50,7 +50,7 @@ export class ComparisonsComponent implements OnInit {
       .subscribe(
       (data: Games[]) => {
         this.chartDirection(data);
-        
+
         this.chartDayWeek(data);
 
         this.chartTimeFrame(data);
@@ -103,7 +103,7 @@ export class ComparisonsComponent implements OnInit {
               }
           ]
         }
-    
+
         this.dataSourcePL = {
           labels: labels,
           datasets: [
@@ -160,7 +160,7 @@ export class ComparisonsComponent implements OnInit {
               }
           ]
         }
-    
+
         this.dataStrategyPL = {
           labels: labels,
           datasets: [
@@ -204,8 +204,8 @@ export class ComparisonsComponent implements OnInit {
         dataPL.push(contPL);
       }
     })
-    
-    
+
+
     this.dataTimeFrameR = {
       labels: labels,
       datasets: [
@@ -230,7 +230,7 @@ export class ComparisonsComponent implements OnInit {
       ]
     }
 
-    
+
   }
 
   chartDayWeek(games: Array<Games>){
@@ -249,9 +249,9 @@ export class ComparisonsComponent implements OnInit {
       labels.push(day.label)
       dataR.push(contR);
       dataPL.push(contPL);
-          
+
     });
-    
+
     this.dataDayWeekR = {
       labels: labels,
       datasets: [
@@ -288,7 +288,7 @@ export class ComparisonsComponent implements OnInit {
 
       let rLong:number = 0;
       let rShort:number = 0;
-      
+
       games.forEach(game => {
         if (game.type == Config.TYPE_LONG) {
           cantLong +=1;
@@ -301,21 +301,20 @@ export class ComparisonsComponent implements OnInit {
           rShort += game.netoR;
         }
       });
-      
+
       this.dataDirection = {
         labels: ['Long', 'Short'],
         datasets: [
           {
-            label: 'Long',
-            backgroundColor: '#42A5F5',
-            borderColor: '#1E88E5',
-            data: [cantLong]
-          },
-          {
-            label: 'Short',
-            backgroundColor: '#9CCC65',
-            borderColor: '#7CB342',
-            data: [cantShort]
+            data: [cantLong,cantShort],
+            backgroundColor: [
+              "#42A5F5",
+              "#9CCC65"
+            ],
+            hoverBackgroundColor: [
+              "#42A5F5",
+              "#9CCC65"
+            ]
           }
         ]
       }

@@ -30,7 +30,7 @@ export class NewStrategyComponent implements OnInit {
     strategy: this._formBuilder.group( {
       _id:[],
       strategy: [ ,Validators.required],
-      description: [ , Validators.required ],
+      description: [],
       username: [ this._authS.user.username]
     } )
   } );
