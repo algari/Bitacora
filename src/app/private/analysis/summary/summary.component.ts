@@ -151,15 +151,15 @@ export class SummaryComponent implements OnInit {
         //chart
         if(game.status==Config.STATUS_CLOSED){
           if(fechaAux==''){
-            labels.push(moment(game.entries[0].date).format('L'))
+            labels.push(game.entries[0].date.substring(0,10))
             sumaNetoDiaPL += game.netoCmm;
             sumaNetoDiaR += game.netoR;
-            fechaAux = moment(game.entries[0].date).format('L');
-          } else if(fechaAux == moment(game.entries[0].date).format('L')){
+            fechaAux = game.entries[0].date.substring(0,10);
+          } else if(fechaAux == game.entries[0].date.substring(0,10)){
             sumaNetoDiaPL += game.netoCmm;
             sumaNetoDiaR += game.netoR;
           }else{
-            labels.push(moment(game.entries[0].date).format('L'))
+            labels.push(game.entries[0].date.substring(0,10))
             dataR.push(sumaNetoDiaR);
             dataPL.push(sumaNetoDiaPL);
 
@@ -168,7 +168,7 @@ export class SummaryComponent implements OnInit {
 
             sumaNetoDiaPL += game.netoCmm;
             sumaNetoDiaR += game.netoR;
-            fechaAux = moment(game.entries[0].date).format('L');
+            fechaAux = game.entries[0].date.substring(0,10);
           }
         }
       });
