@@ -8,7 +8,10 @@
   <p-dataTable [value]="tags" [rows]="10" [paginator]="true"  >
     <p-column field="tag" header="Tag" sortable="true">
       <ng-template let-col let-t="rowData" pTemplate="body">
-        <a routerLink="/private/tags/edit/{{t._id}}" >
+        <a routerLink="/private/tags/edit/{{t._id}}" [hidden]="t.username=='General'">
+          {{ t[col.field]}}
+        </a>
+        <a [hidden]="t.username!='General'">
           {{ t[col.field]}}
         </a>
       </ng-template>
@@ -16,23 +19,26 @@
     <p-column field="description" header="Description"></p-column>
     <p-column field="tag" header="Actions">
       <ng-template let-col let-t="rowData" pTemplate="body">
-        <a routerLink="/private/tags/edit/{{t._id}}" >
-          <i class="fa fa-pencil" aria-hidden="true"></i>
-        </a>
-        -
-        <a
-          mwlConfirmationPopover
-          title="Delete Tag"
-          message="Esta seguro de eliminar: {{t[col.field]}}"
-          confirmText="SI"
-          cancelText="NO"
-          placement="top"
-          (confirm)="onDeleteTag(t)"
-          (cancel)="cancelClicked"
-          confirmButtonType="primary"
-          cancelButtonType="default">
-          <i class="fa fa-trash" aria-hidden="true"></i>
-        </a>
+        <div [hidden]="t.username=='General'">
+          <a routerLink="/private/tags/edit/{{t._id}}">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </a>
+          -
+          <a
+            mwlConfirmationPopover
+            title="Delete Tag"
+            message="Esta seguro de eliminar: {{t[col.field]}}"
+            confirmText="SI"
+            cancelText="NO"
+            placement="top"
+            (confirm)="onDeleteTag(t)"
+            (cancel)="cancelClicked"
+            confirmButtonType="primary"
+            cancelButtonType="default">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </a>
+        </div>
+
       </ng-template>
 
     </p-column>
