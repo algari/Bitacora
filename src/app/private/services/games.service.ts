@@ -18,10 +18,10 @@ export class GamesService {
     return this._http.get(url, this._authService.token);
   }
 
-  getAllByUsername(username:string,date_in?:string,date_out?:string): Observable<Array<Games>> {
+  getAllByUsername(username:string,initial?:string,last?:string): Observable<Array<Games>> {
     let url = '';
-    if (date_in && date_out) {
-      url = `${this.apiBaseURL}/api/gamebyusername?date_in=${date_in}&date_out=${date_out}&username=${username}`;
+    if (initial && last) {
+      url = `${this.apiBaseURL}/api/gamebyusername?initial=${initial}&last=${last}&username=${username}`;
     }
     else{
       url = `${this.apiBaseURL}/api/gamebyusername?username=${username}`;

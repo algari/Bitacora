@@ -46,7 +46,11 @@ export class ComparisonsComponent implements OnInit {
   }
 
   getAllGames() {
-    this._gameService.getAllByUsername(this._authS.user.username)
+    var date = new Date();
+    var primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
+    var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    this._gameService.getAllByUsername(this._authS.user.username,moment(primerDia).format('L'),moment(ultimoDia).format('L'))
       .subscribe(
       (data: Games[]) => {
         this.chartDirection(data);

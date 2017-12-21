@@ -28,4 +28,5 @@ export class Games {
   entries:Entry[] = [];
   exits:Exit[] = [];
   status:string;
+  created:string
 }

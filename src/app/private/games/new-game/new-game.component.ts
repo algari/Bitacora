@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Config} from "../../../common/config";
-import { Validators, FormBuilder, FormArray, FormGroup } from "@angular/forms";
+import { Validators, FormBuilder, FormArray } from "@angular/forms";
 import {Games} from "../../../common/models/games.model";
 import {GamesService} from "../../services/games.service";
 import {Router, ActivatedRoute} from "@angular/router";
@@ -15,6 +15,7 @@ import {SourcesService} from "../../services/sources.service";
 import {Sources} from "../../../common/models/sources.model";
 import { TagService } from '../../services/tag.service';
 import { MessageService } from 'primeng/components/common/messageservice';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-new-game',
@@ -51,7 +52,8 @@ export class NewGameComponent implements OnInit {
         this.initExit()
       ]),
       tags:[[],],
-      status:''
+      status:'',
+      created:''
     } ),
   } );
 
@@ -281,7 +283,7 @@ export class NewGameComponent implements OnInit {
         //entries
         game.entries.forEach((item:Entry, i) => {
           let entryForm = this._formBuilder.group({
-            date:[new Date(item.date),Validators.required],
+            date:[new Date(moment(item.date.substring(0,10)).format()),Validators.required],
             time: [new Date(item.time),Validators.required],
             quantity: [item.quantity,Validators.required],
             price: [item.price,Validators.required],
@@ -293,7 +295,7 @@ export class NewGameComponent implements OnInit {
         //exits
         game.exits.forEach((item:Exit, i) => {
           let exitForm = this._formBuilder.group({
-            date:[new Date(item.date)],
+            date:[new Date(moment(item.date.substring(0,10)).format())],
             time: [new Date(item.time)],
             quantity: [item.quantity],
             price: [item.price],
@@ -302,6 +304,7 @@ export class NewGameComponent implements OnInit {
         });
 
         this.form.get('games.status').setValue(game.status);
+        this.form.get('games.created').setValue(game.created);
 
       },
       errorResponse => {
@@ -407,6 +410,7 @@ export class NewGameComponent implements OnInit {
     else if (quantityEntry == quantityExit){
       this.form.get('games.status').setValue(Config.STATUS_CLOSED);
     }
+    this.form.get('games.created').setValue(game.entries[0].date);
   }
 
 }

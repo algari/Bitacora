@@ -3,6 +3,7 @@ import { GamesService } from '../../services/games.service';
 import { AuthenticationService } from '../../../public/services/authentication.service';
 import { Games } from '../../../common/models/games.model';
 import { Config } from '../../../common/config';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-ticker',
@@ -12,7 +13,7 @@ import { Config } from '../../../common/config';
 export class TickerComponent implements OnInit {
 
   isLoading = true;
-  
+
   dataTickers: any = {};
 
   constructor(public _gameService: GamesService,
@@ -23,7 +24,11 @@ export class TickerComponent implements OnInit {
   }
 
   getAllGames() {
-    this._gameService.getAllByUsername(this._authS.user.username)
+    var date = new Date();
+    var primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
+    var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    this._gameService.getAllByUsername(this._authS.user.username,moment(primerDia).format('L'),moment(ultimoDia).format('L'))
       .subscribe(
       (data: Games[]) => {
         this.chartTickers(data);
@@ -48,15 +53,15 @@ export class TickerComponent implements OnInit {
       games.forEach(game => {
         if (game.status == Config.STATUS_CLOSED && game.result == Config.RESULT_POSITIVO &&
            ticker == game.ticker) {
-           contP += 1; 
+           contP += 1;
         } else if (game.status == Config.STATUS_CLOSED && game.result == Config.RESULT_NEGATIVO &&
           ticker == game.ticker) {
-          contN += 1; 
+          contN += 1;
        }
       });
       labels.push(ticker);
       dataP.push(contP);
-      dataN.push(contN); 
+      dataN.push(contN);
     });
     //chart
     this.dataTickers = {
