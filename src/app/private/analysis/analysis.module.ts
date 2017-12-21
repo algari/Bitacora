@@ -12,6 +12,8 @@ import { TickerComponent } from './ticker/ticker.component';
 
 import {MessagesModule} from 'primeng/primeng';
 import {MessageModule} from 'primeng/primeng';
+import { FilterComponent } from './filter/filter.component';
+import {CalendarModule} from "primeng/components/calendar/calendar";
 
 @NgModule({
   imports: [
@@ -21,7 +23,7 @@ import {MessageModule} from 'primeng/primeng';
     AnalysisRoutingModule,
     ChartModule,
     SharedModule,
-
+    CalendarModule,
     MessagesModule,
     MessageModule
   ],
@@ -29,7 +31,8 @@ import {MessageModule} from 'primeng/primeng';
     ComparisonsComponent,
     SummaryComponent,
     TagsComponent,
-    TickerComponent
+    TickerComponent,
+    FilterComponent
   ],
   exports:[
     ComparisonsComponent
