@@ -4,6 +4,7 @@ import { GamesService } from '../../services/games.service';
 import { AuthenticationService } from '../../../public/services/authentication.service';
 import { Config } from '../../../common/config';
 import * as moment from 'moment';
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-summary',
@@ -11,6 +12,13 @@ import * as moment from 'moment';
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements OnInit {
+
+  form = this._formBuilder.group( {
+    find: this._formBuilder.group( {
+      initial: [],
+      last: [],
+    } )
+  } );
 
   isLoading = true;
 
@@ -25,7 +33,8 @@ export class SummaryComponent implements OnInit {
   dataWinnersLosers:any = {};
 
   constructor(public _gameService: GamesService,
-    public _authS: AuthenticationService,) { }
+              public _authS: AuthenticationService,
+              private _formBuilder: FormBuilder,) { }
 
   ngOnInit() {
     this.getAllGames();
@@ -34,7 +43,10 @@ export class SummaryComponent implements OnInit {
   getAllGames() {
     var date = new Date();
     var primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
-    var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    var ultimoDia = new Date();
+
+    this.form.get('find.initial').setValue(primerDia);
+    this.form.get('find.last').setValue(ultimoDia);
 
     this._gameService.getAllByUsername(this._authS.user.username,moment(primerDia).format('L'),moment(ultimoDia).format('L'))
       .subscribe(
@@ -54,6 +66,25 @@ export class SummaryComponent implements OnInit {
         console.log('Finished getAllGames');
 
       })
+  }
+
+  onSubmit() {
+    this._gameService.getAllByUsername(this._authS.user.username,this.form.value.find.initial,this.form.value.find.last)
+      .subscribe(
+        (data: Games[]) => {
+          this.chartOverview(data);
+          this.chartWinnersLosers(data);
+
+          this.isLoading = false;
+        },
+        err => {
+          console.error(err);
+        },
+        () => {
+          console.log('Finished getAllGames');
+
+        }
+      )
   }
 
   chartWinnersLosers(games: Array<Games>){

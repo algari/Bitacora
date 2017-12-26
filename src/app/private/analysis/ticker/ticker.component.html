@@ -6,6 +6,32 @@
 <ng-template #elseBlock>
   <div class="container">
     <p-messages [(value)]="msgs"></p-messages>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+      <fieldset>
+        <div formGroupName="find">
+          <div class="form-group">
+            <label for="date_in" class="control-label">Fecha Inicio</label>
+            <div >
+              <p-calendar id="date_in" formControlName="initial"
+                          [showIcon]="true"></p-calendar>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="date_out" class="control-label">Fecha Final</label>
+            <div>
+              <p-calendar id="date_out" formControlName="last"
+                          [showIcon]="true"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="form-group margin-top-sm">
+          <button
+            type="submit" class="btn btn-primary" [disabled]="form.invalid">Buscar
+          </button>
+        </div>
+      </fieldset>
+    </form>
     <div class="row ">
         <fieldset>
             <div class="col-md-12">
@@ -15,5 +41,5 @@
         </fieldset>
     </div>
   </div>
-</ng-template>                
+</ng-template>
 

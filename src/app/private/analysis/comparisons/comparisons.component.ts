@@ -8,6 +8,7 @@ import { StrategiesService } from '../../services/strategies.service';
 import { Sources } from '../../../common/models/sources.model';
 import { Strategies } from '../../../common/models/strategies.model';
 import * as moment from 'moment';
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-comparisons',
@@ -15,6 +16,13 @@ import * as moment from 'moment';
   styleUrls: ['./comparisons.component.css']
 })
 export class ComparisonsComponent implements OnInit {
+
+  form = this._formBuilder.group( {
+    find: this._formBuilder.group( {
+      initial: [],
+      last: [],
+    } )
+  } );
 
   isLoading = true;
 
@@ -34,10 +42,14 @@ export class ComparisonsComponent implements OnInit {
   dataDayWeekR:any ={}
   dataDayWeekPL:any ={}
 
+  dataMarketPhasesR: any = {};
+  dataMarketPhasesPL: any = {};
+
   constructor(public _gameService: GamesService,
     public _authS: AuthenticationService,
     public _sourceS: SourcesService,
-    public _stratS: StrategiesService) {
+    public _stratS: StrategiesService,
+              private _formBuilder: FormBuilder,) {
 
   }
 
@@ -48,7 +60,10 @@ export class ComparisonsComponent implements OnInit {
   getAllGames() {
     var date = new Date();
     var primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
-    var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    var ultimoDia = new Date();
+
+    this.form.get('find.initial').setValue(primerDia);
+    this.form.get('find.last').setValue(ultimoDia);
 
     this._gameService.getAllByUsername(this._authS.user.username,moment(primerDia).format('L'),moment(ultimoDia).format('L'))
       .subscribe(
@@ -62,6 +77,8 @@ export class ComparisonsComponent implements OnInit {
         this.chartStrategy(data);
 
         this.chartSource(data);
+
+        this.marketPhases(data);
         this.isLoading = false;
       },
       err => {
@@ -71,6 +88,33 @@ export class ComparisonsComponent implements OnInit {
         console.log('Finished getAllGames');
 
       }
+      )
+  }
+
+  onSubmit() {
+    this._gameService.getAllByUsername(this._authS.user.username,this.form.value.find.initial,this.form.value.find.last)
+      .subscribe(
+        (data: Games[]) => {
+          this.chartDirection(data);
+
+          this.chartDayWeek(data);
+
+          this.chartTimeFrame(data);
+
+          this.chartStrategy(data);
+
+          this.chartSource(data);
+
+          this.marketPhases(data);
+          this.isLoading = false;
+        },
+        err => {
+          console.error(err);
+        },
+        () => {
+          console.log('Finished getAllGames');
+
+        }
       )
   }
 
@@ -362,4 +406,107 @@ export class ComparisonsComponent implements OnInit {
 
   }
 
+  private marketPhases(data: Games[]) {
+    let labels = ['Fase I (9:30 a 10:15)','Fase II (10:16 a 12:00)','Fase III (12:01 a 4:30)'];
+    let dataP_R = [];
+    let dataN_R = [];
+    let dataP_PL = [];
+    let dataN_PL = [];
+    let contPI_R = 0, contNI_R = 0,contPII_R = 0, contNII_R = 0,contPIII_R = 0, contNIII_R = 0;
+    let contPI_PL = 0, contNI_PL = 0,contPII_PL = 0, contNII_PL = 0,contPIII_PL = 0, contNIII_PL = 0;
+
+    let fechaActual = moment().format('YYYY-MM-DD');
+    let faseIInitial = moment(fechaActual+' 09:30');
+    let faseIFinal = moment(fechaActual+' 10:15');
+    let faseIIInitial = moment(fechaActual+' 10:16');
+    let faseIIFinal = moment(fechaActual+' 12:00');
+    let faseIIIInitial = moment(fechaActual+' 12:01');
+    let faseIIIFinal = moment(fechaActual+' 16:30');
+    debugger
+    data.forEach(game => {
+      let dateTime = moment(game.entries[0].time).format('LT');
+      let time = moment(fechaActual+' '+dateTime);
+      if (game.status == Config.STATUS_CLOSED && game.result == Config.RESULT_POSITIVO) {
+        if (time>= faseIInitial
+          && time<= faseIFinal){
+          contPI_PL += game.netoCmm;
+          contPI_R += game.netoR;
+        }else if(time>= faseIIInitial
+          && time<= faseIIFinal){
+          contPII_PL += game.netoCmm;
+          contPII_R += game.netoR;
+        }else if(time>= faseIIIInitial
+          && time<= faseIIIFinal){
+          contPIII_PL += game.netoCmm;
+          contPIII_R += game.netoR;
+        }
+
+
+      } else if (game.status == Config.STATUS_CLOSED && (game.result == Config.RESULT_NEGATIVO || game.result == Config.RESULT_BREAKEVEN)) {
+        if (time>= faseIInitial
+          && time<= faseIFinal){
+          contNI_PL += game.netoCmm;
+          contNI_R += game.netoR;
+        }else if(time>= faseIIInitial
+          && time<= faseIIFinal){
+          contNII_PL += game.netoCmm;
+          contNII_R += game.netoR;
+        }else if(time>= faseIIIInitial
+          && time<= faseIIIFinal){
+          contNIII_PL += game.netoCmm;
+          contNIII_R += game.netoR;
+        }
+      }
+    });
+    dataP_R.push(contPI_R);
+    dataP_R.push(contPII_R);
+    dataP_R.push(contPIII_R);
+    dataN_R.push(contNI_R);
+    dataN_R.push(contNII_R);
+    dataN_R.push(contNIII_R);
+
+    dataP_PL.push(contPI_PL);
+    dataP_PL.push(contPII_PL);
+    dataP_PL.push(contPIII_PL);
+    dataN_PL.push(contNI_PL);
+    dataN_PL.push(contNII_PL);
+    dataN_PL.push(contNIII_PL);
+    //chart
+
+    console.log(dataP_R,dataN_PL);
+    this.dataMarketPhasesR = {
+      labels:labels,
+      datasets: [
+        {
+          label: 'Ganadores',
+          backgroundColor: '#42A5F5',
+          borderColor: '#1E88E5',
+          data: dataP_R
+        },
+        {
+          label: 'Perdedores',
+          backgroundColor: '#ed7d31',
+          borderColor: '#ed7d31',
+          data: dataN_R
+        }
+      ]
+    }
+    this.dataMarketPhasesPL = {
+      labels:labels,
+      datasets: [
+        {
+          label: 'Ganadores',
+          backgroundColor: '#42A5F5',
+          borderColor: '#1E88E5',
+          data: dataP_PL
+        },
+        {
+          label: 'Perdedores',
+          backgroundColor: '#ed7d31',
+          borderColor: '#ed7d31',
+          data: dataN_PL
+        }
+      ]
+    }
+  }
 }

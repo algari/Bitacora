@@ -6,6 +6,7 @@ import { TagService } from '../../services/tag.service';
 import { Tag } from '../../../common/models/tag';
 import { Config } from '../../../common/config';
 import * as moment from 'moment';
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-tags',
@@ -14,13 +15,21 @@ import * as moment from 'moment';
 })
 export class TagsComponent implements OnInit {
 
+  form = this._formBuilder.group( {
+    find: this._formBuilder.group( {
+      initial: [],
+      last: [],
+    } )
+  } );
+
   isLoading = true;
 
   dataTags: any = {};
 
   constructor(public _gameService: GamesService,
     public _authS: AuthenticationService,
-    public _tagS: TagService) { }
+    public _tagS: TagService,
+              private _formBuilder: FormBuilder,) { }
 
   ngOnInit() {
     this.getAllGames();
@@ -29,7 +38,10 @@ export class TagsComponent implements OnInit {
   getAllGames() {
     var date = new Date();
     var primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
-    var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    var ultimoDia = new Date();
+
+    this.form.get('find.initial').setValue(primerDia);
+    this.form.get('find.last').setValue(ultimoDia);
 
     this._gameService.getAllByUsername(this._authS.user.username,moment(primerDia).format('L'),moment(ultimoDia).format('L'))
       .subscribe(
@@ -49,9 +61,26 @@ export class TagsComponent implements OnInit {
       })
   }
 
-  encontrarTags(gametag:Tag) {
-    return gametag.tag === 'Mucho spread'
+  onSubmit() {
+    this._gameService.getAllByUsername(this._authS.user.username,this.form.value.find.initial,this.form.value.find.last)
+      .subscribe(
+        (data: Games[]) => {
+          this.chartTags(data);
+          this.isLoading = false;
+        },
+        err => {
+          console.error(err);
+        },
+        () => {
+          console.log('Finished getAllGames');
+
+        }
+      )
   }
+
+  /*encontrarTags(gametag:Tag) {
+    return gametag.tag === 'Mucho spread'
+  }*/
 
   chartTags(games: Array<Games>) {
 
