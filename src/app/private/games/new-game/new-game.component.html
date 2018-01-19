@@ -224,12 +224,13 @@
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <!--<div class="form-group">
                     <label for="chart" class="col-lg-4 control-label">Gráfico</label>
                     <div class="col-lg-8">
-                        <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
+                      &lt;!&ndash;<p-fileUpload mode="basic" name="game" url="./upload.php" auto="true" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>&ndash;&gt;
+                      <p-fileUpload name="myGame[]" mode="basic" customUpload="true" auto="true" (uploadHandler)="onUpload($event)" accept="image/*" maxFileSize="1000000" ></p-fileUpload>
                     </div>
-                  </div>
+                  </div>-->
 
                   <div class="form-group" [ngClass]="{'has-error': isRequired('games.maxMove')}">
                     <label for="maxMove" class="col-lg-4 control-label">Max Movimiento</label>
@@ -300,9 +301,9 @@
         <button routerLink="/private/games" class="btn btn-primary" title="Regresar">Regresar
         </button>
       </div>
-      <pre>
+      <!--<pre>
         {{ form.value | json }}
-      </pre>
+      </pre>-->
     </form>
 
   </div>

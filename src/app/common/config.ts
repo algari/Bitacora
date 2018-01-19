@@ -1,7 +1,7 @@
 export const Config = {
 
-  API_SERVER_URL: //'http://18.217.217.237:3300',
-  'http://localhost:3300',
+  API_SERVER_URL: 'http://13.59.65.185:3300',
+  //'http://localhost:3300',
 
   RESULT_POSITIVO : 'Positive',
   RESULT_NEGATIVO : 'Negative',

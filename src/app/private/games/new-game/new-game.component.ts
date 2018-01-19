@@ -43,7 +43,7 @@ export class NewGameComponent implements OnInit {
       percentCaptured:0,
       aon: 0,
       aonr: 0,
-      chart:['url/image.jpeg',],
+      chart:'',
       maxMove:[ ,[ Validators.required] ],
       entries:this._formBuilder.array([
         this.initEntry()
@@ -412,5 +412,36 @@ export class NewGameComponent implements OnInit {
     }
     this.form.get('games.created').setValue(game.entries[0].date);
   }
+
+  onUpload(event) {
+    let imgPromise = this.getFileBlob(event.files[0]);
+    imgPromise.then(blob => {
+      this.form.get('games.chart').setValue(blob);
+    }).catch(e => console.log(e));
+  }
+
+  /*
+   *
+   * Método para convertir una URL de un archivo en un
+   * blob
+   * @author: pabhoz
+   *
+   */
+  getFileBlob(fileUrl) {
+    console.log(fileUrl);
+    var reader = new FileReader();
+    return new Promise(function(resolve, reject){
+
+      reader.onload = (function(theFile) {
+        return function(e) {
+          resolve(e.target.result);
+        };
+      })(fileUrl);
+
+      reader.readAsDataURL(fileUrl);
+
+    });
+  }
+
 
 }

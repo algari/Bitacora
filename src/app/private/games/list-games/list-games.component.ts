@@ -15,9 +15,9 @@ export class ListGamesComponent implements OnInit {
 
   games: Array<Games>;
   isLoading = true;
-  // alert=false;
-  // perdido:number;
-  // ganado:number;
+  alert=false;
+  perdido:number;
+  ganado:number;
 
   form = this._formBuilder.group( {
     find: this._formBuilder.group( {
@@ -51,6 +51,7 @@ export class ListGamesComponent implements OnInit {
     .subscribe(
       (data: Games[]) => {
         //next
+        this.getProgress(data);
         this.games = data
       },
       err => {
@@ -63,7 +64,7 @@ export class ListGamesComponent implements OnInit {
     )
   }
 
-  /*getProgress() {
+  getProgress(data: Games[]) {
     let dateI ;
     let dateF = moment().format('L');
     if(moment().format('dddd')=='Sunday'){
@@ -89,21 +90,21 @@ export class ListGamesComponent implements OnInit {
     }
     if(dateI && dateF){
       console.log(dateI+" "+dateF);
-      this._gameService.getAllByDates(dateI,dateF,this._authS.user.username).subscribe(
+      this._gameService.getAllByUsername(this._authS.user.username,dateI,dateF,).subscribe(
         (data: Games[]) => {
           let ganado = 0;
           let perdido = 0;
           data.forEach((item)=>{
             if(item.result==Config.RESULT_POSITIVO){
-              ganado = ganado + item.neto;
+              ganado += item.neto;
             }
             if(item.result==Config.RESULT_NEGATIVO){
-              perdido = perdido + item.neto;
+              perdido += item.neto;
             }
           })
           this.perdido = perdido;
           this.ganado = ganado;
-          if(perdido<=(-this._authS.user.max_loss_w)){
+          if(perdido<=(-this._authS.user.max_weekly_loss)){
             this.alert = true;
           }else {
             this.alert = false;
@@ -113,13 +114,13 @@ export class ListGamesComponent implements OnInit {
           console.error(err);
         },
         () => {
-          console.log('Finished getAllByDates');
+          console.log('Finished getAllGames');
 
         }
       )
     }
 
-  }*/
+  }
 
   onDeleteGame(game: Games) {
     this.isLoading = true;
