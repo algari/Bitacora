@@ -4,13 +4,13 @@
   </div>
 </div>
 <ng-template #elseBlock>
-  <div class="alert alert-dismissible alert-success" *ngIf="!alert">
+  <div class="alert alert-dismissible alert-success" *ngIf="_authS.user.max_weekly_loss && _authS.user.weekly_goal && !alert">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p><strong>Max Perdida Semanal {{_authS.user.max_weekly_loss| number}}</strong> Cantidad perdido {{perdido| number}}</p>
     <p><strong>Meta Semanal {{_authS.user.weekly_goal| number}}</strong> Cantidad Ganado {{ganado| number}}</p>
     <p><strong>Aun puedes Operar!!</strong></p>
   </div>
-  <div class="alert alert-dismissible alert-danger" *ngIf="alert">
+  <div class="alert alert-dismissible alert-danger" *ngIf="_authS.user.max_weekly_loss && _authS.user.weekly_goal && alert">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p><strong>Max Perdida Semanal {{_authS.user.max_weekly_loss| number}}</strong> Cantidad perdido {{perdido| number}}</p>
     <p><strong>Meta Semanal {{_authS.user.weekly_goal| number}}</strong> Cantidad Ganado {{ganado| number}}</p>
