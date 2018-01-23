@@ -27,6 +27,10 @@ const routes: Routes = [
   {
     path: 'analysis', loadChildren:'./../analysis/analysis.module#AnalysisModule',
     data: { name: 'Analysis' }, canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'users', loadChildren:'./../users/users.module#UsersModule',
+    data: { name: 'Users' }, canActivate: [ AuthGuard ]
   }
 ];
 

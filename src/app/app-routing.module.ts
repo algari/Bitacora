@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { PublicGuard } from './common/guards/public.guard';
 import { AuthGuard } from './common/guards/auth.guard';
-import { HomeComponent } from './private/home/home.component';
 import {NotFoundComponent} from "./common/not-found/not-found.component";
 
 
