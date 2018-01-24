@@ -1,3 +1,49 @@
-<p>
-  change-alerts works!
-</p>
+<div *ngIf="isLoading; else elseBlock">
+  <div class="auth-loader-container">
+    <app-loader></app-loader>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <p-messages [(value)]="msgs"></p-messages>
+  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-4">
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+      <div formGroupName="userx">
+
+        <div ngbDropdown class="form-group d-inline-block" [ngClass]="{'has-error': isRequired('max_weekly_loss')}">
+          <label for="max_weekly_loss" class="col-lg-4 control-label">Max Perdida Semanal</label>
+          <div class="col-lg-8">
+            <input id="max_weekly_loss" type="number" min="0" formControlName="max_weekly_loss" class="form-control">
+            <span class="help-block" *ngIf="isRequired('max_weekly_loss')">
+                Max Perdida Semanal
+              </span>
+          </div>
+        </div>
+
+        <div ngbDropdown class="form-group d-inline-block" [ngClass]="{'has-error': isRequired('weekly_goal')}">
+          <label for="weekly_goal" class="col-lg-4 control-label">Meta Semanal</label>
+          <div class="col-lg-8">
+            <input id="weekly_goal" type="number" min="0" formControlName="weekly_goal" class="form-control">
+            <span class="help-block" *ngIf="isRequired('weekly_goal')">
+                Meta semanal requerida
+              </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group margin-top-sm">
+        <button
+          type="submit" class="btn btn-primary" [disabled]="form.invalid">Guardar
+        </button>
+        <button routerLink="/private/games" class="btn btn-primary"
+                title="Regresar">Regresar
+        </button>
+      </div>
+      <!--<pre>
+        {{ form.value | json }}
+      </pre>-->
+    </form>
+  </div>
+</ng-template>
+

@@ -24,7 +24,6 @@
 
   constructor(
     public _gameService: GamesService,
-    public _router: Router,
     public _authS: AuthenticationService,
     public messageService: MessageService
   ) {

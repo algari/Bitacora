@@ -11,10 +11,15 @@ import {PaginatorModule} from "primeng/components/paginator/paginator";
 import {UsersService} from "../services/users.service";
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangeAlertsComponent } from './change-alerts/change-alerts.component';
+import {CalendarModule} from "primeng/components/calendar/calendar";
+import {DropdownModule} from "primeng/components/dropdown/dropdown";
+import {CheckboxModule} from "primeng/components/checkbox/checkbox";
+import {ListboxModule} from "primeng/components/listbox/listbox";
+import {FileUploadModule} from "primeng/components/fileupload/fileupload";
 
 @NgModule({
   imports: [
-    CommonModule,
+    /*CommonModule,
     RouterModule,
     ReactiveFormsModule,
     UsersRoutingModule,
@@ -24,7 +29,19 @@ import { ChangeAlertsComponent } from './change-alerts/change-alerts.component';
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'confirm' // set defaults here
     }),
-    PaginatorModule
+    PaginatorModule*/
+    CommonModule,
+    RouterModule,
+    UsersRoutingModule,
+    ReactiveFormsModule,
+    CalendarModule,
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'confirm' // set defaults here
+    }),
+    DropdownModule,
+    SharedModule,
+    ListboxModule,
+    FileUploadModule
   ],
   providers:[UsersService],
   declarations: [ChangePasswordComponent, ChangeAlertsComponent],
