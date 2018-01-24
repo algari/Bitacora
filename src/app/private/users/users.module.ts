@@ -19,17 +19,6 @@ import {FileUploadModule} from "primeng/components/fileupload/fileupload";
 
 @NgModule({
   imports: [
-    /*CommonModule,
-    RouterModule,
-    ReactiveFormsModule,
-    UsersRoutingModule,
-    ChartModule,
-    DataTableModule,
-    SharedModule,
-    ConfirmationPopoverModule.forRoot({
-      confirmButtonType: 'confirm' // set defaults here
-    }),
-    PaginatorModule*/
     CommonModule,
     RouterModule,
     UsersRoutingModule,
