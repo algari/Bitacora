@@ -12,6 +12,7 @@ import {SharedModule} from "../../common/shared.module";
 import {ConfirmationPopoverModule} from "angular-confirmation-popover";
 import {PaginatorModule} from "primeng/components/paginator/paginator";
 import {SourcesService} from "../services/sources.service";
+import {FileUploadModule} from "primeng/primeng";
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import {SourcesService} from "../services/sources.service";
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'confirm' // set defaults here
     }),
-    PaginatorModule
+    PaginatorModule,
+    FileUploadModule
   ],
   providers:[SourcesService],
   declarations: [

@@ -4,6 +4,7 @@
   </div>
 </div>
 <ng-template #elseBlock>
+  <p-messages [(value)]="msgs"></p-messages>
   <p-dataTable [value]="sources" [rows]="10" [paginator]="true"  >
     <p-column field="source" header="Source" sortable="true">
       <ng-template let-col let-s="rowData" pTemplate="body">

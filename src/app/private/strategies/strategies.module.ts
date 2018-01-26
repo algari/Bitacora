@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {RouterModule} from "@angular/router";
 import { StrategiesComponent } from './strategies/strategies.component';
 import {StrategiesRoutingModule} from "./strategies-routing.module";
-import {ChartModule} from 'primeng/primeng';
+import {ChartModule, FileUploadModule} from 'primeng/primeng';
 import { ListStrategiesComponent } from './list-strategies/list-strategies.component';
 import {StrategiesService} from "../services/strategies.service";
 import {AnalysisService} from "../services/analysis.service";
@@ -14,6 +14,7 @@ import {PaginatorModule} from 'primeng/primeng';
 import {DataTableModule} from 'primeng/primeng';
 import {SharedModule} from "../../common/shared.module";
 import { NewStrategyComponent } from './new-strategy/new-strategy.component';
+
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { NewStrategyComponent } from './new-strategy/new-strategy.component';
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'confirm' // set defaults here
     }),
-    PaginatorModule
+    PaginatorModule,
+    FileUploadModule
   ],
   providers:[StrategiesService,AnalysisService],
   declarations: [

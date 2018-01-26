@@ -44,7 +44,7 @@ export class NewGameComponent implements OnInit {
       aon: 0,
       aonr: 0,
       chart:'',
-      maxMove:[ ,[ Validators.required] ],
+      maxMove:[ ],
       entries:this._formBuilder.array([
         this.initEntry()
         ]),
