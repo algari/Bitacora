@@ -15,12 +15,6 @@ import { AuthenticationService } from './public/services/authentication.service'
 import { HeaderComponent } from './common/header/header.component';
 import {NotFoundComponent} from "./common/not-found/not-found.component";
 import { MessageService } from 'primeng/components/common/messageservice';
-import {SharedModule} from "./common/shared.module";
-import {DropdownModule} from "primeng/components/dropdown/dropdown";
-import {ListboxModule} from "primeng/components/listbox/listbox";
-import {FileUploadModule} from "primeng/components/fileupload/fileupload";
-import {MessagesModule} from "primeng/components/messages/messages";
-import {MessageModule} from "primeng/components/message/message";
 
 @NgModule({
   declarations: [

@@ -5,6 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../../common/models/user.model';
 import {MessageService} from "primeng/components/common/messageservice";
 import * as moment from 'moment';
+import {Message} from "primeng/components/common/message";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import * as moment from 'moment';
 })
 export class LoginComponent implements OnInit {
   user: User = <User>{};
-
+  msgs: Message[] = [];
   constructor(public _authService: AuthenticationService,
     public _router: Router,
     public _locker: SessionStorageService,
